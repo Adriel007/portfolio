@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" href="../../../img/logo.png" type="image/extension" sizes="16x16">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+    <title>FastBall's</title>
+</head>
+
+<body>
+    <div id="menu">
+        <span id="title">
+            FastBall's
+        </span>
+        <div id="menu-ball"></div>
+        <button class="button" onclick="tutorial()">Jogar!</button>
+        <div id="tutorial">
+            <p>
+                <b>Como Jogar</b>
+            </p>
+            <hr>
+            <p>
+                Átomos dentro de uma câmara de vácuo ficaram instáveis e isso é perigoso,
+                você precisa contê-los antes que eles criem um buraco negro e acabe com tudo!
+                <br><br>
+                <i>
+                    <b>Modo normal:</b> Clique nos átomos até eles explodirem, faça isso em todos para vencer
+                    <br>
+                    <b>Modo infinito:</b> Os átomos não explodem, não há como vencer
+                </i>
+                <br><br>
+            </p>
+            <span onclick="dificuldade()">
+                <b><i>Clique aqui para continuar...</i></b>
+            </span>
+        </div>
+        <span id="label">
+            Dificuldade:
+        </span>
+        <br>
+        <button class="button" onclick="modo(1)">Fácil</button>
+        <button class="button" onclick="modo(3)">Médio</button>
+        <button class="button" onclick="modo(5)">Difícil</button>
+        <button class="button" disabled="true" onclick="modo(8)">🔒</button>
+        <!--Fortec-->
+        <span id="subtitle">
+            Vença o modo normal na dificuldade difícil para desbloquear
+        </span>
+        <button class="button" onclick="startGame(0)">Normal</button>
+        <button class="button" onclick="startGame(1)">Infinito</button>
+    </div>
+    <div id="timer"></div>
+    <script src="class.js"></script>
+    <script src="javascript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+form {
+  height: auto;
+  width: 20em;
+}
+form input[type="button"] {
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  padding: 2px;
+  transition: ease-in-out 0.5s;
+}
+form input[type="button"]:hover {
+  cursor: pointer;
+}
+form input[type="number"] {
+  border: 0;
+  border-bottom: 0.1em solid black;
+  caret-color: transparent;
+  margin-bottom: 1em;
+  transition: ease 0.4s;
+  width: 100%;
+}
+form input[type="number"]:focus {
+  border-bottom: 0.3em solid black;
+  outline: none;
+}
+form input[type="number"]::placeholder {
+  color: darkgray;
+}
+form label {
+  color: gray;
+  font-size: 0.7em;
+  float: left;
+}
+form label,
+form input {
+  display: block;
+}
+h1 {
+  margin-bottom: 3em;
+}
+
+#calcular {
+  background: black;
+  float: right;
+}
+#calcular:hover {
+  background: gray;
+  border-color: gray;
+}
+#calcular:active {
+  height: 24px;
+  width: 60px;
+}
+#limpar {
+  background: red;
+  border-color: red;
+  float: left;
+}
+#limpar:hover {
+  background: tomato;
+  border-color: tomato;
+}
+#limpar:active {
+  height: 24px;
+  width: 55px;
+}
+label[for="media"] {
+  color: #254592;
+}

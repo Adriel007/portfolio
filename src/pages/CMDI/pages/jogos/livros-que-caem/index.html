@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" href="../../../img/logo.png" type="image/extension" sizes="16x16">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+    <title>Books's Clean Up</title>
+</head>
+
+<body>
+    <!--Estante-->
+    <div class="estante">
+        <!--drag locations-->
+        <img class="droplocation" src="books/null.png" id="D1" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D2" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D3" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D4" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D5" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D6" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D7" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D8" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D9" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D10" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D11" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D12" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D13" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D14" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D15" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D16" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D17" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D18" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D19" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D20" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D21" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D22" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D23" onclick="clique(this.id)">
+        <img class="droplocation" src="books/null.png" id="D24" onclick="clique(this.id)">
+        <!--drag locations-->
+    </div>
+    <!--Estante-->
+    <!--HotBar-->
+    <div id="hotbar">
+        <span>Livros</span>
+        <hr>
+        <!--Books-->
+        <img src="books/livro_1.png" class="books" id="B1" onclick="clique(this.id)">
+        <img src="books/livro_2.png" class="books" id="B2" onclick="clique(this.id)">
+        <img src="books/livro_3.png" class="books" id="B3" onclick="clique(this.id)">
+        <img src="books/livro_4.png" class="books" id="B4" onclick="clique(this.id)">
+        <img src="books/livro_5.png" class="books" id="B5" onclick="clique(this.id)">
+        <img src="books/livro_6.png" class="books" id="B6" onclick="clique(this.id)">
+        <img src="books/livro_7.png" class="books" id="B7" onclick="clique(this.id)">
+        <img src="books/livro_8.png" class="books" id="B8" onclick="clique(this.id)">
+        <img src="books/livro_9.png" class="books" id="B9" onclick="clique(this.id)">
+        <img src="books/livro_10.png" class="books" id="B10" onclick="clique(this.id)">
+        <!--Books-->
+    </div>
+    <!--HotBar-->
+    <!--timer-->
+    <span id="timer">00:00</span>
+    <!--timer-->
+    <!--text-->
+    <p id="text">MEMORIZE!</p>
+    <!--text-->
+    <!--menu-->
+    <div id="menu">
+        <p>Books's Clean Up</p>
+        <button onclick="startGame()" class="button">Jogar!</button>
+    </div>
+    <!--menu-->
+    <!--tutorial-->
+    <div id="tutorial">
+        <p>Olá!</p>
+        <p>Me parece que é sua primeira vez aqui, então vou te explicar como jogar.</p>
+        <br>
+        <p>Leitores estão pegando os livros e colocando nos lugares errados e está ficando uma bagunça. Para arrumar os livros, você vai precisar coloca-los devolta na ordem em que estavam</p>
+        <img src="scene/tutorial.gif">
+        <span>Clique para começar...</span>
+    </div>
+    <!--tutorial-->
+    <!--not click before game start-->
+    <div id="not-click">
+    </div>
+    <!--not click before game start-->
+    <script src="javascript.js"></script>
+</body>
+
+</html>

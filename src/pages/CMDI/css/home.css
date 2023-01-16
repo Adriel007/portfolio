@@ -1,0 +1,19 @@
+body{
+    margin-left: 5px;
+    margin-right: 30px;
+}
+
+p{
+    font-size: 18px;
+}
+
+h2{
+    margin-top: 30px;
+}
+
+.canvas{
+    margin-top: 50px;
+    -webkit-box-shadow: 11px 14px 30px -19px rgba(0,0,0,0.6);
+    -moz-box-shadow: 11px 14px 30px -19px rgba(0,0,0,0.6);
+    box-shadow: 11px 14px 30px -19px rgba(0,0,0,0.6);
+}

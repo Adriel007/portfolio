@@ -1,0 +1,76 @@
+body {
+    background-image: url("../img/background.jpg");
+    background-color: var(--cor-fundo);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--cor-texto);
+    font-family: consolas;
+    font-weight: bold;
+}
+
+.images {
+    display: none;
+}
+
+header {
+    background-color: rgba(0, 0, 0, .8);
+    height: 100vh;
+}
+header h1,
+header h3 {
+    width: fit-content;
+    position: relative;
+}
+header h1 {
+    font-size: 200%;
+    color: var(--cor-primaria);
+}
+
+section {
+    background-color: rgba(0, 0, 0, .8);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+    width: calc(100% - 12px);
+    height: fit-content;
+    padding: 10px;
+    border: 2px solid var(--cor-primaria);
+}
+section li {
+    list-style: none;
+}
+section figure {
+    margin: 10px;
+    border: 2px solid var(--cor-secundaria);
+    border-radius: 5px;
+}
+section img {
+    width: calc(100% - 12px);
+    height: auto;
+    align-self: center;
+}
+section figcaption {
+    text-align: center;
+}
+section a {
+    color: var(--cor-primaria);
+}
+section a:active {
+    columns: var(--cor-texto);
+}
+section a:visited {
+    color: var(--cor-secundaria);
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+footer h2 {
+    display: inline;
+}
+

@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("assets/scene/backgrounds/bg_1.gif");
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+::selection {
+  background-color: transparent;
+}
+
+.ball {
+  border-radius: 999px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  transition: ease-in-out 1s;
+}
+
+#blackHole {
+  border: 4px solid #d15c04;
+  border-radius: 50%;
+  border-top-color: #fcd659;
+  border-top-width: 8px;
+  animation: spin .1s linear infinite;
+  filter: blur(4px) drop-shadow(2px -7px 16px #d15c04);
+  z-index: 9;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.points {
+  font-weight: bold;
+  font-size: 25px;
+  position: absolute;
+  transition: ease-in-out 1s;
+}
+
+#menu {
+  width: 100%;
+  height: 400px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#subtitle {
+  color: white;
+  display: none;
+}
+
+#title {
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+#tutorial {
+  color: white;
+  background: black;
+  border: solid white 2px;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  width: 60%;
+  height: auto;
+  padding: 10px;
+  top: -100%;
+  position: absolute;
+  transition: ease-in-out 2s;
+}
+
+#tutorial span {
+  position: relative;
+  left: 60%;
+  text-decoration: underline;
+}
+
+#label{
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: underline;
+  display: none;
+}
+
+#timer {
+  background-image: linear-gradient(to right, lime 50%, transparent 50%);
+  background-size: 200%;
+  background-position: 0%;
+  width: 99%;
+  height: 20px;
+  border: 2px white solid;
+  border-radius: 5px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: ease-in-out 0.1s;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+#menu-ball {
+  border-radius: 999px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  transition: ease-in-out 1s;
+  background: red;
+  position: relative;
+  box-shadow: 0 0 100px 30px red;
+  animation-duration: 4s;
+  animation-name: ball;
+  animation-iteration-count: infinite;
+}
+
+@keyframes ball {
+  0% {
+    left: -100px;
+    background: red;
+    box-shadow: 0 0 100px 30px red;
+  }
+
+  50% {
+    left: 100px;
+    background: deepskyblue;
+    box-shadow: 0 0 100px 30px deepskyblue;
+  }
+
+  100% {
+    left: -100px;
+    background: red;
+    box-shadow: 0 0 100px 30px red;
+  }
+}
+
+.button {
+  display: none;
+  margin: 10px;
+  background: linear-gradient(to right, black, white);
+  background-size: 500% 500%;
+  background-position-x: 0%;
+  color: white;
+  transition: ease-in-out 1s;
+  font-weight: bold;
+  width: 100px;
+  height: 50px;
+  font-size: 25px;
+  border: solid white 2px;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+}
+
+.button:hover {
+  background-position-x: 100%;
+  color: black;
+  cursor: pointer;
+  border-color: black;
+}
+
+.button:active {
+  width: 105px;
+  height: 55px;
+  font-size: 27px;
+}
+
+.button:disabled {
+  background: rgb(59, 59, 59);
+}
+
+.button:disabled:hover {
+  cursor: no-drop;
+}
+
+.point:hover {
+  cursor: pointer;
+}
+
+#tutorial span:hover{
+  cursor: pointer;
+}
