@@ -46,8 +46,7 @@ section figure {
     border: 2px solid var(--cor-secundaria);
     border-radius: 5px;
 }
-section img,
-section video {
+section img {
     width: calc(100% - 12px);
     height: auto;
     align-self: center;
