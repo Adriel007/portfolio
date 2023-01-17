@@ -41,14 +41,13 @@ section {
 section li {
     list-style: none;
 }
-section figure,
-section video {
+section figure {
     margin: 10px;
     border: 2px solid var(--cor-secundaria);
     border-radius: 5px;
 }
 section img,
-section source {
+section video {
     width: calc(100% - 12px);
     height: auto;
     align-self: center;
