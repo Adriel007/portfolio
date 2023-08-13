@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" href="src/img/icon.png" type="image/extension" sizes="16x16">
+    <link rel="stylesheet" href="src/css/Fardo_ToolBox.css">
+    <link rel="stylesheet" href="src/css/global-styles.css">
+    <link rel="stylesheet" href="src/css/index-styles.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+    <title>Adriel | Portfolio</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="terminal FardoTools-center-xy">Bem vindo ao meu site ;)</h1>
+        <h3 class="terminal FardoTools-center-xy">Role para baixo para continuar</h3>
+    </header>
+    <section id="about">
+        <h2 class="terminal">Sobre mim:</h2>
+        <h3 class="terminal">Olá, meu nome é Adriel Domingues de Souza Andrade, tenho @idade anos e sou um desenvolvedor
+            de sites para a web.</h3>
+        <h3 class="terminal">Possuo conhecimento em:</h3>
+        <ul>
+            <li class="terminal progress">• HTML</li>
+            <li class="terminal progress">• CSS</li>
+            <li class="terminal progress">• JS</li>
+            <li class="terminal progress">• PHP</li>
+            <li class="terminal progress">• SQL</li>
+            <li class="terminal progress">• C#</li>
+            <li class="terminal progress">• Java</li>
+            <li class="terminal progress">• C++</li>
+            <li class="terminal progress">• Python</li>
+        </ul>
+        <figure>
+            <img src="src/img/eu.jpg" class="images">
+            <figcaption class="terminal">Eu e meu projeto Fardo Home durante a expotec de 2022</figcaption>
+        </figure>
+    </section>
+    <section>
+        <h2 class="terminal">Projetos:</h2>
+        <ul>
+            <li>
+                <a href="https://www.instagram.com/fardoia/" target="_blank" class="terminal"
+                    title="Link para o instagram do Fardo">
+                    • Fardo
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/El Lo Clima/index.html" target="_blank" class="terminal"
+                    title="Este é um dos webApps que desenvolvi durante meu estágio na Ello EAD">
+                    • El Lo Clima
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/CMDI/index.html" target="_blank" class="terminal"
+                    title="Este é o meu projeto da EXPOTEC do ano de 2022, neste projeto eu fui encarregado pela criação dos jogos">
+                    • CMDI - Coordenação Motora e Desenvolvimento Intelectual
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/media perseus cmr/index.html" target="_blank" class="terminal"
+                    title="Uma simples calculadora de média ponderada para uso na escola FORTEC">
+                    • Calculadora de média bimestral (Nucleo comum) - FORTEC
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/media perseus tec/index.html" target="_blank" class="terminal"
+                    title="Uma simples calculadora de média ponderada para uso na escola FORTEC">
+                    • Calculadora de média bimestral (Técnico) - FORTEC
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/media perseus faculdade/index.html" target="_blank" class="terminal"
+                    title="Uma simples calculadora de média ponderada para uso na FATEF">
+                    • Calculadora de média (Faculdade) - FORTEC
+                </a>
+            </li>
+            <li>
+                <a href="src/pages/expotec lampiao/index.html" target="_blank" class="terminal"
+                    title="Projeto de EXPOTEC que eu fiz e vendi para um outro grupo em 2022">
+                    • UX-Browser
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Adriel007/php-k-means" target="_blank" class="terminal"
+                    title="Algoritimo clusterizador de texto desenvolvido em PHP puro">
+                    • Agrupador de texto em PHP (K-Means)
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Adriel007/php-markov-chain" target="_blank" class="terminal"
+                    title="Algoritimo gerador de texto desenvolvido em PHP puro">
+                    • Gerador de texto em PHP (Cadeias de Markov)
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Adriel007/php-naive-bayes" target="_blank" class="terminal"
+                    title="Algoritimo classificador de texto desenvolvido em PHP puro">
+                    • Classificador de Texto em PHP (Naive Bayes)
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Adriel007/php-levenshtein-distance" target="_blank" class="terminal"
+                    title="Algoritimo comparador de texto desenvolvido em PHP puro">
+                    • Comparador de palavras em PHP (Distância de Levenshtein)
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h2 class="terminal">Demonstrações:</h2>
+        <div id="slider">
+            <div onclick="slider('left')">
+                <div class="FardoTools-chevron-left"></div>
+            </div>
+            <fieldset>
+                <legend class="terminal">Gerador de texto</legend>
+                <iframe src="./src/text-gen/text-gen.html"></iframe>
+            </fieldset>
+            <fieldset>
+                <legend class="terminal">IA para resolver labirintos</legend>
+                <iframe src="./src/maze/maze.html"></iframe>
+            </fieldset>
+            <fieldset>
+                <legend class="terminal">Automatos Celulares</legend>
+                <iframe src="./src/automate-cells/automate-cells.html"></iframe>
+            </fieldset>
+            <fieldset>
+                <legend class="terminal">Imagem para arte em texto</legend>
+                <iframe src="./src/img-ascii/img-ascii.html"></iframe>
+            </fieldset>
+            <div onclick="slider('right')">
+                <div class="FardoTools-chevron-right"></div>
+            </div>
+        </div>
+        <button id="codeView" onclick="viewCode(this)">Ver código</button>
+        <pre>
+            <code class="hljs"></code>
+        </pre>
+    </section>
+    <section>
+        <h2 class="terminal">Sobre o Fardo:</h2>
+        <h3 class="terminal">
+            Fardo home é um dos produtos que pretendo criar ao abrir minha empresa, ele é um assistente virtual
+            doméstico que pode realizar coisas simples como dizer a temperatura atual ou fazer uma pesquisa, até
+            conectar-se e gerenciar outros dispositivos e aplicativos que também sejam da marca Fardo. Possibilitando
+            assim uma automação (residêncial ou industrial) ou apenas sendo um simples assistente virtual que todos
+            podem ter em sua casa.
+        </h3>
+        <figure>
+            <img class="images" src="src/img/fardo-1.png">
+            <figcaption class="terminal">Aparência padrão do Fardo</figcaption>
+        </figure>
+        <figure>
+            <img class="images" src="src/img/fardo-halloween.jpg">
+            <figcaption class="terminal">Aparência festiva de halloween do Fardo</figcaption>
+        </figure>
+        <figure>
+            <img class="images" src="src/img/fardo-natal.jpg">
+            <figcaption class="terminal">Aparência festiva de natal do Fardo</figcaption>
+        </figure>
+        <h3 class="terminal">
+            Você pode ver mais sobre o Fardo em seu instagram:
+        </h3>
+        <a class="terminal" href="https://www.instagram.com/fardoia/" target="_blank">@fardoia</a>
+    </section>
+    <section>
+        <h2 class="terminal">Contatos:</h2>
+        <h3 class="terminal">WhatsApp: 13 97407-6628</h3>
+        <h3 class="terminal">E-mail: adrielsouzaandrade8@gmail.com</h3>
+    </section>
+
+    <footer>
+        <h2 class="terminal FardoTools-copyleft">©</h2>
+        <h2 class="terminal">Adriel Domingues de Souza Andrade - 2022</h2>
+    </footer>
+
+    <script src="src/js/Fardo_ToolBox.js"></script>
+    <script src="src/js/index-scripts.js"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'gotic';
+    src: url('font_gotic.ttf') format('truetype');
+}
+
+body {
+    min-height: 100%;
+    font-family: 'gotic';
+    overflow: hidden;
+    background-image: url("assets/scene/backgrounds/background_1.png");
+    background-size: 100% 100%;
+    box-shadow: inset 0 0 100px #000000;
+}
+
+::selection {
+    color: white;
+    background: transparent;
+}
+
+#player {
+    width: 380px;
+    height: 300px;
+    transform: scaleX(-1);
+    left: 600px;
+    top: 40%;
+    position: absolute;
+}
+
+#enemy {
+    width: 380px;
+    height: 300px;
+    left: -50px;
+    top: 40%;
+    position: absolute;
+}
+
+#particles {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: ease-in-out 3s;
+}
+
+.life_bar {
+    width: 300px;
+    height: 20px;
+    background: linear-gradient(to right, lime 100%, red 0%);
+    position: absolute;
+    top: 1%;
+}
+
+.life_bar p {
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    font-family: "gotic";
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
+#enemy_life_bar {
+    left: 2%;
+}
+
+#player_life_bar {
+    left: 65%;
+}
+
+#timer {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 47%;
+    top: 1%;
+}
+
+#respostas-container {
+    display: block;
+    align-items: center;
+    justify-items: center;
+    position: absolute;
+    left: 65%;
+    top: 20%;
+    width: auto;
+    height: auto;
+}
+
+span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    background-color: black;
+    border-radius: 15px;
+    border: 2px solid gray;
+    color: white;
+    left: 5%;
+    top: 30%;
+    font-size: 15px;
+    padding: 5px;
+    width: auto;
+    height: auto;
+}
+
+.resposta {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: relative;
+    background-color: black;
+    border-radius: 15px;
+    border: 2px solid gray;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#title {
+    font-size: 100px;
+    position: absolute;
+    left: 15%;
+    top: 10%;
+    color: white;
+    font-family: "gotic";
+    background: none;
+    border: none;
+    -webkit-text-stroke: 2px black;
+    text-decoration: underline black 4px;
+}
+
+#description {
+    font-size: large;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    text-align: justify;
+    text-decoration: none;
+    color: white;
+    font-family: "gotic";
+    background: black;
+    padding: 5px;
+    border: 2px solid white;
+    -webkit-text-stroke: .2px black;
+    text-decoration: underline black 4px;
+    display: none;
+}
+
+#play,
+#restart {
+    position: absolute;
+    left: 40%;
+    top: 45%;
+    width: 200px;
+    height: 100px;
+    color: white;
+    font-family: 'gotic';
+    background: black;
+    font-size: 50px;
+    border: 2px solid;
+    transition: ease-in-out 1s;
+    box-shadow: 0px 0px 100px 3px white;
+    border-radius: 10px;
+}
+
+#restart {
+    display: none;
+    font-size: x-large;
+}
+
+#tutorial {
+    position: absolute;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
+    height: 150px;
+    width: auto;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    -webkit-text-stroke: .1px black;
+    font-style: italic;
+    left: 15%;
+    top: -50%;
+    transition: ease-in-out 2s;
+}
+
+#tutorial ol li {
+    font-family: Arial, Helvetica, sans-serif;
+    display: list-item;
+    list-style-position: inside;
+    font-size: small;
+}
+
+#tutorial span {
+    left: 65%;
+    top: 80%;
+    border: none;
+    font-family: "gotic";
+    font-size: medium;
+}
+
+#tutorial p {
+    text-align: center;
+}
+
+/*events*/
+
+.resposta:hover,
+#tutorial span:hover {
+    cursor: pointer;
+}
+
+#play:hover,
+#restart:hover {
+    cursor: pointer;
+    font-size: 60px;
+    border-color: red;
+    box-shadow: 0px 0px 100px 5px red;
+}
+
+#restart:hover {
+    font-size: 30px;
+}

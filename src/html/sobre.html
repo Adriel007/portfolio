@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/Fardo_ToolBox.css">
+    <link rel="stylesheet" href="../css/global-styles.css">
+    <style>
+        * {
+            font: monospace;
+        }
+
+        main section {
+            padding: 20px;
+            color: #fff;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        main #info {
+            display: flex;
+            flex-direction: row;
+        }
+
+        main #info div {
+            width: 100%;
+        }
+
+        main #info div div {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        main #info img {
+            border-radius: 100%;
+        }
+
+        main #knowledge {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main #knowledge div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        main #knowledge div img {
+            width: 30px;
+            height: 30px;
+        }
+
+
+        @media (max-width: 768px) {
+            main #info {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <section id="info">
+
+            <div>
+                <div>
+                    <h2>Nome:</h2>
+                    <h2>Adriel</h2>
+                </div>
+                <div>
+                    <h2>Idade:</h2>
+                    <h2 id="age"></h2>
+                </div>
+            </div>
+
+            <img src="../img/me.jpg">
+
+        </section>
+
+        <section id="knowledge">
+            <h2>Conhecimentos:</h2>
+            <h4>Principais:</h4>
+            <div>
+                <img src="../img/knowledge/css.png">
+                <img src="../img/knowledge/php.png">
+                <img src="../img/knowledge/js.png">
+                <img src="../img/knowledge/mysql.png">
+                <img src="../img/knowledge/json.png">
+                <img src="../img/knowledge/sql.png">
+                <img src="../img/knowledge/html.png">
+            </div>
+            <h4>Secundários:</h4>
+            <div>
+                <img src="../img/knowledge/cs.png">
+                <img src="../img/knowledge/cpp.png">
+                <img src="../img/knowledge/java.png">
+                <img src="../img/knowledge/python.png">
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+<script>
+    const data = new Date;
+
+    const idade = () => {
+        let anos = data.getFullYear() - 2005;
+        if ((data.getMonth() + 1) < 8 || ((data.getMonth() + 1) >= 8 && data.getDate() < 20))
+            anos--;
+        return anos
+    };
+
+    document.getElementById('age').textContent = idade();
+</script>
+
+</html>

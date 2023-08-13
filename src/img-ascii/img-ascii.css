@@ -1,0 +1,63 @@
+* {
+    font-family: monospace;
+}
+
+h3 {
+    color: #fff;
+    font-size: 1.5em;
+}
+
+input,
+button {
+    font-family: monospace;
+    font-size: 1.5em;
+    background-color: #000;
+    color: #fff;
+    border: #808080 solid 2px;
+    border-radius: 10px;
+}
+
+button {
+    margin-bottom: 15px;
+}
+
+div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: fit-content;
+}
+
+div label {
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    min-height: 600px;
+    line-height: 0.6;
+}
+
+span {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    text-align: center;
+    background-color: #808080;
+    color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 15px;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all ease-in-out 1s;
+}
+
+input:hover,
+button:hover {
+    cursor: pointer;
+}

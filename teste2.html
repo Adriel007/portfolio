@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/Fardo_ToolBox.css">
+    <link rel="stylesheet" href="./src/css/global-styles.css">
+    <link rel="stylesheet" href="">
+    <style>
+        @font-face {
+            font-family: cyberpunk;
+            src: url("src/font/robot-9000-font/Robot9000-MVxZx.ttf");
+        }
+
+        :root {
+            --dark-pink: #940c72;
+            --light-pink: #fc0fc0;
+            --dark-yellow: #b9b900;
+            --light-yellow: #ffff00;
+        }
+
+        * {
+            font-family: monospace;
+            box-sizing: border-box;
+            font-size: 1.1em;
+        }
+
+
+        body {
+            background-image: url("src/img/cyberpunk.gif");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 100%;
+            transition: all ease-in-out .2s;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*///////////////////////////////////// HEADER ///////////////////////////////////////////////////////*/
+
+        header {
+            width: 100%;
+            height: fit-content;
+            background-color: #000;
+        }
+
+        header ul {
+            display: flex;
+            flex-direction: row;
+            background-color: var(--dark-pink);
+            padding: 0 10px 0 10px;
+        }
+
+        header ul li {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding-bottom: 5px;
+        }
+
+        header ul li a {
+            font-family: cyberpunk;
+            letter-spacing: 2px;
+            text-align: center;
+            width: 100%;
+            color: #fff;
+            font-size: 1.5em;
+            background-color: var(--dark-pink);
+            transition: all ease-in-out .2s;
+        }
+
+        header ul li a:hover {
+            border-bottom: solid 4px #fff;
+            background-color: var(--light-pink);
+            transform: scaleY(1.5);
+            transform: skew(-20deg);
+            font-size: 1.8em;
+        }
+
+
+        /*////////////////////////////////////////// MAIN //////////////////////////////////////////////////*/
+        main {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 90%;
+        }
+
+        /*////////////////////////////////////////// MAIN IFRAME //////////////////////////////////////////////////*/
+        main iframe {
+            width: 100%;
+            border: 0;
+            height: 100%;
+            background-image: linear-gradient(rgba(17, 0, 255, 0.3), rgba(183, 0, 255, 0.3));
+            backdrop-filter: blur(5px);
+            margin: 20px;
+            border-radius: 10px;
+            padding: 10px;
+            backface-visibility: visible;
+            transition: all ease-in-out .5s;
+        }
+
+        /*////////////////////////////////////////// MEDIA QUERIES //////////////////////////////////////////////////*/
+        @media (max-width: 768px) {
+            header {
+                background-color: transparent;
+            }
+
+            header nav {
+                display: flex;
+                flex-direction: row;
+            }
+
+            header nav ul {
+                background-color: rgba(0, 0, 0, .3);
+                backdrop-filter: blur(5px);
+                overflow: hidden;
+                max-width: 100%;
+                flex: 0 0 50%;
+            }
+
+            header nav ul li {
+                background-color: transparent;
+                transition: all ease-in-out .3s;
+            }
+
+            header nav ul li:not(:first-child) {
+                display: none;
+            }
+
+            header nav ul li a {
+                background-color: transparent;
+                display: block;
+                width: 100%;
+            }
+
+            header ul li a:hover {
+                border-bottom: none;
+                background-color: var(--dark-pink);
+                transform: scaleY(1);
+                transform: skew(0);
+                font-size: 1.5em;
+            }
+
+            header nav div {
+                flex: 0 0 25%;
+                background-color: rgba(0, 0, 0, .3);
+                backdrop-filter: blur(5px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            header nav div div {
+                background-color: #fff !important;
+                width: 10px !important;
+                height: 90% !important;
+                transition: all ease-in-out .1s;
+            }
+
+            main iframe {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li class="items">
+                    <a>Sobre</a>
+                </li>
+                <li class="items">
+                    <a>Projetos</a>
+                </li>
+                <li class="items">
+                    <a>Demos</a>
+                </li>
+                <li class="items">
+                    <a>Fardo</a>
+                </li>
+                <li class="items">
+                    <a>Contatos</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <iframe src="./src/html/sobre.html"></iframe>
+    </main>
+
+    <script>
+        // https://www.figma.com/community/file/1243581032464465032
+        const menu = document.querySelectorAll('header nav ul li a');
+        const iframe = document.querySelector("main iframe");
+
+        const bodyPos = (x, y) => document.body.style.backgroundPosition = x + ' ' + y;
+        const y = "100%";
+
+        const states = {
+            "Sobre": () => {
+                bodyPos(0, y);
+                transition(iframe, "./src/html/sobre.html");
+            },
+            "Projetos": () => {
+                bodyPos("25%", y);
+                transition(iframe, "./src/html/projetos.html");
+            },
+            "Demos": () => {
+                bodyPos("50%", y);
+                transition(iframe, "./src/html/demos.html");
+            },
+            "Fardo": () => {
+                bodyPos("75%", y);
+                transition(iframe, "./src/html/fardo.html");
+            },
+            "Contatos": () => {
+                bodyPos("100%", y);
+                transition(iframe, "./src/html/contatos.html");
+            }
+        };
+
+        menu.forEach(item => {
+            item.onclick = () => {
+                states[item.textContent]();
+            };
+        });
+
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        if (mediaQuery.matches)
+            menuMobile();
+
+
+        function transition(element, url) {
+            element.src = "";
+            setTimeout(() => element.src = url, 250);
+        }
+        function menuMobile() {
+            const nav = document.querySelector("header nav");
+            const ul = document.querySelector("header nav ul");
+            const li = document.querySelectorAll("header nav ul li");
+            const leftButton = document.createElement("div");
+            const rightButton = document.createElement("div");
+            const leftButtonChevron = document.createElement("div");
+            const rightButtonChevron = document.createElement("div");
+
+            nav.innerHTML = "";
+            nav.appendChild(leftButton);
+            nav.appendChild(ul);
+            nav.appendChild(rightButton);
+
+            leftButtonChevron.classList.add("FardoTools-chevron-left");
+            rightButtonChevron.classList.add("FardoTools-chevron-right");
+
+            leftButton.appendChild(leftButtonChevron);
+            rightButton.appendChild(rightButtonChevron);
+
+            li.forEach(item => item.style.minWidth = "100%");
+
+            leftButton.onclick = () => {
+                slider("left");
+                effect(
+                    leftButtonChevron,
+                    element => element.style.transform = "scale(125%)",
+                    element => element.style.transform = "scale(100%)",
+                    101);
+            };
+            rightButton.onclick = () => {
+                slider("right");
+                effect(
+                    rightButtonChevron,
+                    element => element.style.transform = "scale(125%)",
+                    element => element.style.transform = "scale(100%)",
+                    101);
+            };
+        }
+
+        function slider(direction) {
+            const all = [...document.querySelectorAll(".items")];
+            const current = all.filter(x => getComputedStyle(x).display != "none")[0];
+
+            const toRight = (coming, element, opacity, callback, ms) => {
+                const values = [
+                    coming ? 0 : 100,
+                    coming ? 100 : 0,
+                ];
+
+                element.style.transform = "translateX(" + values[0] + ")";
+                setTimeout(() => {
+                    element.style.transform = "translateX(" + values[1] + "px)";
+                    element.style.opacity = opacity;
+                    setTimeout(callback, ms);
+                }, 1);
+            };
+
+            const toLeft = (coming, element, opacity, callback, ms) => {
+                const values = [
+                    coming ? 0 : -100,
+                    coming ? -100 : 0,
+                ];
+                element.style.transform = "translateX(" + values[0] + ")";
+                setTimeout(() => {
+                    element.style.transform = "translateX(" + values[1] + "px)";
+                    element.style.opacity = opacity;
+                    setTimeout(callback, ms);
+                }, 1);
+            };
+
+            switch (direction) {
+                case "left":
+                    if (all.indexOf(current) > 0) {
+                        const newCurrent = all[all.indexOf(current) - 1];
+                        const index = Object.keys(states)[all.indexOf(newCurrent)];
+
+                        toLeft(false, newCurrent, 1, () => newCurrent.style.display = "block", 301);
+                        toRight(true, current, 0, () => current.style.display = "none", 301);
+                        states[index]();
+                        flip(iframe, "left");
+                    }
+                    break;
+                case "right":
+                    if (all.indexOf(current) < all.length - 1) {
+                        const newCurrent = all[all.indexOf(current) + 1];
+                        const index = Object.keys(states)[all.indexOf(newCurrent)];
+
+                        toLeft(true, current, 0, () => current.style.display = "none", 301);
+                        toRight(false, newCurrent, 1, () => newCurrent.style.display = "block", 301);
+                        states[index]();
+                        flip(iframe, "right");
+                    }
+                    break;
+            }
+        }
+
+        function effect(element, code, inherit, ms) {
+            code(element);
+            setTimeout(() => inherit(element), ms)
+        }
+
+        function flip(element, direction) {
+            const value = element.style.transform.match(/\d+/g) || [0];
+
+            if (direction === "left")
+                element.style.transform = `rotateY(${parseInt(value[0]) + 180}deg)`;
+            else
+                element.style.transform = `rotateY(${parseInt(value[0]) - 180}deg)`;
+        }
+
+    </script>
+
+</body>
+
+</html>

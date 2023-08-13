@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./maze.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+</head>
+
+<body>
+    <div id="game"></div>
+    <div id="options">
+        <div>
+            <label>Linhas:</label>
+            <button onclick="options('rows', -1)">-</button>
+            <button onclick="options('rows', 1)">+</button>
+
+        </div>
+        <div>
+            <label>Colunas:</label>
+            <button onclick="options('cols', -1)">-</button>
+            <button onclick="options('cols', 1)">+</button>
+        </div>
+        <button class="matrixOpt" onclick="options('mode', 'wall', this)">Parede</button>
+        <button class="matrixOpt" onclick="options('mode', 'floor', this)">Chão</button>
+        <button class="matrixOpt" onclick="options('mode', 'spawn', this)">Origem</button>
+        <button class="matrixOpt" onclick="options('mode', 'final', this)">Destino</button>
+        <button class="matrixOpt" onclick="options('mode', '', this)">Nada</button>
+        <h3>Clique nos botões e no plano quadriculado para adicionar elementos</h3>
+    </div>
+    <script src="./maze.js"></script>
+</body>
+
+</html>

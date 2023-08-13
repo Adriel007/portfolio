@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="../img/logo.png" type="image/extension" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/darkmodebutton.css">
+    <link rel="stylesheet" href="../css/noticias.css">
+
+    <title>Noticias e Fatos</title>
+</head>
+
+<body>
+  <div class="body2">
+
+<!--navbar-->
+<nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">
+        <img src="../img/logo.png" class="imglogo navbar-logo mx-3" alt="Bootstrap" width="55" height="55">
+      </a>
+      <nav>
+        <label class="darklightimg">
+          <img src="../img/lightmode.png" id="darklightimg" width="50" height="50">
+        </label>
+        <label class="darkSwitch">
+          <input type="checkbox" id="darkSwitch" class="darkSwitch" onclick="swapImage()">
+          <span class="form-check-input"></span>
+        </label>
+        <button class="navbar-toggler ml-auto custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Expotec</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="text-menu nav-item">
+                <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+              </li>
+              <li class="text-menu nav-item">
+                <a class="nav-link" href="../pages/noticias.html">Noticias e Fatos</a>
+              </li>
+              <li class="nav-item dropdown">
+                <h1 class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Jogos</h1>
+                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                  <li><a class="dropdown-item" target="_blank" href="../pages/jogos/livros-que-caem/index.html">Livros que caem</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="../pages/jogos/torre-das-questoes/index.html">Torre das questões</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="../pages/jogos/balls/index.html">Jogo da bolinha</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </nav>
+  
+  <center>
+    <div class="texto">
+      <h1>Fatos</h1>
+      <hr>
+    </div>
+  
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="carousel-images">
+              <a href="https://www.careplus.com.br/careplus-mais/5-fatos-sobre-o-autismo-que-voce-precisa-conhecer"
+                  target="_blank">
+                  <img src="../img/noticias/fato1.png" class="d-block w-100" alt="...">
+              </a>
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h4>5 fatos sobre o autismo que você precisa conhecer</h4>
+            <p>O autismo engloba diferentes síndromes</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-images">
+              <a href="https://www.agazeta.com.br/revista-ag/vida/abril-azul-1-em-cada-100-criancas-pode-ser-diagnosticada-com-autismo-0421#:~:text=Considerado%20por%20muito%20tempo%20uma,de%20um%20para%20cada%2060"
+                  target="_blank">
+                  <img src="../img/noticias/fato2.png" class="d-block w-100" alt="...">
+              </a>
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h4>1 em cada 100 crianças pode ser diagnosticada com autismo</h4>
+            <p>Considerado por muito tempo uma condição rara, o Transtorno do Espectro Autista atinge hoje uma em cada 100 crianças. Alguns estudos apontam um número ainda maior: cerca de um para cada 60. </p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-images">
+              <a href="https://blog.portaleducacao.com.br/a-cegueira-no-contexto-historico/" target="_blank">
+                  <img src="../img/noticias/fato3.png" class="d-block w-100" alt="...">
+              </a>
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h4>A cegueira no contexto histórico</h4>
+            <p>Os cegos nas comunidades primitivas e na antiga Prússia eram barbaramente torturados e condenados à morte.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-images">
+              <a href="https://www.politize.com.br/equidade/blogpost/historia-dos-direitos-das-pessoas-com-deficiencia/"
+                  target="_blank">
+                  <img src="../img/noticias/fato4.png" class="d-block w-100" alt="...">
+              </a>
+          </div>
+          <div class="carousel-caption d-none d-md-block">
+            <h4>A história dos direitos das pessoas com deficiência</h4>
+            <p>De acordo com a doutora em Direito Maria Aparecida Gugel, evidências arqueológicas indicam que há 5 mil anos, as pessoas com deficiência faziam parte das diferentes classes sociais do Egito antigo, desde os escravos até os nobres e faraós.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card card1 w-50">
+              <div class="card-body">
+                <p class="card-text">Estudo diz como incluir deficientes visuais no combate à crise climática</p>
+              </div>
+              <a href="https://veja.abril.com.br/ciencia/estudo-diz-como-incluir-deficientes-visuais-no-combate-a-crise-climatica/"
+                target="_blank">
+                <img src="../img/noticias/noticia1.png" class="card-img-top" alt="...">
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card2 w-50">
+            <div class="card-body">
+              <p class="card-text">Games apostam em acessibilidade para atrair pessoas com deficiências</p>
+            </div>
+            <a href="https://veja.abril.com.br/tecnologia/games-apostam-em-acessibilidade-para-atrair-pessoas-com-deficiencias/"
+              target="_blank">
+              <img src="../img/noticias/noticia2.jpg" class="card-img-top" alt="...">
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card1 w-50">
+            <div class="card-body">
+              <p class="card-text">Associação recolhe assinaturas para manter serviços aos deficiente físicos</p>
+            </div>
+            <a href="https://www.jornalnh.com.br/noticias/regiao/2022/06/30/associacao-recolhe-assinaturas-para-manter-servicos-aos-deficiente-fisicos.html"
+              target="_blank">
+              <img src="../img/noticias/noticia3.png" class="card-img-top" alt="...">
+            </a> 
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card2 w-50">
+            <div class="card-body">
+              <p class="card-text">Clube dos Paraplégicos, no Rio, conta com a solidariedade dos cariocas para vencer a fome</p>
+            </div>
+            <a href="https://g1.globo.com/rj/rio-de-janeiro/noticia/2022/06/27/clube-dos-paraplegicos-no-rio-conta-com-a-solidariedade-dos-cariocas-para-vencer-a-fome.ghtml"
+              target="_blank">
+              <img src="../img/noticias/noticia4.jpg" class="card-img-top" alt="...">
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card3 w-75">
+            <div class="card-body">
+              <p class="card-text">Cadeirantes brasileiras relatam preconceito e falta de acessibilidade em voos: "A gente sempre é esquecida"</p>
+            </div>
+            <a href="https://g1.globo.com/turismo-e-viagem/noticia/2022/06/09/cadeirantes-brasileiras-relatam-preconceito-e-falta-de-acessibilidade-em-voos-a-gente-sempre-e-esquecida.ghtml"
+              target="_blank">
+              <img src="../img/noticias/noticia5.png" class="card-img-top" alt="...">
+            </a>
+          </div>
+        </div>
+      </div>
+</center>
+
+
+    <!--footer-->
+    <div class="footer-basic">
+        <footer>
+            <p class="copyright">CMDI (Coordenação Motora e Desenvolvimento Intelectual) © 2022</p>
+        </footer>
+    </div>
+    
+  </div>
+    
+    <!--javascript-->
+    <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <!--Dark mode button-->
+    <script>
+        let darkSwitch = document.querySelector('#darkSwitch')
+        darkSwitch.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark-mode')
+        })
+    </script>
+    <!--main-->
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>

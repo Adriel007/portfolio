@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./img-ascii.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+</head>
+
+<body>
+    <span>ASCII copiado para área de tranferência</span>
+    <div id="container"></div>
+    <h3>Insira uma imagem:</h3>
+    <input type="file" onchange="main()">
+    <h3>Insira as dimensões do texto:</h3>
+    <div>
+        <label>Colunas:</label>
+        <input type="number" value="100" oninput="cols = this.value">
+    </div>
+    <div>
+        <label>Linhas:</label>
+        <input type="number" value="100" oninput="rows = this.value">
+    </div>
+    <h3>ASCII:</h3>
+    <button onclick="copy()">Copiar</button>
+    <textarea></textarea>
+    <script src="./img-ascii.js"></script>
+</body>
+
+</html>

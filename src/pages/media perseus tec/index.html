@@ -1,0 +1,40 @@
+<html lang="pt-BR">
+<!--
+        Funcionando nos navegadores: Chrome, Edge, Opera, OperaGX, Safari, Firefox
+        -->
+
+<head>
+        <meta charset="UTF-8">
+        <title>Calculadora média técnico | Portal Educacional</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.00">
+</head>
+
+<body>
+        <h1>
+                Informe suas notas
+                <br>
+                (Médio Técnico)
+        </h1>
+        <form>
+                <label for="prova">Prova</label>
+                <input id="prova" type="number" placeholder="Nota de prova">
+                <label for="relatorio">Relatório de tarefa</label>
+                <input id="relatorio" type="number" placeholder="Nota de relatório de tarefa">
+                <label for="tarefa">Tarefa</label>
+                <input id="tarefa" type="number" placeholder="Nota de tarefa">
+                <label for="exerciciotic">Exercício TIC</label>
+                <input id="exerciciotic" type="number" placeholder="Nota de exercício">
+                <label for="trabalho">Trabalho</label>
+                <input id="trabalho" type="number" placeholder="Nota de trabalho">
+                <label for="media">Média</label>
+                <input id="media" type="number" placeholder="Sua média" readonly>
+                <div>
+                        <input id="limpar" type="button" value="Limpar">
+                        <input id="calcular" type="button" value="Calcular">
+                </div>
+        </form>
+        <script src="scripts.js"></script>
+</body>
+
+</html>

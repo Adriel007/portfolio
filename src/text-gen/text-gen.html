@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./text-gen.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+</head>
+
+<body>
+    <div id="container">
+        <textarea readonly id="output"
+            placeholder="O texto gerado aparece aqui. O conjunto de dados foi tirado do site 'O Pensador'"></textarea>
+        <div>
+            <label>Modo alta coerência:</label>
+            <input id="high" type="checkbox">
+        </div>
+        <button onclick="markov()">Gerar texto</button>
+    </div>
+    <script src="../js/Fardo_ToolBox.js"></script>
+    <script defer src="./dataset.js"></script>
+    <script defer src="./text-gen.js"></script>
+</body>
+
+</html>

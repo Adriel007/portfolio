@@ -1,0 +1,86 @@
+* {
+    font-family: monospace;
+}
+
+body {
+    background-color: #000;
+}
+
+label {
+    color: #fff;
+}
+
+#game {
+    transition: all ease-in-out 1s;
+    width: fit-content;
+    height: fit-content;
+    border: solid 5px transparent;
+}
+
+.container {
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+}
+
+.container .line {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0;
+}
+
+.container .line .cell {
+    background-color: #000;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #808080;
+}
+
+.container .line .wall {
+    background-color: #ac0000;
+    border-color: #ff0000;
+}
+
+.container .line .player {
+    background-color: #004ba0;
+    border-color: #0400ff;
+}
+
+.container .line .end {
+    background-color: #00a01b;
+    border-color: #2bff00;
+}
+
+.container .line .path {
+    background-color: #b1ae26;
+    border-color: #e5ff00;
+}
+
+button {
+    color: #fff;
+    background-color: #808080;
+    border-radius: 10px;
+    padding: 5px;
+    border: solid 2px #000;
+}
+
+div div button {
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 5px;
+}
+
+h3 {
+    color: white;
+}
+
+button:hover,
+.cell:hover {
+    cursor: pointer;
+}
