@@ -1,10 +1,14 @@
-const data = new Date;
-
 const idade = () => {
-  let anos = data.getFullYear() - 2005;
-  if ((data.getMonth() + 1) < 8 || ((data.getMonth() + 1) >= 8 && data.getDate() < 20))
-    anos--;
-  return anos
+  const data = new Date;
+  const dataNasc = new Date('2005-08-20');
+  let anos = data.getFullYear() - dataNasc.getFullYear();
+
+  (
+    data.getMonth() < dataNasc.getMonth() ||
+    (data.getMonth() === dataNasc.getMonth() && data.getDate() < dataNasc.getDate())
+  ) && anos--;
+
+  return anos;
 };
 
 const skills = {
