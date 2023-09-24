@@ -10,15 +10,11 @@ h3 {
 input,
 button {
     font-family: monospace;
-    font-size: 1.5em;
+    font-size: 1em;
     background-color: #000;
     color: #fff;
     border: #808080 solid 2px;
     border-radius: 10px;
-}
-
-button {
-    margin-bottom: 15px;
 }
 
 div {
@@ -34,10 +30,25 @@ div label {
     font-weight: bold;
 }
 
-textarea {
+#container {
+    display: flex;
     width: 100%;
-    min-height: 600px;
+    height: fit-content;
+    flex-direction: column;
+}
+
+#container textarea {
+    width: 400px;
+    min-height: 300px;
     line-height: 0.6;
+    font-size: .5em;
+    letter-spacing: 0;
+}
+
+#container button {
+    margin-bottom: 15px;
+    width: fit-content;
+    font-size: 1.2em;
 }
 
 span {

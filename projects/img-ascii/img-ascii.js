@@ -26,7 +26,7 @@ function main() {
             .catch(
                 error =>
                 (textarea.textContent =
-                    "Ocorreu um erro ao converter a imagem para arte ASCII: " + error)
+                    "An error occurred while converting the image to ASCII art: " + error)
             );
     }
 }
@@ -94,7 +94,7 @@ function imageToAscii(url, x, y) {
         };
 
         // Define a função a ser executada se ocorrer um erro ao carregar a imagem
-        img.onerror = () => reject(new Error("Erro ao carregar a imagem."));
+        img.onerror = () => reject(new Error("Error loading image."));
 
         // Carrega a imagem
         img.src = url;

@@ -11,22 +11,22 @@
     <div id="game"></div>
     <div id="options">
         <div>
-            <label>Linhas:</label>
+            <label>Rows:</label>
             <button onclick="options('rows', -1)">-</button>
             <button onclick="options('rows', 1)">+</button>
 
         </div>
         <div>
-            <label>Colunas:</label>
+            <label>Columns:</label>
             <button onclick="options('cols', -1)">-</button>
             <button onclick="options('cols', 1)">+</button>
         </div>
-        <button class="matrixOpt" onclick="options('mode', 'wall', this)">Parede</button>
-        <button class="matrixOpt" onclick="options('mode', 'floor', this)">Chão</button>
-        <button class="matrixOpt" onclick="options('mode', 'spawn', this)">Origem</button>
-        <button class="matrixOpt" onclick="options('mode', 'final', this)">Destino</button>
-        <button class="matrixOpt" onclick="options('mode', '', this)">Nada</button>
-        <h3>Clique nos botões e no plano quadriculado para adicionar elementos</h3>
+        <button class="matrixOpt" onclick="options('mode', 'wall', this)">Wall</button>
+        <button class="matrixOpt" onclick="options('mode', 'floor', this)">Floor</button>
+        <button class="matrixOpt" onclick="options('mode', 'spawn', this)">Spawn</button>
+        <button class="matrixOpt" onclick="options('mode', 'final', this)">End</button>
+        <button class="matrixOpt" onclick="options('mode', '', this)">Remove</button>
+        <h3>Click on the buttons and the grid plane to add elements</h3>
     </div>
     <script src="./maze.js"></script>
 </body>

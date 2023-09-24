@@ -373,6 +373,10 @@ h5 {
     width: 100%;
 }
 
+#portfolio .alert {
+    display: none;
+}
+
 #portfolio .portfolio-thumb {
     overflow: hidden;
     position: relative;
@@ -493,3 +497,16 @@ footer hr {
 }
 
 /* end social icon */
+
+/* start media query */
+@media (max-width: 767px) {
+    #portfolio .container {
+        display: none;
+    }
+
+    #portfolio .alert {
+        display: flex;
+    }
+}
+
+/* end media query */
