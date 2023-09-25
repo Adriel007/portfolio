@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" href="../../../img/logo.png" type="image/extension" sizes="16x16">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+    <title>Questions Tower</title>
+</head>
+
+<body>
+    <img id="player">
+    <img id="enemy">
+    <img id="particles">
+    <span id="pergunta"></span>
+    <div id="respostas-container">
+        <p class="resposta" onclick="test(this.textContent);"></p>
+        <p class="resposta" onclick="test(this.textContent);"></p>
+        <p class="resposta" onclick="test(this.textContent);"></p>
+    </div>
+    <div id="player_life_bar" class="life_bar">
+        <p>Jogador</p>
+    </div>
+    <div id="enemy_life_bar" class="life_bar">
+        <p>Inimigo</p>
+    </div>
+    <img id="timer">
+
+    <span id="title">Questions Tower</span>
+    <span id="description"></span>
+    <button id="play" onclick="play();">Jogar!</button>
+    <button id="restart" onclick="blackout(location.reload())">Jogar novamente</button>
+    <div id="tutorial">
+        <p>Como jogar:</p>
+        <ol>
+            <li>Leia as perguntas e clique na opção que seja a resposta correta.</li>
+            <li>Ao acertar, seu personagem causara dano ao inimigo, ao errar, o inimigo causara dano em você.</li>
+            <li>Fique atento a sua barra de vida, se ela chegar a zero, você perde.</li>
+            <li>Fique atento a ampulheta, se toda a areia dela cair você perderá o turno e sofrera dano</li>
+            <li>Cada inimigo derrotado a dificuldade aumentara.</li>
+            <li>As dificuldades são baseadas em dificuldade das perguntas, quantidade de vida e dano do inimigo,<br>e o tempo para responder</li>
+        </ol>
+        <span onclick="start()">Clique aqui para continuar...</span>
+    </div>
+
+    <script src="consts.js"></script>
+    <script src="classes.js"></script>
+    <script src="javascript.js"></script>
+</body>
+
+</html>

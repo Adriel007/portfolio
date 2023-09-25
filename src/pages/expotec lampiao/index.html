@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="src/logo.png" type="image/extension" sizes="16x16">
+    <title>
+        UX-Browser
+    </title>
+    <meta name="description" content="Descrição">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="container">
+        <figure>
+            <img src="src/logo.png">
+            <figcaption>
+                <h1>
+                    UX-Browser
+                </h1>
+                <h3>
+                    Seu navegador acessível e personalizável
+                </h3>
+            </figcaption>
+        </figure>
+        <button id="start" onclick="start()">Navegar</button>
+        <button id="custom" onclick="custom()">Customizar</button>
+
+        <div id="loading">
+            <figure>
+                <img src="src/logo.png">
+                <figcaption>
+                    <h1>
+                        UX-Browser
+                    </h1>
+                </figcaption>
+        </div>
+
+        <div id="personalizar">
+            <h2>
+                Personalizar
+            </h2>
+            <hr>
+            <div id="custom_container">
+                <div id="blue" onclick="changeColor(this.id)"></div>
+                <div id="red" onclick="changeColor(this.id)"></div>
+                <div id="purple" onclick="changeColor(this.id)"></div>
+                <div id="pink" onclick="changeColor(this.id)"></div>
+                <div id="green" onclick="changeColor(this.id)"></div>
+                <div id="yellow" onclick="changeColor(this.id)"></div>
+                <div id="gray" onclick="changeColor(this.id)"></div>
+                <div id="black" onclick="changeColor(this.id)"></div>
+            </div>
+            <hr>
+            <button onclick="save()">Salvar</button>
+            </h2>
+        </div>
+    </div>
+    <iframe id="frame" src="menu.html"></iframe>
+    <div id="tools">
+        <button onclick="menu()">Menu</button>
+        <button onclick="blackAndWhite()">Preto e branco</button>
+        <button onclick="invert()">Inverter</button>
+        <button onclick="highContrast()">Alto contraste</button>
+        <button onclick="satured()">Saturação</button>
+        <button onclick="colorBlind()">Daltônismo</button>
+        <button onclick="moreBright()">+ Brilho</button>
+        <button onclick="lessBright()">- Brilho</button>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

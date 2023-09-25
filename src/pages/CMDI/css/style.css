@@ -1,0 +1,123 @@
+/* Google Font Import - Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*Usem as cores aqui do root, para facilitar o uso do dark mode e funcionamento do site*/
+:root{
+	/* ===== Cores light mode===== */
+    --body-bg: #E4E9F7;
+    --navbar-bg: #f7f7f7;
+    --footer-bg: #F6F6F6;
+    --text-color: #000000;
+    --text-hover: #666666;
+    --dropdown-menu-text-hover: #DDDDDD;
+    --close-button: invert(0);
+    --navbar-button: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    --image-logo: invert(0%);
+
+    /* ===== Transição ===== */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+.dark-mode:root{
+    /* ===== Cores dark mode===== */
+    --body-bg: #19191D;
+    --navbar-bg: #232328;
+    --footer-bg: #2D3037;
+    --text-color: #e8e8e8;
+    --text-hover: #949494;
+    --dropdown-menu-text-hover: #1A1A1A;
+    --close-button: invert(1);
+    --navbar-button: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    --image-logo: invert(100%);
+}
+
+body{
+    min-height: 100vh;
+    margin-top: 100px; 
+    background-color: var(--body-bg);
+    transition: var(--tran-04);
+}
+
+.texto{
+    margin-left: 20px;
+}
+
+.imglogo {
+    filter: var(--image-logo);
+    transition: var(--tran-04);
+}
+
+.canvas { 
+    background-size: 300px 100px;
+  }
+
+
+.footer-basic, .footer-basic footer {
+  position: sticky;
+  top: 100%;
+
+  padding:10px;
+  background-color: var(--footer-bg);
+  transition: var(--tran-04);
+}
+
+.navbar, .offcanvas {
+    background-color: var(--navbar-bg);
+    transition: var(--tran-04);
+}
+
+.dropdown-menu {
+    background-color: var(--navbar-bg);
+    transition: var(--tran-04);
+    box-shadow: 0px 0.5px 0.5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--dropdown-menu-text-hover);
+    color: var(--text-color);
+}
+
+.nav-item h1 {
+    color: var(--text-color);
+    transition: var(--tran-04);
+}
+
+.nav-item h1:hover {
+    color: var(--text-hover);
+    transition: var(--tran-04);
+}
+
+.navbar a, .navbar h5, .navbar label, .footer-basic footer, body{
+    color: var(--text-color);
+    transition: var(--tran-04);
+}
+
+.text-menu a:hover, .navbar button{
+    color: var(--text-hover);
+    transition: var(--tran-04);
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: var(--navbar-button);
+  transition: var(--tran-04);
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: var(--text-hover);
+  transition: var(--tran-04);
+} 
+
+.btn-close {
+    filter: var(--close-button);
+    transition: var(--tran-04);
+}
+

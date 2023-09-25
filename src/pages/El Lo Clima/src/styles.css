@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(navy, black);
+}
+
+header {
+    display: flex;
+    color: white;
+    font-size: .8em;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+header span {
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.images .card {
+    margin: 0 3px 15% 0;
+}
+
+.images .card img {
+    width: 100px;
+    height: 100px;
+    padding: 1px;
+    border: solid 5px gray;
+    border-radius: 100%;
+    background-color: white;
+    object-fit: scale-down;
+}
+
+.images .card h2 {
+    color: white;
+    text-align: center;
+}
+
+.info,
+.info h1,
+.info h2 {
+    text-align: center;
+    background-color: rgba(0, 0, 0, .25);
+    width: 100%;
+}
+
+button {
+    color: white;
+    background-color: dodgerblue;
+    font-weight: bold;
+    outline: 0;
+    width: 100%;
+    align-self: flex-end;
+    text-align: center;
+    padding: 5px;
+    font-size: larger;
+    border: 0;
+    margin-top: auto;
+    height: fit-content;
+}

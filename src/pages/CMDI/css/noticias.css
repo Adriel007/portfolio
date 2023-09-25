@@ -1,0 +1,77 @@
+/*Usem as cores aqui do root, para facilitar o uso do dark mode e funcionamento do site*/
+:root{
+	/* ===== Cores light mode===== */
+    --card: #fff;
+    --hr-color: #000;
+    --body2-color: #d2d7e4;
+
+    /* ===== Transição ===== */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+.dark-mode:root{
+    /* ===== Cores dark mode===== */
+    --card: #2a2a31;
+    --hr-color: #fff;
+    --body2-color: #1f1f24;
+}
+
+body{
+    margin-top: 4.4%;
+}
+
+.body2{
+    margin: 0 auto;
+    width: 75%;
+    background: var(--body2-color);
+}
+
+.carousel-images {
+    filter: brightness(0.7);
+}
+
+.texto{
+    position: relative;
+    bottom: -25px;
+}
+
+.carousel{
+    margin-top: 3%;
+    margin-bottom: 50px;
+    width: 900px;
+    box-shadow: 0px 2px 7px 4px rgba(0, 0, 0, 0.2);
+}
+
+hr{
+    border: none;
+    width: 700px;
+    height: 3px;
+    color: var(--hr-color);
+    background-color: var(--hr-color);
+    opacity: 0.8;
+    transition: var(--tran-04);
+}
+
+.card1{
+    position: relative;
+    left: 25%;
+}
+
+.card2{
+    position: relative;
+    left: -25%;
+}
+
+.card3{
+    position: relative;
+    left: 50%;
+}
+
+.card{
+    margin-bottom: 10px;
+    background-color: var(--card);
+    transition: var(--tran-04);
+}
