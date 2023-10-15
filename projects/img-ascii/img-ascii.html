@@ -9,20 +9,26 @@
 
 <body>
     <span>ASCII copied to clipboard</span>
-    <div id="container"></div>
-    <h3>Insert an image:</h3>
-    <input type="file" onchange="main()">
-    <h3>Insert matrix size:</h3>
-    <div>
-        <label>Columns:</label>
-        <input type="number" value="100" max="100" oninput="cols = this.value">
+    <div id="h-group">
+        <h3>Insert an image:</h3>
+        <h3>Insert matrix size:</h3>
     </div>
-    <div>
-        <label>Rows:</label>
-        <input type="number" value="100" max="100" oninput="rows = this.value">
+    <div id="i-group">
+        <input type="file" onchange="main()">
+        <div id="xy-group">
+            <div>
+                <label>Columns:</label>
+                <input type="number" value="75" max="200" oninput="cols = this.value">
+            </div>
+            <div>
+                <label>Rows:</label>
+                <input type="number" value="75" max="200" oninput="rows = this.value">
+            </div>
+        </div>
     </div>
-    <h3>ASCII:</h3>
+
     <div id="container">
+        <h3>ASCII:</h3>
         <textarea></textarea>
         <button onclick="copy()">Copy</button>
     </div>

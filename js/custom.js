@@ -8,6 +8,7 @@ $(document).ready(function () {
 		'css3': true,
 		'navigation': true,
 		'navigationPosition': 'right',
+		'fitToSection': false,
 	});
 });
 

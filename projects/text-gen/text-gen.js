@@ -245,14 +245,10 @@ async function markov() {
     const level = document.getElementById("high").checked ? "4" : "2";
     const output = document.getElementById("output");
 
-    // Assim seria um treinamento:
-    /*
-    const mkc = new MarkovChain(level);
-    mkc.train(dataset); // esse dataset é um array em outro arquivo js
-    */
+    // Recomendo fazer o treinamento em uma programação paralela em PHP, NodeJS, ou outra linguagem mais veloz
 
     button.disabled = true;
-    button.title = "Aguarde o término do texto para gerar outro";
+    button.title = "Wait for the end of the text to generate another";
     output.textContent = "";
     if (blink)
         FardoTools.removeTypingEffect(blink);

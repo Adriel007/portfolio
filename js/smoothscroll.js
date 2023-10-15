@@ -19,35 +19,35 @@ if (!window["jQuery"])
  * @author Ariel Flesler
  * @version 2.1.2
  */
-(function(f) {
+(function (f) {
   "use strict";
   "function" === typeof define && define.amd
     ? define(["jquery"], f)
     : "undefined" !== typeof module && module.exports
       ? (module.exports = f(require("jquery")))
       : f(jQuery);
-})(function($) {
+})(function ($) {
   "use strict";
   function n(a) {
     return (
       !a.nodeName ||
       -1 !==
-        $.inArray(a.nodeName.toLowerCase(), [
-          "iframe",
-          "#document",
-          "html",
-          "body"
-        ])
+      $.inArray(a.nodeName.toLowerCase(), [
+        "iframe",
+        "#document",
+        "html",
+        "body"
+      ])
     );
   }
   function h(a) {
     return $.isFunction(a) || $.isPlainObject(a) ? a : { top: a, left: a };
   }
-  var p = ($.scrollTo = function(a, d, b) {
+  var p = ($.scrollTo = function (a, d, b) {
     return $(window).scrollTo(a, d, b);
   });
   p.defaults = { axis: "xy", duration: 0, limit: !0 };
-  $.fn.scrollTo = function(a, d, b) {
+  $.fn.scrollTo = function (a, d, b) {
     "object" === typeof d && ((b = d), (d = 0));
     "function" === typeof b && (b = { onAfter: b });
     "max" === a && (a = 9e9);
@@ -57,14 +57,14 @@ if (!window["jQuery"])
     u && (d /= 2);
     b.offset = h(b.offset);
     b.over = h(b.over);
-    return this.each(function() {
+    return this.each(function () {
       function k(a) {
         var k = $.extend({}, b, {
           queue: !0,
           duration: d,
           complete:
             a &&
-            function() {
+            function () {
               a.call(q, e, b);
             }
         });
@@ -90,7 +90,7 @@ if (!window["jQuery"])
             if (e.is || e.style) t = (e = $(e)).offset();
         }
         var v = ($.isFunction(b.offset) && b.offset(q, e)) || b.offset;
-        $.each(b.axis.split(""), function(a, c) {
+        $.each(b.axis.split(""), function (a, c) {
           var d = "x" === c ? "Left" : "Top",
             m = d.toLowerCase(),
             g = "scroll" + d,
@@ -99,11 +99,11 @@ if (!window["jQuery"])
           t
             ? ((f[g] = t[m] + (l ? 0 : h - r.offset()[m])),
               b.margin &&
-                ((f[g] -= parseInt(e.css("margin" + d), 10) || 0),
+              ((f[g] -= parseInt(e.css("margin" + d), 10) || 0),
                 (f[g] -= parseInt(e.css("border" + d + "Width"), 10) || 0)),
               (f[g] += v[m] || 0),
               b.over[m] &&
-                (f[g] += e["x" === c ? "width" : "height"]() * b.over[m]))
+              (f[g] += e["x" === c ? "width" : "height"]() * b.over[m]))
             : ((d = e[m]),
               (f[g] =
                 d.slice && "%" === d.slice(-1)
@@ -120,7 +120,7 @@ if (!window["jQuery"])
       }
     });
   };
-  p.max = function(a, d) {
+  p.max = function (a, d) {
     var b = "x" === d ? "Width" : "Height",
       h = "scroll" + b;
     if (!n(a)) return a[h] - $(a)[b.toLowerCase()]();
@@ -131,10 +131,10 @@ if (!window["jQuery"])
     return Math.max(l[h], k[h]) - Math.min(l[b], k[b]);
   };
   $.Tween.propHooks.scrollLeft = $.Tween.propHooks.scrollTop = {
-    get: function(a) {
+    get: function (a) {
       return $(a.elem)[a.prop]();
     },
-    set: function(a) {
+    set: function (a) {
       var d = this.get(a);
       if (a.options.interrupt && a._last && a._last !== d)
         return $(a.elem).stop();
@@ -151,9 +151,9 @@ if (!window["jQuery"])
  * @author Ariel Flesler
  * @version 2.0.0
  */
-!(function(e) {
+!(function (e) {
   "function" == typeof define && define.amd ? define(["jquery"], e) : e(jQuery);
-})(function(e) {
+})(function (e) {
   function t(t, o, n) {
     var i = o.hash.slice(1),
       a = document.getElementById(i) || document.getElementsByName(i)[0];
@@ -186,7 +186,7 @@ if (!window["jQuery"])
     }
   }
   var o = location.href.replace(/#.*/, ""),
-    n = (e.localScroll = function(t) {
+    n = (e.localScroll = function (t) {
       e("body").localScroll(t);
     });
   return (
@@ -198,7 +198,7 @@ if (!window["jQuery"])
       target: window,
       autoscroll: !0
     }),
-    (e.fn.localScroll = function(i) {
+    (e.fn.localScroll = function (i) {
       function a() {
         return (
           !!this.href &&
@@ -209,28 +209,28 @@ if (!window["jQuery"])
       }
       return (
         (i = e.extend({}, n.defaults, i)).autoscroll &&
-          i.hash &&
-          location.hash &&
-          (i.target && window.scrollTo(0, 0), t(0, location, i)),
+        i.hash &&
+        location.hash &&
+        (i.target && window.scrollTo(0, 0), t(0, location, i)),
         i.lazy
-          ? this.on(i.event, "a,area", function(e) {
-              a.call(this) && t(e, this, i);
-            })
+          ? this.on(i.event, "a,area", function (e) {
+            a.call(this) && t(e, this, i);
+          })
           : this.find("a,area")
-              .filter(a)
-              .bind(i.event, function(e) {
-                t(e, this, i);
-              })
-              .end()
-              .end()
+            .filter(a)
+            .bind(i.event, function (e) {
+              t(e, this, i);
+            })
+            .end()
+            .end()
       );
     }),
-    (n.hash = function() {}),
+    (n.hash = function () { }),
     n
   );
 });
 
 // Initialize all .smoothScroll links
-jQuery(function($) {
+jQuery(function ($) {
   $.localScroll({ filter: ".smoothScroll" });
 });

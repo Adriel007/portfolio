@@ -2,15 +2,17 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="./automate-cells.css">
+    <link rel="stylesheet" href="automate-cells.css">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.00">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <h3>Double click on any square to generate cells</h3>
-    <div id="container"></div>
-    <script src="./automate-cells.js"></script>
+    <svg id="container" width="750" height="250"></svg>
+    <button onclick="stopSimulation()" id="stop">Stop Simulation</button>
+    <button onclick="resetSimulation()" id="reset">Reset Simulation</button>
+    <script src="automate-cells.js"></script>
 </body>
 
 </html>

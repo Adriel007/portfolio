@@ -15,6 +15,8 @@ button {
     color: #fff;
     border: #808080 solid 2px;
     border-radius: 10px;
+    padding: 0 10px 0 10px;
+    width: fit-content;
 }
 
 div {
@@ -35,6 +37,8 @@ div label {
     width: 100%;
     height: fit-content;
     flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
 }
 
 #container textarea {
@@ -43,12 +47,32 @@ div label {
     line-height: 0.6;
     font-size: .5em;
     letter-spacing: 0;
+    border-radius: 15px 15px 0 0;
 }
 
 #container button {
     margin-bottom: 15px;
-    width: fit-content;
-    font-size: 1.2em;
+    width: 36.2%;
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+#h-group,
+#i-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#xy-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 span {

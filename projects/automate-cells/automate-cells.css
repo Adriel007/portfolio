@@ -1,28 +1,48 @@
 body {
     background-color: #000;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 #container {
-    display: grid;
-    width: 100%;
-    height: 100vh;
-    grid-template-columns: repeat(75, 1fr);
-    grid-template-rows: repeat(25, 1fr);
-}
-
-.cell {
-    width: 10px;
-    height: 10px;
-    background-color: #000;
-    border: solid 2px #808080;
-    cursor: pointer;
-    transition: all ease-in-out .5s;
+    width: fit-content;
+    height: fit-content;
+    border: #fff solid 2px;
+    border-radius: 10px 10px 0 0;
 }
 
 .alive {
-    background-color: #ff0000;
+    fill: #ff0000;
+    stroke: #000;
 }
+
+.cell {
+    fill: #000;
+    stroke: #808080;
+}
+
 
 h3 {
     color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0;
+    color: #fff;
+    border: #fff solid 2px;
+    border-radius: 0 0 15px 15px;
+    cursor: pointer;
+    width: 67%;
+    font-weight: bold;
+}
+
+#stop {
+    background-color: #ff0000;
+    border-radius: 0;
+}
+
+#reset {
+    background-color: #0029af;
 }

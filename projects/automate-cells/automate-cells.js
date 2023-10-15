@@ -4,8 +4,13 @@
 const rows = 25;
 const cols = 75;
 
+// Tamanho das células no SVG (ajuste conforme necessário)
+const cellSize = 1;
+
 // Criação inicial do contêiner
 const container = document.getElementById("container");
+
+let isSimulationRunning = true; // Variável para controlar a simulação
 
 // Função para criar uma matriz vazia
 function createMatrix(rows, cols) {
@@ -21,20 +26,29 @@ function createMatrix(rows, cols) {
 
 // Função para atualizar a exibição da matriz no contêiner
 function updateDisplay(matrix) {
-    container.innerHTML = ""; // Limpa o conteúdo do contêiner
+    const svg = document.getElementById("container");
+    svg.innerHTML = ""; // Limpa o conteúdo do SVG
+
+    const cellSize = svg.getAttribute("width") / cols;
 
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell");
+            const cell = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            cell.setAttribute("x", j * cellSize);
+            cell.setAttribute("y", i * cellSize);
+            cell.setAttribute("width", cellSize);
+            cell.setAttribute("height", cellSize);
+
             if (matrix[i][j] === 1) {
-                cell.classList.add("alive");
+                cell.setAttribute("class", "alive");
             }
+
             cell.addEventListener("click", () => {
                 spawnCells(matrix, i, j);
-                updateDisplay(matrix); // Atualiza a exibição após o clique
+                updateDisplay(matrix);
             });
-            container.appendChild(cell);
+
+            svg.appendChild(cell);
         }
     }
 }
@@ -120,10 +134,27 @@ function runAutomaton() {
 
     updateDisplay(matrix);
 
-    setInterval(() => {
+    const interval = setInterval(() => {
+        if (!isSimulationRunning)
+            clearInterval(interval);
         matrix = updateMatrix(matrix);
         updateDisplay(matrix);
     }, 200);
+}
+
+// Função para parar a simulação
+function stopSimulation() {
+    if (!isSimulationRunning)
+        return;
+    isSimulationRunning = false;
+}
+
+// Função para resetar a simulação
+function resetSimulation() {
+    if (isSimulationRunning)
+        return;
+    isSimulationRunning = true;
+    runAutomaton();
 }
 
 // Executa o autômato celular

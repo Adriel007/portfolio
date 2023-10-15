@@ -6,8 +6,8 @@ const textarea = document.querySelector("textarea");
 const copied = document.querySelector("span");
 const numbers = document.querySelectorAll("input[type='number']");
 
-let cols = 100;
-let rows = 100;
+let cols = 75;
+let rows = 75;
 
 // Adiciona um evento de input aos números para chamar a função "main"
 numbers.forEach(element => element.addEventListener("input", main));
