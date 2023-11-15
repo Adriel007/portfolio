@@ -11,7 +11,6 @@ const cellSize = 1;
 const container = document.getElementById("container");
 
 let isSimulationRunning = true; // Variável para controlar a simulação
-
 // Função para criar uma matriz vazia
 function createMatrix(rows, cols) {
     const matrix = [];
