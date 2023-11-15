@@ -2,10 +2,6 @@
     font-family: monospace;
 }
 
-body {
-    background-color: transparent;
-}
-
 #container {
     color: #fff;
     display: flex;
