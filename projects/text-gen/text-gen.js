@@ -233,12 +233,26 @@ const model = {
     "2": null,
     "4": null
 };
+let popup;
+let loaded = 0;
 let blink;
 
 
 // Carregar modelos pré-treinados
-fetch("./model-2.json").then(res => res.json()).then(json => model["2"] = MarkovChain.loadModel(json));
-fetch("./model-4.json").then(res => res.json()).then(json => model["4"] = MarkovChain.loadModel(json));
+fetch("./model-2.json").then(res => res.json()).then(json =>{
+    model["2"] = MarkovChain.loadModel(json);
+    verify();
+});
+fetch("./model-4.json").then(res => res.json()).then(json => {
+    model["4"] = MarkovChain.loadModel(json);
+    verify();
+});
+
+function verify() {
+    loaded++;
+    if (loaded === 2)
+        popup.close();
+}
 
 async function markov() {
     const button = document.querySelector("button");
@@ -257,3 +271,16 @@ async function markov() {
     button.title = "";
     return true;
 }
+
+popup = Swal.fire({
+    icon: "",
+    title: "Carregando modelos...",
+    customClass: {
+        popup: "bg-black text-white"
+    },
+    html: `<div class="spinner-border text-light" role="status"></div>`,
+    allowOutsideClick: false,
+    showCloseButton: false,
+    showCancelButton: false,
+    showConfirmButton: false,
+});
