@@ -1,0 +1,104 @@
+{
+    "CPS": [
+        "arduino-cps.pdf",
+        "canvas-cps.pdf",
+        "linguas-cps.pdf",
+        "scrum-cps.pdf"
+    ],
+    "DIO": [
+        "Conceitos e melhores práticas com bancos de dados PostgreSQL-DIO.pdf",
+        "Conhecendo os Principais Protocolos de Comunicação da Internet-DIO.pdf",
+        "Criando seu Primeiro Repositório no Github para Compartilhar seu Progresso-DIO.pdf",
+        "Debugging e Error Handling-DIO.pdf",
+        "IDE Instalação e Configuração (Visual Studio Code)-DIO.pdf",
+        "Introdução a criação de websites com HTML5 e CSS3-DIO.pdf",
+        "Introdução ao Git e ao GitHub-DIO.pdf",
+        "Introdução ao JavaScript-DIO.pdf",
+        "Introdução ao MongoDB e Bancos de Dados NoSQL-DIO.pdf",
+        "Introdução ao TypeScript Explorando Classes, Tipos e Interfaces-DIO.pdf",
+        "Introdução à Programação e Pensamento Computacional-DIO.pdf",
+        "Javascript Assíncrono-DIO.pdf",
+        "Manipulando a D.O.M. com Javascript-DIO.pdf",
+        "Orientação a objetos-DIO.pdf",
+        "Posicionando elementos com Flexbox em CSS-DIO.pdf",
+        "Primeiros passos para desenvolvimento web-DIO.pdf",
+        "Recriando a página inicial do Instagram-DIO.pdf",
+        "Sintaxe Básica em JavaScript-DIO.pdf",
+        "Sintaxe e operadores-DIO.pdf",
+        "Variáveis e Tipos-DIO.pdf",
+        "funções-DIO.pdf"
+    ],
+    "Fortec": [
+        "arduino-fortec.pdf",
+        "java-fatef.pdf"
+    ],
+    "IFPA": [
+        "html-ifpa.pdf",
+        "javascript-ifpa.pdf",
+        "logica-ifpa.pdf",
+        "php-ifpa.pdf",
+        "python-ifpa.pdf"
+    ],
+    "IFRS": [
+        "Banco_de_Dados_1_fundamentos-Certificado_digital_1333578-IFRS.pdf",
+        "CSS_folhas_de_estilo-Certificado_digital_1334005-IFRS.pdf",
+        "Descoberta_de_Conhecimento_em_Bases_de_Dados_fundamentos-Certificado_digital_1333979-IFRS.pdf",
+        "HTML_Introdução_ao_desenvolvimento_de_páginas_web-Certificado_digital_1334007-IFRS.pdf",
+        "HTML_tabelas_e_formulários-Certificado_digital_1334009-IFRS.pdf",
+        "JavaScript-Certificado_digital_1334262-IFRS.pdf",
+        "Lógica_de_Programação_começando_a_desenvolver_seus_primeiros_programas-Certificado_digital_1334011-IFRS.pdf",
+        "Lógica_de_Programação_múltiplos_valores_e_módulos-Certificado_digital_1334015-IFRS.pdf",
+        "Programador_Web-Certificado_digital_1354426-IFRS.pdf",
+        "Programação_Básica_com_Java_I-Certificado_digital_1338940-IFRS.pdf",
+        "Programação_Básica_com_Java_II-Certificado_digital_1345901-IFRS.pdf",
+        "Programação_Básica_com_Java_III-Certificado_digital_1375449-IFRS.pdf",
+        "Projeto_de_Sistemas_Web-Certificado_digital_1335200-IFRS.pdf"
+    ],
+    "IFSul": [
+        "gestormoodel-ifsul.pdf",
+        "js-ifsul.pdf",
+        "php-ifsul.pdf"
+    ],
+    "NerdIn": [
+        "html-nerdin.pdf"
+    ],
+    "Performa": [
+        "android-studio-performa.pdf",
+        "aplicacoes-mobile-performa.pdf",
+        "csharp-avancado-performa.pdf",
+        "csharp-basico-performa.pdf",
+        "css-performa.pdf",
+        "dba-performa.pdf",
+        "etica-profissional-performa.pdf",
+        "html-avancado-performa.pdf",
+        "html-basico-performa.pdf",
+        "html-css-js-performa.pdf",
+        "html-css-performa.pdf",
+        "implementacao-banco-de-dados-performa.pdf",
+        "java-avancado-performa.pdf",
+        "java-basico-performa.pdf",
+        "javascript-performa.pdf",
+        "logica-performa.pdf",
+        "modelagem-de-dados-performa.pdf",
+        "poo-performa.pdf",
+        "python-basico-performa.pdf",
+        "seguranca-digital-performa.pdf"
+    ],
+    "TIM TEC": [
+        "android-timtec.pdf",
+        "arquiteturadeinformacao-timtec.pdf",
+        "backend-TIMTEC.pdf",
+        "boas praticas dev-TIMTEC.pdf",
+        "empreendorismo1-TIMTEC.pdf",
+        "frontend-timtec.pdf",
+        "gamesprogramacao-timtec.pdf",
+        "java-TIMTEC.pdf",
+        "java2-timtec.pdf",
+        "javaweb-timtec.pdf",
+        "logica-TIMTEC.pdf",
+        "php-timtec.pdf",
+        "php2-timtec.pdf",
+        "sql-TIMTEC.pdf",
+        "ux-ui-timtec.pdf"
+    ]
+}
