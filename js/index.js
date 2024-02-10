@@ -111,7 +111,7 @@ const btnClass = {
     });
 });
 
-if (flag.includes("index")) {
+if (flag.includes("index") || flag === "") {
     document.getElementById("prices_control_real").click();
 } else if (flag.includes("russian")) {
     document.getElementById("prices_control_ruble").click();
