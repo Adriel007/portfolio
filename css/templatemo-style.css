@@ -219,6 +219,65 @@ h5 {
 
 /* end languages */
 
+/* start custom classes */
+._text-primary {
+    color: var(--primary-color);
+}
+
+._bg-primary {
+    background-color: var(--primary-color);
+}
+
+._text-white {
+    color: #ffffff;
+}
+
+._transition {
+    transition: all .3s ease-in-out;
+}
+
+._w-fit {
+    width: fit-content;
+}
+
+._d-flex {
+    display: flex;
+}
+
+._justify-content-center {
+    justify-content: center;
+}
+
+._align-items-center {
+    align-items: center;
+}
+
+._flex-row {
+    flex-direction: row;
+}
+
+._flex-column {
+    flex-direction: column;
+}
+
+._bigIcon {
+    font-size: 5em;
+}
+
+._rounded-1 {
+    border-radius: 10px;
+}
+
+._m-5 {
+    margin: 5px;
+}
+
+._text-center {
+    text-align: center;
+}
+
+/* end custom classes */
+
 
 /* start home */
 #home {

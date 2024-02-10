@@ -91,3 +91,60 @@ fetch(url)
         container.appendChild(card);
     })
     .catch(error => console.error("Error:", error));
+
+const flag = window.location.href.split("/").pop();
+const btnClass = {
+    default: "btn prices_control _text-primary _transition",
+    active: "btn prices_control _bg-primary _text-white _transition"
+};
+
+[...document.getElementsByClassName("prices_control")].forEach(element => {
+    element.addEventListener("click", () => {
+        [...document.getElementsByClassName("prices_control")].forEach(element => {
+            element.className = btnClass.default;
+            element.className = btnClass.default;
+        });
+        element.className = btnClass.default;
+        element.className = btnClass.active;
+        cotation().then(cotation => update(cotation));
+        element.blur();
+    });
+});
+
+if (flag.includes("index")) {
+    document.getElementById("prices_control_real").click();
+} else if (flag.includes("russian")) {
+    document.getElementById("prices_control_ruble").click();
+} else {
+    document.getElementById("prices_control_dollar").click();
+}
+
+function update(cambio) {
+    [...document.getElementsByClassName("price_service")].forEach(element => {
+        const symbol = document.getElementsByClassName(btnClass.active)[0].textContent;
+        element.textContent = `${symbol} ${(element.getAttribute("price") / cambio).toFixed(2)}`;
+    });
+}
+
+async function cotation() {
+    const symbol = document.getElementsByClassName(btnClass.active)[0].textContent;
+    let q = "";
+
+    if (symbol === "$")
+        q = "USD-BRL";
+    else if (symbol === "₽")
+        q = "RUB-BRL";
+    else if (symbol === "€")
+        q = "EUR-BRL";
+    else
+        return new Promise((resolve, reject) => resolve(1.0));
+
+    return fetch("https://economia.awesomeapi.com.br/json/last/" + q)
+        .then(response => response.json())
+        .then(data => parseFloat(data[Object.keys(data)[0]].ask))
+        .catch(error => console.error("Error:", error));
+}
+
+setInterval(() => {
+    document.getElementById("prices").style.height = "auto";
+}, 100);
