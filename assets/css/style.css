@@ -253,7 +253,7 @@ canvas {
     left: auto;
     background-color: black;
     z-index: -1;
-    background-size:cover;
+    background-size: contain;
     background-blend-mode: multiply;
     background-size: auto;
     scroll-behavior: smooth;
