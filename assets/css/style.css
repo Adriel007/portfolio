@@ -529,6 +529,309 @@ canvas {
 
 
 /* ======================================== */
+/* === ESTILOS PARA A SEÇÃO DE PROJETOS === */
+/* ======================================== */
+
+.projects-section {
+    padding: 100px 10%;
+    min-height: 100vh;
+}
+
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    box-shadow: 0 0 50px rgba(0, 255, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+/* Alternar a ordem em cards ímpares */
+.project-card:nth-child(even) {
+    direction: rtl;
+}
+
+.project-card:nth-child(even) > * {
+    direction: ltr;
+}
+
+/* Carousel de Imagens */
+.project-carousel {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background borrado */
+.carousel-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1);
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* Imagem principal centralizada */
+.carousel-slide::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 0, 0.3);
+    border: 2px solid green;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.carousel-btn:hover {
+    background: green;
+    box-shadow: 0 0 20px green;
+}
+
+.carousel-btn.prev {
+    left: 15px;
+}
+
+.carousel-btn.next {
+    right: 15px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid green;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.indicator.active,
+.indicator:hover {
+    background: green;
+    box-shadow: 0 0 10px green;
+}
+
+/* Informações do Projeto */
+.project-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.project-info h3 {
+    font-size: 32px;
+    color: green;
+    text-shadow: 0 0 10px green;
+    margin: 0;
+    opacity: 1;
+    animation: none;
+}
+
+.project-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ddd;
+    opacity: 1;
+    animation: none;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid green;
+    color: lime;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid green;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: green;
+    color: black;
+    box-shadow: 0 0 20px green;
+    transform: translateY(-2px);
+}
+
+.project-link-demo {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: lime;
+    color: lime;
+}
+
+.project-link-demo:hover {
+    background: lime;
+    color: black;
+    box-shadow: 0 0 20px lime;
+}
+
+/* Responsividade para Projetos */
+@media (max-width: 968px) {
+    .project-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .project-card:nth-child(even) {
+        direction: ltr;
+    }
+    
+    .project-carousel {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 80px 5%;
+    }
+    
+    .projects-container {
+        gap: 50px;
+    }
+    
+    .project-card {
+        padding: 20px;
+    }
+    
+    .project-info h3 {
+        font-size: 26px;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+/* ======================================== */
 /* === ESTILOS PARA A SEÇÃO ROADMAP/GRAFO === */
 /* ======================================== */
 

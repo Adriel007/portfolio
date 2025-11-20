@@ -95,4 +95,111 @@ window.addEventListener("load", function () {
   });
 
   // --- FIM DA LÓGICA DO GRAFO ---
+
+  // --- INÍCIO DA LÓGICA DO CAROUSEL ---
+
+  function initCarousels() {
+    const projectCards = document.querySelectorAll(".project-card");
+
+    projectCards.forEach((card) => {
+      const slides = card.querySelectorAll(".carousel-slide");
+      const prevBtn = card.querySelector(".carousel-btn.prev");
+      const nextBtn = card.querySelector(".carousel-btn.next");
+      const indicators = card.querySelectorAll(".indicator");
+      let currentSlide = 0;
+      let autoPlayInterval;
+
+      // Converter <img> em divs com background-image
+      slides.forEach((slide) => {
+        if (slide.tagName === "IMG") {
+          const imgSrc = slide.src;
+          const imgAlt = slide.alt;
+          const isActive = slide.classList.contains("active");
+
+          const div = document.createElement("div");
+          div.className = "carousel-slide";
+          div.style.backgroundImage = `url('${imgSrc}')`;
+          div.setAttribute("aria-label", imgAlt);
+
+          if (isActive) {
+            div.classList.add("active");
+          }
+
+          slide.parentNode.replaceChild(div, slide);
+        }
+      });
+
+      // Atualizar a referência dos slides após a conversão
+      const updatedSlides = card.querySelectorAll(".carousel-slide");
+
+      function showSlide(index) {
+        updatedSlides.forEach((slide) => slide.classList.remove("active"));
+        indicators.forEach((indicator) => indicator.classList.remove("active"));
+
+        if (index >= updatedSlides.length) currentSlide = 0;
+        if (index < 0) currentSlide = updatedSlides.length - 1;
+
+        updatedSlides[currentSlide].classList.add("active");
+        indicators[currentSlide].classList.add("active");
+      }
+
+      function nextSlide() {
+        currentSlide++;
+        if (currentSlide >= updatedSlides.length) currentSlide = 0;
+        showSlide(currentSlide);
+      }
+
+      function prevSlide() {
+        currentSlide--;
+        if (currentSlide < 0) currentSlide = updatedSlides.length - 1;
+        showSlide(currentSlide);
+      }
+
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 4000);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
+
+      // Event listeners
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay();
+      });
+
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          currentSlide = index;
+          showSlide(currentSlide);
+          stopAutoPlay();
+          startAutoPlay();
+        });
+      });
+
+      // Pausar autoplay quando o mouse está sobre o carousel
+      card
+        .querySelector(".carousel-container")
+        .addEventListener("mouseenter", stopAutoPlay);
+      card
+        .querySelector(".carousel-container")
+        .addEventListener("mouseleave", startAutoPlay);
+
+      // Iniciar autoplay
+      startAutoPlay();
+    });
+  }
+
+  // Inicializar carousels após o carregamento
+  initCarousels();
+
+  // --- FIM DA LÓGICA DO CAROUSEL ---
 });
