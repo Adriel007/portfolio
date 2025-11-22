@@ -33,10 +33,11 @@
       <a href="#" class="logo">{Portfolio}</a>
       <nav class="navbar">
         <a href="#home" class="active" style="--i: 1">Home</a>
-        <a href="#about" style="--i: 2">About</a>
+        <a href="#journey" style="--i: 2">Journey</a>
         <a href="#skill" style="--i: 3">Skills</a>
         <a href="#project" style="--i: 4">Projects</a>
-        <a href="#contact" style="--i: 5">Contact</a>
+        <a href="#demos" style="--i: 5">Demos</a>
+        <a href="#contact" style="--i: 6">Contact</a>
       </nav>
     </header>
     <!-- Home Section -->
@@ -474,6 +475,209 @@
           </div>
         </div>
         <!-- end of project cards -->
+      </div>
+    </section>
+
+    <!-- Demos Section -->
+    <section id="demos" class="demos-section">
+      <h2 class="section-title">Interactive Demos</h2>
+      <p class="section-subtitle">
+        Try out live demonstrations of my projects directly in your browser
+      </p>
+
+      <div class="demos-carousel-container">
+        <!-- Demo Navigation Tabs -->
+        <div class="demos-tabs">
+          <button class="demo-tab active" data-demo="0">
+            <i class="fa-solid fa-align-left"></i>
+            <span>Markov Chain (NLP)</span>
+          </button>
+
+          <button class="demo-tab" data-demo="1">
+            <i class="fa-solid fa-brain"></i>
+            <span>MNIST Neural Network</span>
+          </button>
+
+          <button class="demo-tab" data-demo="2">
+            <i class="fa-solid fa-route"></i>
+            <span>A* Pathfinding Game</span>
+          </button>
+
+          <button class="demo-tab" data-demo="3">
+            <i class="fa-solid fa-bacterium"></i>
+            <span>Cell Automata Simulation</span>
+          </button>
+        </div>
+
+        <!-- Demo Viewer -->
+        <div class="demo-viewer" data-aos="zoom-in">
+          <div class="demo-slides">
+            <!-- Demo Slide 1 -->
+            <div class="demo-slide active" data-demo-index="0">
+              <div class="demo-header">
+                <h3>Markov Chain (NLP)</h3>
+                <p>A simple demo of a Markov Chain for text generation.</p>
+                <div class="demo-actions">
+                  <button class="demo-reload" title="Reload Demo">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </button>
+                  <a
+                    href="assets/demos/markov-chain/index.html"
+                    target="_blank"
+                    class="demo-fullscreen"
+                    title="Open in New Tab">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="demo-frame-container">
+                <iframe
+                  src="assets/demos/markov-chain/index.html"
+                  frameborder="0"
+                  allowfullscreen
+                  class="demo-iframe"
+                  title="Demo 1">
+                </iframe>
+                <div class="demo-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <p>Loading demo...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Demo Slide 2 -->
+            <div class="demo-slide" data-demo-index="1">
+              <div class="demo-header">
+                <h3>MNIST Neural Network</h3>
+                <p>
+                  An interactive demo of a neural network trained on the MNIST
+                  dataset.
+                </p>
+                <div class="demo-actions">
+                  <button class="demo-reload" title="Reload Demo">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </button>
+                  <a
+                    href="assets/demos/mnist/index.html"
+                    target="_blank"
+                    class="demo-fullscreen"
+                    title="Open in New Tab">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="demo-frame-container">
+                <iframe
+                  src="assets/demos/mnist/index.html"
+                  frameborder="0"
+                  allowfullscreen
+                  class="demo-iframe"
+                  title="Demo 2"
+                  loading="lazy">
+                </iframe>
+                <div class="demo-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <p>Loading demo...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Demo Slide 3 -->
+            <div class="demo-slide" data-demo-index="2">
+              <div class="demo-header">
+                <h3>A* Pathfinding Game</h3>
+                <p>An interactive demo game of the A* pathfinding algorithm.</p>
+                <div class="demo-actions">
+                  <button class="demo-reload" title="Reload Demo">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </button>
+                  <a
+                    href="assets/demos/a-star/index.html"
+                    target="_blank"
+                    class="demo-fullscreen"
+                    title="Open in New Tab">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="demo-frame-container">
+                <iframe
+                  src="assets/demos/a-star/index.html"
+                  frameborder="0"
+                  allowfullscreen
+                  class="demo-iframe"
+                  title="Demo 3"
+                  loading="lazy">
+                </iframe>
+                <div class="demo-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <p>Loading demo...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Demo Slide 4 -->
+            <div class="demo-slide" data-demo-index="3">
+              <div class="demo-header">
+                <h3>Cell Automata Simulation</h3>
+                <p>An interactive demo of a cellular automata simulation.</p>
+                <div class="demo-actions">
+                  <button class="demo-reload" title="Reload Demo">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </button>
+                  <a
+                    href="assets/demos/automata-cell/index.html"
+                    target="_blank"
+                    class="demo-fullscreen"
+                    title="Open in New Tab">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="demo-frame-container">
+                <iframe
+                  src="assets/demos/automata-cell/index.html"
+                  frameborder="0"
+                  allowfullscreen
+                  class="demo-iframe"
+                  title="Demo 4"
+                  loading="lazy">
+                </iframe>
+                <div class="demo-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <p>Loading demo...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button class="demo-nav-btn demo-prev" aria-label="Previous Demo">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="demo-nav-btn demo-next" aria-label="Next Demo">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Demo Info Cards -->
+        <div class="demo-info-grid">
+          <div class="demo-info-card" data-aos="fade-up">
+            <i class="fa-solid fa-laptop-code"></i>
+            <h4>Fully Interactive</h4>
+            <p>Experience the projects in action with full functionality</p>
+          </div>
+          <div class="demo-info-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h4>Safe Sandbox</h4>
+            <p>All demos run in isolated environments for security</p>
+          </div>
+          <div class="demo-info-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa-solid fa-code"></i>
+            <h4>Real Code</h4>
+            <p>These are actual working implementations, not mockups</p>
+          </div>
+        </div>
       </div>
     </section>
 

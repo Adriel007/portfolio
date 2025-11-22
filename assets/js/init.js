@@ -202,4 +202,155 @@ window.addEventListener("load", function () {
   initCarousels();
 
   // --- FIM DA LÓGICA DO CAROUSEL ---
+
+  // --- INÍCIO DA LÓGICA DOS DEMOS ---
+
+  function initDemos() {
+    const demoTabs = document.querySelectorAll(".demo-tab");
+    const demoSlides = document.querySelectorAll(".demo-slide");
+    const prevBtn = document.querySelector(".demo-prev");
+    const nextBtn = document.querySelector(".demo-next");
+    let currentDemo = 0;
+
+    // Configurar event listeners de load para cada iframe apenas uma vez
+    demoSlides.forEach((slide) => {
+      const iframe = slide.querySelector(".demo-iframe");
+      const loading = slide.querySelector(".demo-loading");
+
+      if (iframe && loading) {
+        // Verificar se o iframe já está carregado (caso tenha carregado antes do script)
+        const isIframeLoaded =
+          iframe.contentDocument || iframe.contentWindow?.document;
+
+        if (isIframeLoaded) {
+          try {
+            // Se conseguimos acessar o documento, significa que está carregado
+            const iframeDoc =
+              iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc.readyState === "complete") {
+              iframe.dataset.loaded = "true";
+              loading.style.opacity = "0";
+              loading.style.display = "none";
+            } else {
+              iframe.dataset.loaded = "false";
+            }
+          } catch (e) {
+            // Cross-origin, não conseguimos verificar, assumir não carregado
+            iframe.dataset.loaded = "false";
+          }
+        } else {
+          iframe.dataset.loaded = "false";
+        }
+
+        iframe.addEventListener("load", function () {
+          // Marcar iframe como carregado
+          iframe.dataset.loaded = "true";
+
+          setTimeout(() => {
+            loading.style.opacity = "0";
+            setTimeout(() => {
+              loading.style.display = "none";
+            }, 300);
+          }, 500);
+        });
+      }
+    });
+
+    function showDemo(index) {
+      // Atualizar slides
+      demoSlides.forEach((slide) => slide.classList.remove("active"));
+      demoTabs.forEach((tab) => tab.classList.remove("active"));
+
+      if (index >= demoSlides.length) currentDemo = 0;
+      if (index < 0) currentDemo = demoSlides.length - 1;
+
+      demoSlides[currentDemo].classList.add("active");
+      demoTabs[currentDemo].classList.add("active");
+
+      // Verificar se o iframe já foi carregado
+      const iframe = demoSlides[currentDemo].querySelector(".demo-iframe");
+      const loading = demoSlides[currentDemo].querySelector(".demo-loading");
+
+      if (iframe && loading) {
+        // Se o iframe já foi carregado anteriormente, esconder loading imediatamente
+        if (iframe.dataset.loaded === "true") {
+          loading.style.display = "none";
+          loading.style.opacity = "0";
+        }
+      }
+    }
+
+    // Event listeners para tabs
+    demoTabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        currentDemo = index;
+        showDemo(currentDemo);
+      });
+    });
+
+    // Event listeners para botões de navegação
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        currentDemo--;
+        if (currentDemo < 0) currentDemo = demoSlides.length - 1;
+        showDemo(currentDemo);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        currentDemo++;
+        if (currentDemo >= demoSlides.length) currentDemo = 0;
+        showDemo(currentDemo);
+      });
+    }
+
+    // Botões de reload
+    const reloadButtons = document.querySelectorAll(".demo-reload");
+    reloadButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const slide = button.closest(".demo-slide");
+        const iframe = slide.querySelector(".demo-iframe");
+        const loading = slide.querySelector(".demo-loading");
+
+        if (loading) {
+          loading.style.display = "flex";
+          loading.style.opacity = "1";
+        }
+
+        if (iframe) {
+          // Marcar como não carregado para reexibir o loading
+          iframe.dataset.loaded = "false";
+          iframe.src = iframe.src;
+        }
+      });
+    });
+
+    // Suporte para teclado
+    document.addEventListener("keydown", (e) => {
+      if (document.querySelector(".demos-section")) {
+        if (e.key === "ArrowLeft") {
+          currentDemo--;
+          if (currentDemo < 0) currentDemo = demoSlides.length - 1;
+          showDemo(currentDemo);
+        } else if (e.key === "ArrowRight") {
+          currentDemo++;
+          if (currentDemo >= demoSlides.length) currentDemo = 0;
+          showDemo(currentDemo);
+        }
+      }
+    });
+
+    // Inicializar primeiro demo
+    if (demoSlides.length > 0) {
+      showDemo(0);
+    }
+  }
+
+  // Inicializar demos se a seção existir
+  if (document.querySelector(".demos-section")) {
+    initDemos();
+  }
+
+  // --- FIM DA LÓGICA DOS DEMOS ---
 });

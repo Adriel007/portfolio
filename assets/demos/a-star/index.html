@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A* 3D Visualization</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #111;
+        font-family: sans-serif;
+      }
+      #info {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        color: #eee;
+        pointer-events: none;
+        text-shadow: 0 0 5px #000;
+      }
+      b {
+        color: #4db8ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info">
+      Click: <b>Create/Remove Walls</b> | Space: <b>Start Search</b> | R:
+      <b>Reset</b>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://esm.sh/three@0.160.0",
+          "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const SIZE = 20;
+      const SPACING = 1.1;
+      const COLORS = {
+        base: 0x222222,
+        wall: 0xffffff,
+        start: 0x00ff88,
+        end: 0xff0055,
+        open: 0x4db8ff,
+        closed: 0x884dff,
+        path: 0xffd700,
+      };
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x111111);
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(0, 35, 25);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      dirLight.position.set(10, 20, 10);
+      scene.add(ambient, dirLight);
+
+      let grid = [],
+        openSet = [],
+        closedSet = [],
+        path = [];
+      let startNode,
+        endNode,
+        running = false,
+        finished = false;
+
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const matBase = new THREE.MeshLambertMaterial({ color: COLORS.base });
+
+      function initGrid() {
+        grid.forEach((row) => row.forEach((n) => scene.remove(n.mesh)));
+        grid = [];
+        openSet = [];
+        closedSet = [];
+        path = [];
+        finished = false;
+        running = false;
+
+        const offset = (SIZE * SPACING) / 2;
+
+        for (let x = 0; x < SIZE; x++) {
+          grid[x] = [];
+          for (let z = 0; z < SIZE; z++) {
+            const mesh = new THREE.Mesh(geometry, matBase.clone());
+            mesh.position.set(x * SPACING - offset, 0, z * SPACING - offset);
+            scene.add(mesh);
+
+            grid[x][z] = {
+              x,
+              z,
+              mesh,
+              wall: false,
+              f: 0,
+              g: 0,
+              h: 0,
+              parent: null,
+            };
+            mesh.userData = { node: grid[x][z] };
+          }
+        }
+
+        startNode = grid[0][0];
+        endNode = grid[SIZE - 1][SIZE - 1];
+        startNode.wall = false;
+        endNode.wall = false;
+
+        updateColor(startNode, COLORS.start);
+        updateColor(endNode, COLORS.end);
+        openSet.push(startNode);
+      }
+
+      function heuristic(a, b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.z - b.z);
+      }
+
+      function updateColor(node, colorHex) {
+        node.mesh.material.color.setHex(colorHex);
+        if (colorHex === COLORS.wall) node.mesh.scale.y = 1.5;
+        else if (colorHex === COLORS.path) node.mesh.scale.y = 0.5;
+        else node.mesh.scale.y = 1;
+      }
+
+      function stepAStar() {
+        if (openSet.length === 0) {
+          running = false;
+          console.log("Sem solução");
+          return;
+        }
+
+        let lowestIndex = 0;
+        for (let i = 0; i < openSet.length; i++) {
+          if (openSet[i].f < openSet[lowestIndex].f) lowestIndex = i;
+        }
+        let current = openSet[lowestIndex];
+
+        if (current === endNode) {
+          let temp = current;
+          path = [];
+          while (temp.parent) {
+            path.push(temp);
+            temp = temp.parent;
+          }
+          running = false;
+          finished = true;
+          return;
+        }
+
+        openSet.splice(lowestIndex, 1);
+        closedSet.push(current);
+        if (current !== startNode) updateColor(current, COLORS.closed);
+
+        const neighbors = [];
+        const { x, z } = current;
+        if (x < SIZE - 1) neighbors.push(grid[x + 1][z]);
+        if (x > 0) neighbors.push(grid[x - 1][z]);
+        if (z < SIZE - 1) neighbors.push(grid[x][z + 1]);
+        if (z > 0) neighbors.push(grid[x][z - 1]);
+
+        for (let neighbor of neighbors) {
+          if (!closedSet.includes(neighbor) && !neighbor.wall) {
+            let tempG = current.g + 1;
+            let newPath = false;
+
+            if (openSet.includes(neighbor)) {
+              if (tempG < neighbor.g) {
+                neighbor.g = tempG;
+                newPath = true;
+              }
+            } else {
+              neighbor.g = tempG;
+              newPath = true;
+              openSet.push(neighbor);
+              if (neighbor !== endNode) updateColor(neighbor, COLORS.open);
+            }
+
+            if (newPath) {
+              neighbor.h = heuristic(neighbor, endNode);
+              neighbor.f = neighbor.g + neighbor.h;
+              neighbor.parent = current;
+            }
+          }
+        }
+      }
+
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      window.addEventListener("mousedown", (e) => {
+        if (running || finished) return;
+
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObjects(scene.children);
+        if (intersects.length > 0) {
+          const node = intersects[0].object.userData.node;
+          if (node && node !== startNode && node !== endNode) {
+            node.wall = !node.wall;
+            updateColor(node, node.wall ? COLORS.wall : COLORS.base);
+          }
+        }
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          if (finished) initGrid();
+          else running = !running;
+        }
+        if (e.code === "KeyR") initGrid();
+      });
+
+      initGrid();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+
+        if (running) stepAStar();
+
+        if (finished && path.length > 0) {
+          const node = path.pop();
+          if (node !== endNode && node !== startNode)
+            updateColor(node, COLORS.path);
+        }
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
+</html>
