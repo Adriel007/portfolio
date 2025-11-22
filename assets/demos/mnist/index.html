@@ -140,9 +140,23 @@
 
       async function loadModel() {
         try {
-          model = await tf.loadGraphModel("model.json");
+          const isInIframe = window.self !== window.top;
+
+          let modelPath = "model.json";
+
+          console.log("Attempting to load model | In iframe:", isInIframe);
+
+          try {
+            model = await tf.loadGraphModel(modelPath);
+            console.log("✓ Model loaded successfully with path:", modelPath);
+          } catch (firstError) {
+            console.log("First attempt failed, trying alternative path...");
+            modelPath = "./assets/demos/mnist/model.json";
+            model = await tf.loadGraphModel(modelPath);
+            console.log("✓ Model loaded successfully with path:", modelPath);
+          }
+
           document.getElementById("loading-overlay").style.display = "none";
-          console.log("✓ Model loaded successfully!");
         } catch (e) {
           console.error("Erro ao carregar:", e);
           document.getElementById("loading-overlay").innerHTML =
