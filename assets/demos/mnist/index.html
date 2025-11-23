@@ -142,19 +142,34 @@
         try {
           const isInIframe = window.self !== window.top;
 
-          let modelPath = "model.json";
+          // Determina o caminho base correto
+          let modelPath;
 
-          console.log("Attempting to load model | In iframe:", isInIframe);
+          if (isInIframe) {
+            // Quando em iframe, usa o caminho completo relativo à raiz do site
+            const currentPath = window.location.pathname;
+            console.log("Current path:", currentPath);
 
-          try {
-            model = await tf.loadGraphModel(modelPath);
-            console.log("✓ Model loaded successfully with path:", modelPath);
-          } catch (firstError) {
-            console.log("First attempt failed, trying alternative path...");
-            modelPath = "./assets/demos/mnist/model.json";
-            model = await tf.loadGraphModel(modelPath);
-            console.log("✓ Model loaded successfully with path:", modelPath);
+            // Se o path contém 'portfolio', estamos no GitHub Pages
+            if (currentPath.includes("/portfolio/")) {
+              modelPath = "/portfolio/assets/demos/mnist/model.json";
+            } else {
+              modelPath = "/assets/demos/mnist/model.json";
+            }
+          } else {
+            // Quando standalone, usa caminho relativo local
+            modelPath = "model.json";
           }
+
+          console.log(
+            "Attempting to load model | In iframe:",
+            isInIframe,
+            "| Path:",
+            modelPath
+          );
+
+          model = await tf.loadGraphModel(modelPath);
+          console.log("✓ Model loaded successfully with path:", modelPath);
 
           document.getElementById("loading-overlay").style.display = "none";
         } catch (e) {
