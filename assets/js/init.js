@@ -1,4 +1,248 @@
+// ==========================================
+// DEVICE PERFORMANCE DETECTION SYSTEM
+// ==========================================
+const PerformanceChecker = {
+  specs: {
+    cores: navigator.hardwareConcurrency || 2,
+    memoryAPI: navigator.deviceMemory, // Pode ser undefined ou limitado
+    connection: navigator.connection?.effectiveType || "unknown",
+    isMobile:
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ),
+    gpu: null,
+    performanceScore: 0,
+  },
+
+  thresholds: {
+    minCores: 2, // Ajustado para ser mais realista
+    minPerformanceScore: 30, // Score baseado em múltiplos fatores
+  },
+
+  async detectGPU() {
+    try {
+      const canvas = document.createElement("canvas");
+      const gl =
+        canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+      if (gl) {
+        const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+        if (debugInfo) {
+          return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        }
+      }
+    } catch (e) {
+      console.warn("GPU detection failed:", e);
+    }
+    return "Unknown";
+  },
+
+  calculatePerformanceScore() {
+    let score = 0;
+
+    // Score por CPU cores (0-40 pontos)
+    const cores = this.specs.cores;
+    if (cores >= 8) score += 40;
+    else if (cores >= 6) score += 35;
+    else if (cores >= 4) score += 25;
+    else if (cores >= 2) score += 15;
+    else score += 5;
+
+    // Score por memória (0-30 pontos)
+    // Nota: deviceMemory é limitado e não confiável
+    // Se não estiver disponível, assumimos que é desktop decente
+    const memory = this.specs.memoryAPI;
+    if (memory === undefined || memory >= 8) {
+      score += 30; // Sem API ou valor alto = provavelmente bom
+    } else if (memory >= 4) {
+      score += 20;
+    } else if (memory >= 2) {
+      score += 10;
+    } else {
+      score += 5;
+    }
+
+    // Penalidade para mobile (-20 pontos)
+    if (this.specs.isMobile) {
+      score -= 20;
+    }
+
+    // Bonus por conexão boa (0-10 pontos)
+    const conn = this.specs.connection;
+    if (conn === "4g" || conn === "unknown") score += 10;
+    else if (conn === "3g") score += 5;
+
+    // Bonus por GPU (0-20 pontos) - será adicionado depois
+    const gpu = this.specs.gpu;
+    if (gpu && gpu !== "Unknown") {
+      // GPUs dedicadas geralmente têm NVIDIA, AMD, ou Intel Iris
+      if (/NVIDIA|GeForce|RTX|GTX|AMD|Radeon|RX/i.test(gpu)) {
+        score += 20;
+      } else if (/Intel.*Iris|Intel.*Xe/i.test(gpu)) {
+        score += 15;
+      } else if (/Intel/i.test(gpu)) {
+        score += 10;
+      }
+    }
+
+    return Math.max(0, Math.min(100, score));
+  },
+
+  async checkPerformance() {
+    // Detecta GPU
+    this.specs.gpu = await this.detectGPU();
+
+    // Calcula score de performance
+    this.specs.performanceScore = this.calculatePerformanceScore();
+
+    const { cores, memoryAPI, performanceScore, isMobile } = this.specs;
+    const { minCores, minPerformanceScore } = this.thresholds;
+
+    console.log("📊 Device Specs:", this.specs);
+    console.log("🎯 Performance Score:", performanceScore, "/100");
+
+    // Critérios mais inteligentes
+    // Fraco se: mobile OU (poucos cores E score baixo)
+    const weakDevice =
+      performanceScore < minPerformanceScore ||
+      (isMobile && cores < 4) ||
+      cores < minCores;
+
+    return {
+      isWeak: weakDevice,
+      specs: this.specs,
+      recommendations: this.getRecommendations(weakDevice),
+    };
+  },
+
+  getRecommendations(isWeak) {
+    if (!isWeak) {
+      return "Your device has adequate specifications. Enjoy the demos!";
+    }
+    return "We recommend using a device with better performance for an optimal experience.";
+  },
+
+  blockDemos() {
+    const demoContent = document.querySelector(".demo-content");
+    if (demoContent) {
+      demoContent.classList.add("demos-blocked");
+
+      // Remove src dos iframes para não carregar
+      const iframes = demoContent.querySelectorAll("iframe");
+      iframes.forEach((iframe) => {
+        iframe.dataset.src = iframe.src;
+        iframe.removeAttribute("src");
+      });
+    }
+  },
+
+  enableDemos() {
+    const demoContent = document.querySelector(".demo-content");
+    if (demoContent) {
+      demoContent.classList.remove("demos-blocked");
+
+      // Restaura src dos iframes
+      const iframes = demoContent.querySelectorAll("iframe");
+      iframes.forEach((iframe) => {
+        if (iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+        }
+      });
+    }
+  },
+
+  showWarning() {
+    const warning = document.getElementById("performance-warning");
+    if (warning) {
+      warning.classList.remove("hidden");
+
+      // Preenche informações do dispositivo
+      const cpuInfo = document.getElementById("cpu-cores-info");
+      const memInfo = document.getElementById("memory-info");
+      const scoreInfo = document.getElementById("score-info");
+
+      if (cpuInfo) {
+        cpuInfo.textContent = `CPU: ${this.specs.cores} core${
+          this.specs.cores !== 1 ? "s" : ""
+        }`;
+      }
+
+      if (memInfo) {
+        const memAPI = this.specs.memoryAPI;
+        let memText = "";
+        if (memAPI !== undefined) {
+          memText = `RAM: ~${memAPI}GB (limited by API)`;
+        } else {
+          memText = `RAM: NNot detectable (likely desktop)`;
+        }
+        memInfo.textContent = memText;
+      }
+
+      if (scoreInfo) {
+        const score = this.specs.performanceScore;
+        const emoji = score >= 60 ? "🟢" : score >= 40 ? "🟡" : "🔴";
+        scoreInfo.textContent = `${emoji} Score: ${score}/100`;
+      }
+
+      // Adiciona info da GPU se disponível
+      if (this.specs.gpu && this.specs.gpu !== "Unknown") {
+        const gpuInfo = document.createElement("span");
+        gpuInfo.textContent = `GPU: ${this.specs.gpu.substring(0, 40)}...`;
+        gpuInfo.className = "gpu-info";
+        const specsContainer = document.querySelector(".device-specs");
+        if (specsContainer && !specsContainer.querySelector(".gpu-info")) {
+          specsContainer.appendChild(gpuInfo);
+        }
+      }
+    }
+  },
+
+  hideWarning() {
+    const warning = document.getElementById("performance-warning");
+    if (warning) {
+      warning.classList.add("hidden");
+    }
+  },
+
+  async init() {
+    const result = await this.checkPerformance();
+
+    if (result.isWeak) {
+      console.warn("⚠️ Device with limited specifications detected");
+      this.showWarning();
+      this.blockDemos();
+
+      // Botão para habilitar demos mesmo assim
+      const enableBtn = document.getElementById("enable-demos-btn");
+      if (enableBtn) {
+        enableBtn.addEventListener("click", () => {
+          this.enableDemos();
+          this.hideWarning();
+          console.log("✅ Demos enabled by user");
+        });
+      }
+
+      // Botão para dismissar warning sem habilitar
+      const dismissBtn = document.getElementById("dismiss-warning-btn");
+      if (dismissBtn) {
+        dismissBtn.addEventListener("click", () => {
+          this.hideWarning();
+        });
+      }
+    } else {
+      console.log("✅ Device with adequate specifications detected");
+      console.log("🎯 Performance Score:", this.specs.performanceScore, "/100");
+      this.hideWarning();
+    }
+  },
+};
+
+// ==========================================
+// MAIN INITIALIZATION
+// ==========================================
 window.addEventListener("load", function () {
+  // Inicia o sistema de detecção de performance
+  PerformanceChecker.init();
+
   const mediaQuery = window.matchMedia(
     "(max-width: 768px) and (orientation: portrait)"
   );
@@ -156,7 +400,7 @@ window.addEventListener("load", function () {
       }
 
       function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, 4000);
+        autoPlayInterval = setInterval(nextSlide, 10_000);
       }
 
       function stopAutoPlay() {
