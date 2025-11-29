@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fardo-Mini</title>
+    <style>
+      :root {
+        --primary-green: #00ff41;
+        --dark-bg: #050505;
+        --panel-bg: #0a0a0a;
+        --border-color: #1a1a1a;
+        --glow: 0 0 10px rgba(0, 255, 65, 0.2);
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: var(--dark-bg);
+        color: #e0e0e0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        height: 100vh;
+      }
+
+      #app-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      #chat-section {
+        width: 400px;
+        min-width: 350px;
+        display: flex;
+        flex-direction: column;
+        background: var(--panel-bg);
+        border-right: 1px solid var(--border-color);
+        padding: 20px;
+        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+      }
+
+      header {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--primary-green);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: var(--glow);
+      }
+
+      #status {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 5px;
+        height: 20px;
+      }
+
+      #chat-container {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      #chat-container::-webkit-scrollbar {
+        width: 5px;
+      }
+      #chat-container::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 3px;
+      }
+
+      .message {
+        padding: 12px 16px;
+        border-radius: 8px;
+        max-width: 85%;
+        line-height: 1.5;
+        font-size: 0.95rem;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .message.user {
+        align-self: flex-end;
+        background-color: #1e1e1e;
+        border: 1px solid #333;
+        color: #fff;
+      }
+
+      .message.bot {
+        align-self: flex-start;
+        background-color: rgba(0, 255, 65, 0.05);
+        border: 1px solid rgba(0, 255, 65, 0.2);
+        color: #cfcfcf;
+      }
+
+      .message.error {
+        color: #ff4444;
+        border: 1px solid #500;
+      }
+
+      #input-area {
+        display: flex;
+        gap: 10px;
+        position: relative;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        background: #111;
+        border: 1px solid #333;
+        color: white;
+        padding: 12px;
+        border-radius: 6px;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      input[type="text"]:focus {
+        border-color: var(--primary-green);
+        box-shadow: 0 0 8px rgba(0, 255, 65, 0.1);
+      }
+
+      button {
+        background: var(--primary-green);
+        color: #000;
+        border: none;
+        padding: 0 20px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.1s, background 0.2s;
+      }
+
+      button:hover:not(:disabled) {
+        background: #33ff66;
+        transform: translateY(-1px);
+      }
+
+      button:disabled {
+        background: #333;
+        color: #666;
+        cursor: not-allowed;
+      }
+
+      #loader {
+        display: none;
+        position: absolute;
+        top: -25px;
+        left: 0;
+        font-size: 0.8rem;
+        color: var(--primary-green);
+      }
+
+      #canvas-container {
+        flex: 1;
+        position: relative;
+        background: radial-gradient(circle at center, #111 0%, #000 100%);
+        cursor: crosshair;
+      }
+
+      #canvas-container .click-ripple {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid var(--primary-green);
+        box-shadow: var(--glow);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        animation: ripple 350ms ease-out forwards;
+        opacity: 0.9;
+      }
+
+      @keyframes ripple {
+        from {
+          transform: translate(-50%, -50%) scale(0.6);
+          opacity: 0.9;
+        }
+        to {
+          transform: translate(-50%, -50%) scale(4.2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        #app-container {
+          flex-direction: column-reverse;
+        }
+        #chat-section {
+          width: 100%;
+          height: 60%;
+          border-right: none;
+          border-top: 1px solid #333;
+        }
+        #canvas-container {
+          height: 40%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-container">
+      <section id="chat-section">
+        <header>
+          <h1>Fardo-Mini</h1>
+          <div id="status">Initializing...</div>
+        </header>
+
+        <div id="chat-container">
+          <div class="message bot">
+            Hello! I am Fardo-Mini. Please wait while I load my neurons...
+          </div>
+        </div>
+
+        <form id="input-area">
+          <div id="loader">Thinking...</div>
+          <input
+            type="text"
+            id="user-input"
+            placeholder=""
+            disabled
+            autocomplete="off" />
+          <button type="submit" id="send-btn" disabled>Send</button>
+        </form>
+      </section>
+
+      <div id="canvas-container"></div>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+      const words = [
+        "What is artificial intelligence?",
+        "Define quantum computing.",
+        "Explain black holes.",
+        "Talk about World War II.",
+        "What is photosynthesis?",
+        "What is the capital of France?",
+        "Tell me a joke.",
+        "How does a car engine work?",
+        "Describe the water cycle.",
+        "What causes earthquakes?",
+        "Who wrote '1984'?",
+      ];
+      new Typed("#user-input", {
+        strings: words,
+        typeSpeed: 55,
+        backSpeed: 30,
+        backDelay: 1600,
+        loop: true,
+        attr: "placeholder",
+      });
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+
+      const container = document.getElementById("canvas-container");
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x050505, 0.02);
+
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.z = 8;
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.toneMapping = THREE.ReinhardToneMapping;
+      container.appendChild(renderer.domElement);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404040, 2);
+      scene.add(ambientLight);
+
+      const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+
+      // Rim light
+      const rimLight = new THREE.SpotLight(0x00ff41, 5);
+      rimLight.position.set(-5, 5, -5);
+      rimLight.lookAt(0, 0, 0);
+      scene.add(rimLight);
+
+      // Creature
+      const creatureGroup = new THREE.Group();
+      scene.add(creatureGroup);
+
+      // Body
+      const bodyGeo = new THREE.SphereGeometry(1.5, 64, 64);
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        roughness: 1.0,
+        metalness: 0.0,
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      creatureGroup.add(body);
+
+      // Materials
+      const pureWhiteMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const greenNeonMat = new THREE.MeshBasicMaterial({
+        color: 0x00ff41,
+        side: THREE.DoubleSide,
+      });
+
+      // Eyes
+      function createEye(x) {
+        const eyeGroup = new THREE.Group();
+        eyeGroup.position.set(x, 0.35, 1.45);
+
+        // Angle adjustment
+        eyeGroup.rotation.y = x * 0.2;
+        eyeGroup.rotation.x = -0.1;
+
+        // Pupil
+        const pupil = new THREE.Mesh(
+          new THREE.CircleGeometry(0.18, 32),
+          pureWhiteMat
+        );
+        pupil.position.z = 0.02;
+        eyeGroup.add(pupil);
+
+        // Outer ring
+        const ring = new THREE.Mesh(
+          new THREE.RingGeometry(0.23, 0.33, 32),
+          pureWhiteMat
+        );
+        ring.position.z = 0.01;
+        eyeGroup.add(ring);
+
+        // Eye light
+        const eyeLight = new THREE.PointLight(0x00ff41, 3, 5, 2);
+        eyeLight.position.set(0, 0, 0.2);
+        eyeGroup.add(eyeLight);
+
+        return eyeGroup;
+      }
+
+      const leftEye = createEye(-0.6);
+      const rightEye = createEye(0.6);
+      creatureGroup.add(leftEye);
+      creatureGroup.add(rightEye);
+
+      // Mouth
+      const mouthGeo = new THREE.TorusGeometry(
+        0.6,
+        0.03,
+        16,
+        64,
+        Math.PI * 0.5
+      );
+      const mouth = new THREE.Mesh(mouthGeo, pureWhiteMat);
+
+      // Position
+      mouth.position.set(0, -0.35, 1.55);
+
+      // Rotation
+      mouth.rotation.set(0.3, 0, Math.PI * 3.25);
+
+      // Mouth lighting
+      const mouthLight = new THREE.PointLight(0x00ff41, 3, 5, 2);
+
+      mouthLight.position.set(0.5, 0.5, 0.2);
+
+      mouth.add(mouthLight);
+
+      creatureGroup.add(mouth);
+
+      // Animation and interaction setup
+      const clock = new THREE.Clock();
+      let isPaused = false;
+
+      const targetPos = new THREE.Vector3(0, 0, 0);
+      const velocity = new THREE.Vector3(0, 0, 0);
+      let spinVelocity = 0;
+
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2(-100, -100);
+      const mouseWorldPos = new THREE.Vector3();
+      let isHovering = false;
+
+      let blinkTimer = 0;
+      let nextBlinkTime = Math.random() * 3 + 2;
+      let isBlinking = false;
+      let blinkDuration = 0.15;
+
+      const MAX_PUPIL_OFFSET = 0.08;
+
+      // Events
+      window.addEventListener("mousemove", (event) => {
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        isHovering = true;
+
+        // Reset pupils to center after 2s without movement
+        clearTimeout(window.resetPupilTimeout);
+        window.resetPupilTimeout = setTimeout(() => {
+          isHovering = false;
+        }, 2_000);
+      });
+
+      function onMouseClick() {
+        // Jump impulse
+        const JUMP_IMPULSE = 0.2;
+        const MAX_UP_VEL = 0.5;
+        velocity.y = Math.min(velocity.y + JUMP_IMPULSE, MAX_UP_VEL);
+
+        // Small cursor ripple effect at click position
+        const rect = container.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const ripple = document.createElement("div");
+        ripple.className = "click-ripple";
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        container.appendChild(ripple);
+
+        // Remove ripple after animation
+        ripple.addEventListener("animationend", () => {
+          ripple.remove();
+        });
+
+        // No spin on click
+        spinVelocity = 0;
+        // Trigger blink
+        triggerBlink();
+      }
+
+      function triggerBlink() {
+        isBlinking = true;
+        blinkTimer = 0;
+      }
+
+      container.addEventListener("click", onMouseClick);
+
+      // Wander timer
+      let wanderTimer = 0;
+
+      // Update eyes
+      function updateEye(eyeGroup, targetWorldPos) {
+        const pupil = eyeGroup.children[0];
+        if (!pupil) return;
+        // Convert target world position to eye local space
+        const localTarget = targetWorldPos.clone();
+        eyeGroup.worldToLocal(localTarget);
+        // Desired local X/Y
+        const targetX = localTarget.x;
+        const targetY = localTarget.y;
+        // Clamp movement radius
+        const distance = Math.sqrt(targetX * targetX + targetY * targetY);
+        const maxDist = MAX_PUPIL_OFFSET;
+
+        let finalX = targetX;
+        let finalY = targetY;
+
+        if (distance > maxDist) {
+          const ratio = maxDist / distance;
+          finalX *= ratio;
+          finalY *= ratio;
+        }
+
+        // Smooth interpolation
+        pupil.position.x += (finalX - pupil.position.x) * 0.2;
+        pupil.position.y += (finalY - pupil.position.y) * 0.2;
+      }
+
+      // Render loop
+
+      function animate() {
+        requestAnimationFrame(animate);
+        // Cap delta to avoid jumps on tab switches
+        const delta = Math.min(clock.getDelta(), 0.05);
+        if (isPaused) {
+          renderer.render(scene, camera);
+          return;
+        }
+        const time = clock.getElapsedTime();
+
+        // Raycaster
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(body);
+        document.body.style.cursor = "default";
+        container.style.cursor = isHovering ? "pointer" : "crosshair";
+
+        // Project mouse to 3D plane in front of creature
+        const vec = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+        vec.unproject(camera);
+        vec.sub(camera.position).normalize();
+        const distance = -camera.position.z / vec.z;
+        mouseWorldPos.copy(camera.position).add(vec.multiplyScalar(distance));
+
+        // Eyes follow mouse
+        if (isHovering) {
+          updateEye(leftEye, mouseWorldPos);
+          updateEye(rightEye, mouseWorldPos);
+          // Subtle head rotation
+          const targetRotationX = -mouse.y * 0.2;
+          const targetRotationY = mouse.x * 0.2;
+          creatureGroup.rotation.x +=
+            (targetRotationX - creatureGroup.rotation.x) * 5 * delta;
+          creatureGroup.rotation.y +=
+            (targetRotationY - creatureGroup.rotation.y) * 5 * delta;
+          // Slight mouth open
+          mouth.scale.setScalar(
+            THREE.MathUtils.lerp(mouth.scale.x, 1.2, 5 * delta)
+          );
+        } else {
+          // Return pupils to center
+          const pupilL = leftEye.children[0];
+          const pupilR = rightEye.children[0];
+          pupilL.position.x += (0 - pupilL.position.x) * 0.1;
+          pupilL.position.y += (0 - pupilL.position.y) * 0.1;
+          pupilR.position.x += (0 - pupilR.position.x) * 0.1;
+          pupilR.position.y += (0 - pupilR.position.y) * 0.1;
+          // Ease head rotation and mouth to neutral
+          creatureGroup.rotation.x *= 0.95;
+          creatureGroup.rotation.y *= 0.95;
+          creatureGroup.rotation.z *= 0.95;
+          mouth.scale.setScalar(
+            THREE.MathUtils.lerp(mouth.scale.x, 1.0, 5 * delta)
+          );
+        }
+
+        // Wander & physics movement
+        wanderTimer += delta;
+        if (!isHovering && wanderTimer > 4.0) {
+          wanderTimer = 0;
+          targetPos.set(
+            (Math.random() - 0.5) * 3,
+            (Math.random() - 0.5) * 1.5,
+            (Math.random() - 0.5) * 1
+          );
+        }
+
+        // Interpolate creature position
+        if (!isHovering) {
+          creatureGroup.position.x +=
+            (targetPos.x - creatureGroup.position.x) * 2.0 * delta;
+          creatureGroup.position.y +=
+            (targetPos.y - creatureGroup.position.y) * 2.0 * delta;
+          creatureGroup.position.z +=
+            (targetPos.z - creatureGroup.position.z) * 2.0 * delta;
+        }
+
+        // Gravity & spring physics on Y
+        velocity.y -= 0.5 * delta;
+        const baseHeight = isHovering ? 0 : targetPos.y;
+        const springForce = (baseHeight - creatureGroup.position.y) * 3.0;
+        velocity.y += springForce * delta;
+        velocity.y *= 0.96;
+        creatureGroup.position.y += velocity.y;
+
+        // Blink & breath
+
+        // Breath scale
+        const breath = 1 + Math.sin(time * 3) * 0.02;
+
+        // Squash & stretch based on Y velocity
+        const stretch = 1 + velocity.y * 0.4;
+        const inverseStretch = 1 / stretch;
+
+        let currentScaleY = stretch * breath;
+        let currentScaleXZ = inverseStretch * breath;
+
+        // Blinking
+        blinkTimer += delta;
+        if (blinkTimer > nextBlinkTime && !isBlinking) {
+          triggerBlink();
+        }
+
+        if (isBlinking) {
+          const blinkPhase = blinkTimer / blinkDuration;
+          if (blinkPhase < 1.0) {
+            // Close then reopen
+            leftEye.scale.y = Math.max(
+              0.1,
+              Math.abs(Math.cos(blinkPhase * Math.PI))
+            );
+            rightEye.scale.y = Math.max(
+              0.1,
+              Math.abs(Math.cos(blinkPhase * Math.PI))
+            );
+          } else {
+            // End blink
+            isBlinking = false;
+            leftEye.scale.y = 1;
+            rightEye.scale.y = 1;
+            nextBlinkTime = Math.random() * 3 + 2;
+            blinkTimer = 0;
+          }
+        }
+
+        // Spin on click
+        if (spinVelocity > 0.001) {
+          creatureGroup.rotation.y += spinVelocity;
+          spinVelocity *= 0.92;
+        }
+
+        // Apply combined scales with smoothing
+        creatureGroup.scale.x = THREE.MathUtils.lerp(
+          creatureGroup.scale.x,
+          currentScaleXZ,
+          15 * delta
+        );
+        creatureGroup.scale.y = THREE.MathUtils.lerp(
+          creatureGroup.scale.y,
+          currentScaleY,
+          15 * delta
+        );
+        creatureGroup.scale.z = THREE.MathUtils.lerp(
+          creatureGroup.scale.z,
+          currentScaleXZ,
+          15 * delta
+        );
+
+        renderer.render(scene, camera);
+      }
+      // Pause physics when tab is hidden
+      document.addEventListener("visibilitychange", () => {
+        isPaused = document.hidden;
+        // Reset clock
+        clock.getDelta();
+      });
+      // Resize
+      window.addEventListener("resize", () => {
+        const width = container.clientWidth || window.innerWidth;
+        const height = container.clientHeight || window.innerHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      });
+
+      animate();
+
+      // LLM via Web Worker (keeps main thread smooth)
+      const statusEl = document.getElementById("status");
+      const chatContainer = document.getElementById("chat-container");
+      const userInput = document.getElementById("user-input");
+      const sendBtn = document.getElementById("send-btn");
+      const form = document.getElementById("input-area");
+      const loader = document.getElementById("loader");
+
+      let llmWorker = null;
+
+      function addMessage(text, sender) {
+        const div = document.createElement("div");
+        div.className = `message ${sender}`;
+        div.textContent = text;
+        chatContainer.appendChild(div);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+
+      async function setupWorker() {
+        try {
+          llmWorker = new Worker("./llm-worker.js", { type: "module" });
+        } catch (e) {
+          llmWorker = new Worker("./llm-worker.js");
+        }
+
+        llmWorker.onmessage = (e) => {
+          const { type, status, data, text, error } = e.data || {};
+          if (type === "progress") {
+            if (data?.status === "progress") {
+              const percent = data.progress ? Math.round(data.progress) : 0;
+              statusEl.textContent = `Loading... ${percent}%`;
+            } else if (data?.status === "done") {
+              statusEl.textContent = "Initializing...";
+            }
+            return;
+          }
+          if (type === "status") {
+            if (status === "downloading") {
+              statusEl.textContent =
+                "Downloading model (LaMini-Flan-T5-248M)...";
+            } else if (status === "ready") {
+              statusEl.textContent = "Fardo-Mini Online";
+              statusEl.style.color = "#00ff41";
+              userInput.disabled = false;
+              sendBtn.disabled = false;
+              userInput.focus();
+            } else if (status === "generating") {
+              loader.style.display = "block";
+            } else if (status === "idle") {
+              loader.style.display = "none";
+            }
+            return;
+          }
+          if (type === "result") {
+            addMessage(text || "", "bot");
+            userInput.disabled = false;
+            sendBtn.disabled = false;
+            userInput.focus();
+            targetPos.set(2, 0, 0);
+            return;
+          }
+          if (type === "error") {
+            loader.style.display = "none";
+            addMessage("Processing error.", "error");
+            console.error(error);
+          }
+        };
+
+        llmWorker.postMessage({ type: "init" });
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const text = userInput.value.trim();
+        if (!text || !llmWorker) return;
+
+        addMessage(text, "user");
+        userInput.value = "";
+        userInput.disabled = true;
+        sendBtn.disabled = true;
+        loader.style.display = "block";
+
+        // Visual effect: creature moves a bit closer while "thinking"
+        targetPos.set(0, 0, 2);
+        // Kick off generation in worker; main thread keeps rendering
+        llmWorker.postMessage({ type: "generate", payload: { text } });
+      });
+      setupWorker();
+    </script>
+  </body>
+</html>
