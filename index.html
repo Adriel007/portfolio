@@ -26,6 +26,13 @@
     <script src="assets/js/matrix.js" defer></script>
   </head>
   <body>
+    <div id="app-loader">
+      <div class="loader-center">
+        <div class="spinner"></div>
+        <p id="loader-status">Loading...</p>
+        <button id="force-enter" hidden>Force Enter</button>
+      </div>
+    </div>
     <!-- Matrix Background -->
     <canvas id="matrixCanvas"></canvas>
     <!-- Header -->
@@ -568,7 +575,7 @@
                 </div>
                 <div class="demo-frame-container">
                   <iframe
-                    src="assets/demos/markov-chain/index.html"
+                    data-src="assets/demos/markov-chain/index.html"
                     frameborder="0"
                     allowfullscreen
                     class="demo-iframe"
@@ -604,7 +611,7 @@
                 </div>
                 <div class="demo-frame-container">
                   <iframe
-                    src="assets/demos/mnist/index.html"
+                    data-src="assets/demos/mnist/index.html"
                     frameborder="0"
                     allowfullscreen
                     class="demo-iframe"
@@ -640,7 +647,7 @@
                 </div>
                 <div class="demo-frame-container">
                   <iframe
-                    src="assets/demos/a-star/index.html"
+                    data-src="assets/demos/a-star/index.html"
                     frameborder="0"
                     allowfullscreen
                     class="demo-iframe"
@@ -674,7 +681,7 @@
                 </div>
                 <div class="demo-frame-container">
                   <iframe
-                    src="assets/demos/automata-cell/index.html"
+                    data-src="assets/demos/automata-cell/index.html"
                     frameborder="0"
                     allowfullscreen
                     class="demo-iframe"
@@ -713,7 +720,7 @@
                 </div>
                 <div class="demo-frame-container">
                   <iframe
-                    src="assets/demos/llm/index.html"
+                    data-src="assets/demos/llm/index.html"
                     frameborder="0"
                     allowfullscreen
                     class="demo-iframe"

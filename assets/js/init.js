@@ -233,15 +233,39 @@ const PerformanceChecker = {
       console.log("🎯 Performance Score:", this.specs.performanceScore, "/100");
       this.hideWarning();
     }
+    return result;
   },
 };
 
-// ==========================================
-// MAIN INITIALIZATION
-// ==========================================
-window.addEventListener("load", function () {
-  // Inicia o sistema de detecção de performance
-  PerformanceChecker.init();
+window.addEventListener("load", async function () {
+  const loader = document.getElementById("app-loader");
+  const forceBtn = document.getElementById("force-enter");
+  const statusEl = document.getElementById("loader-status");
+  const start = performance.now();
+  const perf = await PerformanceChecker.init();
+  function hydrateDemos() {
+    document.querySelectorAll(".demo-iframe").forEach((f) => {
+      if (!f.src && f.dataset.src) f.src = f.dataset.src;
+    });
+  }
+  if (!perf.isWeak) {
+    hydrateDemos();
+  } else {
+    statusEl.textContent = "Slow Connection Detected.";
+    forceBtn.hidden = false;
+    forceBtn.onclick = () => {
+      forceBtn.hidden = true;
+      statusEl.textContent = "Loading demos...";
+      hydrateDemos();
+      setTimeout(() => loader.classList.add("hide"), 500);
+    };
+  }
+  if (!perf.isWeak) {
+    setTimeout(
+      () => loader.classList.add("hide"),
+      Math.max(200, 600 - (performance.now() - start))
+    );
+  }
 
   const mediaQuery = window.matchMedia(
     "(max-width: 768px) and (orientation: portrait)"
@@ -279,14 +303,14 @@ window.addEventListener("load", function () {
     once: true,
   });
 
-  // --- INÍCIO DA LÓGICA DO GRAFO ---
+  // START OF GRAPH LOGIC
 
   if (typeof LeaderLine === "undefined") {
     console.error("LeaderLine library not loaded.");
     return;
   }
 
-  // Opções de estilo para a linha
+  // Options for the line style
   const lineOptions = {
     color: "rgba(0, 255, 0, 0.7)",
     size: 3,
@@ -315,7 +339,7 @@ window.addEventListener("load", function () {
     lines.forEach((line) => line.remove());
     lines.length = 0;
 
-    // Conecta o nó central a todos os satélites
+    // Connect the central node to all satellites
     satelliteNodes.forEach((nodeId) => {
       const satelliteNode = document.getElementById(nodeId);
       if (centralNode && satelliteNode) {
@@ -324,11 +348,9 @@ window.addEventListener("load", function () {
     });
   }
 
-  // Espera as animações do AOS terminarem para desenhar as linhas
-  // Isso evita que as linhas sejam desenhadas na posição errada
   setTimeout(() => {
     createLines();
-  }, 1000); // 1s de delay, pode ajustar se necessário
+  }, 1000);
 
   let resizeTimer;
   window.addEventListener("resize", function () {
@@ -338,9 +360,7 @@ window.addEventListener("load", function () {
     }, 100);
   });
 
-  // --- FIM DA LÓGICA DO GRAFO ---
-
-  // --- INÍCIO DA LÓGICA DO CAROUSEL ---
+  // START OF CAROUSEL LOGIC
 
   function initCarousels() {
     const projectCards = document.querySelectorAll(".project-card");
@@ -353,7 +373,7 @@ window.addEventListener("load", function () {
       let currentSlide = 0;
       let autoPlayInterval;
 
-      // Converter <img> em divs com background-image
+      // Convert <img> to divs with background-image
       slides.forEach((slide) => {
         if (slide.tagName === "IMG") {
           const imgSrc = slide.src;
@@ -373,7 +393,7 @@ window.addEventListener("load", function () {
         }
       });
 
-      // Atualizar a referência dos slides após a conversão
+      // Update the reference to slides after conversion
       const updatedSlides = card.querySelectorAll(".carousel-slide");
 
       function showSlide(index) {
@@ -407,7 +427,6 @@ window.addEventListener("load", function () {
         clearInterval(autoPlayInterval);
       }
 
-      // Event listeners
       nextBtn.addEventListener("click", () => {
         nextSlide();
         stopAutoPlay();
@@ -429,7 +448,6 @@ window.addEventListener("load", function () {
         });
       });
 
-      // Pausar autoplay quando o mouse está sobre o carousel
       card
         .querySelector(".carousel-container")
         .addEventListener("mouseenter", stopAutoPlay);
@@ -442,12 +460,9 @@ window.addEventListener("load", function () {
     });
   }
 
-  // Inicializar carousels após o carregamento
   initCarousels();
 
-  // --- FIM DA LÓGICA DO CAROUSEL ---
-
-  // --- INÍCIO DA LÓGICA DOS DEMOS ---
+  // START OF DEMOS LOGIC
 
   function initDemos() {
     const demoTabs = document.querySelectorAll(".demo-tab");
@@ -456,19 +471,16 @@ window.addEventListener("load", function () {
     const nextBtn = document.querySelector(".demo-next");
     let currentDemo = 0;
 
-    // Configurar event listeners de load para cada iframe apenas uma vez
     demoSlides.forEach((slide) => {
       const iframe = slide.querySelector(".demo-iframe");
       const loading = slide.querySelector(".demo-loading");
 
       if (iframe && loading) {
-        // Verificar se o iframe já está carregado (caso tenha carregado antes do script)
         const isIframeLoaded =
           iframe.contentDocument || iframe.contentWindow?.document;
 
         if (isIframeLoaded) {
           try {
-            // Se conseguimos acessar o documento, significa que está carregado
             const iframeDoc =
               iframe.contentDocument || iframe.contentWindow.document;
             if (iframeDoc.readyState === "complete") {
@@ -479,7 +491,6 @@ window.addEventListener("load", function () {
               iframe.dataset.loaded = "false";
             }
           } catch (e) {
-            // Cross-origin, não conseguimos verificar, assumir não carregado
             iframe.dataset.loaded = "false";
           }
         } else {
@@ -487,7 +498,6 @@ window.addEventListener("load", function () {
         }
 
         iframe.addEventListener("load", function () {
-          // Marcar iframe como carregado
           iframe.dataset.loaded = "true";
 
           setTimeout(() => {
@@ -501,7 +511,6 @@ window.addEventListener("load", function () {
     });
 
     function showDemo(index) {
-      // Atualizar slides
       demoSlides.forEach((slide) => slide.classList.remove("active"));
       demoTabs.forEach((tab) => tab.classList.remove("active"));
 
@@ -511,12 +520,10 @@ window.addEventListener("load", function () {
       demoSlides[currentDemo].classList.add("active");
       demoTabs[currentDemo].classList.add("active");
 
-      // Verificar se o iframe já foi carregado
       const iframe = demoSlides[currentDemo].querySelector(".demo-iframe");
       const loading = demoSlides[currentDemo].querySelector(".demo-loading");
 
       if (iframe && loading) {
-        // Se o iframe já foi carregado anteriormente, esconder loading imediatamente
         if (iframe.dataset.loaded === "true") {
           loading.style.display = "none";
           loading.style.opacity = "0";
@@ -524,7 +531,6 @@ window.addEventListener("load", function () {
       }
     }
 
-    // Event listeners para tabs
     demoTabs.forEach((tab, index) => {
       tab.addEventListener("click", () => {
         currentDemo = index;
@@ -532,7 +538,6 @@ window.addEventListener("load", function () {
       });
     });
 
-    // Event listeners para botões de navegação
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
         currentDemo--;
@@ -549,7 +554,6 @@ window.addEventListener("load", function () {
       });
     }
 
-    // Botões de reload
     const reloadButtons = document.querySelectorAll(".demo-reload");
     reloadButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -563,14 +567,12 @@ window.addEventListener("load", function () {
         }
 
         if (iframe) {
-          // Marcar como não carregado para reexibir o loading
           iframe.dataset.loaded = "false";
           iframe.src = iframe.src;
         }
       });
     });
 
-    // Suporte para teclado
     document.addEventListener("keydown", (e) => {
       if (document.querySelector(".demos-section")) {
         if (e.key === "ArrowLeft") {
@@ -585,16 +587,12 @@ window.addEventListener("load", function () {
       }
     });
 
-    // Inicializar primeiro demo
     if (demoSlides.length > 0) {
       showDemo(0);
     }
   }
 
-  // Inicializar demos se a seção existir
   if (document.querySelector(".demos-section")) {
     initDemos();
   }
-
-  // --- FIM DA LÓGICA DOS DEMOS ---
 });
