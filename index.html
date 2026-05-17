@@ -1,14 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio | Adriel</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
-    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -18,10 +16,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leader-line-new@1.1.9/leader-line.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="assets/js/data.js" defer></script>
     <script src="assets/js/init.js" defer></script>
     <script src="assets/js/matrix.js" defer></script>
   </head>
@@ -30,24 +28,25 @@
       <div class="loader-center">
         <div class="spinner"></div>
         <p id="loader-status">Loading...</p>
-        <button id="force-enter" hidden>Force Enter</button>
       </div>
     </div>
-    <!-- Matrix Background -->
+
     <canvas id="matrixCanvas"></canvas>
-    <!-- Header -->
+
     <header class="header">
-      <a href="#" class="logo">{Portfolio}</a>
+      <a href="#home" class="logo">{Portfolio}</a>
       <nav class="navbar">
         <a href="#home" class="active" style="--i: 1">Home</a>
         <a href="#journey" style="--i: 2">Journey</a>
-        <a href="#skill" style="--i: 3">Skills</a>
-        <a href="#project" style="--i: 4">Projects</a>
-        <a href="#demos" style="--i: 5">Demos</a>
-        <a href="#contact" style="--i: 6">Contact</a>
+        <a href="#experience" style="--i: 3">Experience</a>
+        <a href="#skill" style="--i: 4">Skills</a>
+        <a href="#project" style="--i: 5">Projects</a>
+        <a href="#demos" style="--i: 6">Demos</a>
+        <a href="#contact" style="--i: 7">Contact</a>
       </nav>
     </header>
-    <!-- Home Section -->
+
+    <!-- HOME -->
     <section id="home" class="home">
       <div class="home-content">
         <h3 class="mu">Hello, It's me</h3>
@@ -65,15 +64,21 @@
           Let's build something amazing together!
         </p>
         <div class="home-sci">
-          <a href="https://github.com/adriel007" target="_blank">
+          <a
+            href="https://github.com/adriel007"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub">
             <i class="bx bxl-github"></i>
           </a>
           <a
             href="https://linkedin.com/in/adriel-domingues-de-souza-andrade/"
-            target="_blank">
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn">
             <i class="bx bxl-linkedin"></i>
           </a>
-          <a href="mailto:adrielsouzaandrade8@gmail.com" target="_blank">
+          <a href="mailto:adrielsouzaandrade8@gmail.com" aria-label="Email">
             <i class="bx bxl-gmail"></i>
           </a>
         </div>
@@ -81,6 +86,7 @@
         <a
           href="https://docs.google.com/document/d/1SKF1zAmz_FrL9mCJCJn4SWhFhSQh0WafR3A06FyXeNk/edit?usp=sharing"
           target="_blank"
+          rel="noopener"
           class="btn-box"
           >See my CV</a
         >
@@ -90,26 +96,25 @@
           <span></span>
           <span></span>
           <div class="image">
-            <img src="assets/images/skull-bit.gif" alt="Profile Picture" />
+            <img src="assets/images/skull-bit.gif" alt="Profile" />
           </div>
         </div>
       </div>
     </section>
 
+    <!-- JOURNEY -->
     <section id="journey" class="journey">
       <h2 class="section-title">My Journey</h2>
 
       <div class="timeline">
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-power-off"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-power-off"></i></div>
           <div class="timeline-content">
             <h2>The Beginning</h2>
             <p>
               My journey into the world of technology began here, exploring the
               fundamentals of logic and programming at
-              <a href="https://fortec.edu.br/" target="_blank"
+              <a href="https://fortec.edu.br/" target="_blank" rel="noopener"
                 >FORTEC São Vicente</a
               >.
             </p>
@@ -117,9 +122,7 @@
         </div>
 
         <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-code"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-code"></i></div>
           <div class="timeline-content">
             <h2>First "Hello, World!"</h2>
             <p>
@@ -130,13 +133,11 @@
         </div>
 
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-star"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-star"></i></div>
           <div class="timeline-content">
             <h2>Informatics Olympiad Nominee</h2>
             <p>
-              With 15 years old, I was one of the few students selectively
+              At 15 years old, I was one of the few students selectively
               nominated to compete in the Brazilian Olympiad in Informatics
               (OBI), a milestone that validated my aptitude for the field.
             </p>
@@ -144,9 +145,7 @@
         </div>
 
         <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-trophy"></i></div>
           <div class="timeline-content">
             <h2>Programming Marathon Champion</h2>
             <p>
@@ -154,11 +153,13 @@
               <a
                 href="https://www.linkedin.com/posts/fatecrl_fatecrl-maratonadeprogramaaexaeto-activity-7262932592423784448-cLeT"
                 target="_blank"
+                rel="noopener"
                 >FATEC Rubens Lara Programming Marathon</a
               >. We were also the first Data Science team to qualify in the
               <a
                 href="https://www.linkedin.com/posts/fatecferraz_interfatecs-fatecpower-orgulhofatec-activity-7364031032813150208-_ul9"
                 target="_blank"
+                rel="noopener"
                 >InterFATECs Marathon</a
               >.
             </p>
@@ -180,9 +181,7 @@
         </div>
 
         <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-book-open"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-book-open"></i></div>
           <div class="timeline-content">
             <h2>Published Scientific Article</h2>
             <p>
@@ -191,6 +190,7 @@
               <a
                 href="https://www.even3.com.br/ebook/cd-dialogos-reflexoes/949463-introducao-a-cadeias-de-markov-na-geracao-de-textos/"
                 target="_blank"
+                rel="noopener"
                 >book</a
               >, contributing with research and knowledge to the FATEC
               community.
@@ -199,9 +199,7 @@
         </div>
 
         <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-icon">
-            <i class="fa-solid fa-rocket"></i>
-          </div>
+          <div class="timeline-icon"><i class="fa-solid fa-rocket"></i></div>
           <div class="timeline-content">
             <h2>Ready for the Future</h2>
             <p>
@@ -213,10 +211,114 @@
       </div>
     </section>
 
-    <section id="roadmap" class="roadmap-section">
+    <!-- EXPERIENCE -->
+    <section id="experience" class="experience-section">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-container">
+        <div class="exp-card" data-aos="fade-up">
+          <div class="exp-header">
+            <div class="exp-title-block">
+              <h3 class="exp-company">Lucent</h3>
+              <span class="exp-badge exp-badge-startup"
+                >Startup · Luxembourg</span
+              >
+            </div>
+            <span class="exp-period">Dec 2025 — present</span>
+          </div>
+          <ul class="exp-roles">
+            <li><i class="fa-solid fa-microchip"></i> AI / Data Engineer</li>
+            <li><i class="fa-solid fa-server"></i> Back-End Engineer</li>
+          </ul>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="exp-header">
+            <div class="exp-title-block">
+              <h3 class="exp-company">ELLO EAD</h3>
+              <span class="exp-badge exp-badge-startup">Startup · Brazil</span>
+            </div>
+            <span class="exp-period">Feb 2023 — Jan 2026</span>
+          </div>
+          <ul class="exp-roles">
+            <li><i class="fa-solid fa-code"></i> FullStack Developer</li>
+            <li>
+              <i class="fa-solid fa-chalkboard-teacher"></i> Online Instructor
+              (Moodle)
+            </li>
+            <li>
+              <i class="fa-solid fa-flask"></i> Research &amp; Development
+            </li>
+            <li><i class="fa-solid fa-people-arrows"></i> Intern Mentor</li>
+            <li>
+              <i class="fa-solid fa-headset"></i> Support &amp; Admin — Academia
+              Internacional de Cinema (AIC)
+            </li>
+          </ul>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="exp-header">
+            <div class="exp-title-block">
+              <h3 class="exp-company">Centro de Línguas — FATEC RL</h3>
+              <span class="exp-badge exp-badge-edu">Education · Brazil</span>
+            </div>
+            <span class="exp-period">Dec 2023 — Jan 2026</span>
+          </div>
+          <ul class="exp-roles">
+            <li><i class="fa-solid fa-sitemap"></i> Tech Lead</li>
+            <li><i class="fa-solid fa-server"></i> Back-End Developer</li>
+          </ul>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="exp-header">
+            <div class="exp-title-block">
+              <h3 class="exp-company">Yandex</h3>
+              <span class="exp-badge exp-badge-bigtech">Big Tech · Russia</span>
+            </div>
+            <span class="exp-period">Apr 2024</span>
+          </div>
+          <ul class="exp-roles">
+            <li>
+              <i class="fa-brands fa-github"></i> Open Source —
+              <a
+                href="https://github.com/yandex/odyssey"
+                target="_blank"
+                rel="noopener"
+                >Odyssey</a
+              >
+            </li>
+            <li>
+              <i class="fa-brands fa-github"></i> Open Source —
+              <a
+                href="https://github.com/ClickHouse/clickhouse-tools"
+                target="_blank"
+                rel="noopener"
+                >ClickHouse-Tools</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="exp-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="exp-header">
+            <div class="exp-title-block">
+              <h3 class="exp-company">xBots</h3>
+              <span class="exp-badge exp-badge-startup">Startup · Russia</span>
+            </div>
+            <span class="exp-period">Nov 2023</span>
+          </div>
+          <ul class="exp-roles">
+            <li><i class="fa-solid fa-globe"></i> Freelance Web Developer</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS / ROADMAP -->
+    <section id="skill" class="roadmap-section">
       <h2 class="section-title">Development Skills</h2>
       <div class="roadmap-container-star">
-        <!-- Nó Central -->
         <div
           class="roadmap-node roadmap-node-main"
           id="node-fundamentos"
@@ -229,7 +331,6 @@
           </p>
         </div>
 
-        <!-- Nós Satélites -->
         <div
           class="roadmap-node"
           id="node-frontend"
@@ -278,218 +379,40 @@
           <h3>Cloud & Infra</h3>
           <p>Azure, Servers, Cyber Security, Networks, Linux, Arduino</p>
         </div>
+        <div
+          class="roadmap-node"
+          id="node-ai"
+          data-aos="zoom-in"
+          data-aos-delay="600">
+          <i class="fa-solid fa-brain"></i>
+          <h3>AI & ML</h3>
+          <p>
+            LLMs, RAG, Agents, KV Cache, Quant, Embeddings, VLMs, Multi-modal
+          </p>
+        </div>
+        <div
+          class="roadmap-node"
+          id="node-research"
+          data-aos="zoom-in"
+          data-aos-delay="700">
+          <i class="fa-solid fa-atom"></i>
+          <h3>Research</h3>
+          <p>KV Cache Paging, 1.58-bit Quant., Multi-Agent DAGs, RoPE Drift</p>
+          <h6>Cognito · Matrioska · TernaryBoost</h6>
+        </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- PROJECTS (rendered from data.js) -->
     <section id="project" class="projects-section">
       <h2 class="section-title">My Projects</h2>
-      <div class="projects-container">
-        <!-- Project Card 1 -->
-        <div class="project-card" data-aos="fade-up">
-          <div class="project-carousel">
-            <div class="carousel-container">
-              <div class="carousel-slides">
-                <img
-                  src="assets/images/projects/matrioska/banner.jpeg"
-                  alt="Project 1 - Image 1"
-                  class="carousel-slide active" />
-                <img
-                  src="assets/images/projects/matrioska/print-1.png"
-                  alt="Project 1 - Image 2"
-                  class="carousel-slide" />
-                <img
-                  src="assets/images/projects/matrioska/print-2.png"
-                  alt="Project 1 - Image 3"
-                  class="carousel-slide" />
-                <img
-                  src="assets/images/projects/matrioska/print-3.png"
-                  alt="Project 1 - Image 4"
-                  class="carousel-slide" />
-              </div>
-              <button class="carousel-btn prev" aria-label="Previous">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button class="carousel-btn next" aria-label="Next">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-              <div class="carousel-indicators">
-                <span class="indicator active" data-index="0"></span>
-                <span class="indicator" data-index="1"></span>
-                <span class="indicator" data-index="2"></span>
-                <span class="indicator" data-index="3"></span>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Matrioska - LLM Orchestration System</h3>
-            <p class="project-description">
-              Matrioska is an advanced LLM orchestration system featuring a
-              modular, file-based architecture. It breaks down complex software
-              development tasks into ordered files that communicate via a
-              persistent shared state (the "whiteboard"). The system ensures
-              high coherence, sequential code generation, and focuses on
-              minimal, optimized code using CDNs. It is a practical application
-              of Machine Learning concepts to automate and streamline Full Stack
-              development workflows.
-            </p>
-            <div class="project-tags">
-              <span class="tag">LLM Orchestration</span>
-              <span class="tag">Python</span>
-              <span class="tag">Full Stack Development</span>
-              <span class="tag">Machine Learning</span>
-              <span class="tag">Architecture</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/adriel007/matrioska"
-                target="_blank"
-                class="project-link">
-                <i class="bx bxl-github"></i> View Code
-              </a>
-              <a
-                href="https://colab.research.google.com/drive/1Vq3b7Xu5z2Un0n3_6_dQVYWQrX4fsK0j"
-                target="_blank"
-                class="project-link project-link-demo">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Google
-                Colab Demo
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Card 2 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="project-carousel">
-            <div class="carousel-container">
-              <div class="carousel-slides">
-                <img
-                  src="assets/images/projects/cyber-lab/banner.png"
-                  alt="Project 2 - Image 1"
-                  class="carousel-slide active" />
-                <img
-                  src="assets/images/projects/cyber-lab/print-1.png"
-                  alt="Project 2 - Image 2"
-                  class="carousel-slide" />
-                <img
-                  src="assets/images/projects/cyber-lab/print-2.png"
-                  alt="Project 2 - Image 3"
-                  class="carousel-slide" />
-              </div>
-              <button class="carousel-btn prev" aria-label="Previous">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button class="carousel-btn next" aria-label="Next">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-              <div class="carousel-indicators">
-                <span class="indicator active" data-index="0"></span>
-                <span class="indicator" data-index="1"></span>
-                <span class="indicator" data-index="2"></span>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Cyber Lab</h3>
-            <p class="project-description">
-              A Python script designed to manage local penetration testing lab
-              environments using Docker. This tool is ideal for security
-              studies, simulating attacks, training, and experimenting with
-              various cybersecurity tools and vulnerable systems. The project
-              automates the deployment and management of diverse vulnerable
-              machines and utilities within a secure, isolated internal network,
-              allowing users to precisely control internet access for realistic
-              scenario simulation. It simplifies the setup of complex lab
-              topologies for controlled security practice.
-            </p>
-            <div class="project-tags">
-              <span class="tag">Python</span> <span class="tag">Docker</span>
-              <span class="tag">Cybersecurity</span>
-              <span class="tag">Penetration Testing</span>
-              <span class="tag">Infrastructure</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/adriel007/cyber-lab"
-                target="_blank"
-                class="project-link">
-                <i class="bx bxl-github"></i> View Code
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Card 3 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="project-carousel">
-            <div class="carousel-container">
-              <div class="carousel-slides">
-                <img
-                  src="assets/images/projects/self-custody-view/banner.jpeg"
-                  alt="Project 3 - Image 1"
-                  class="carousel-slide active" />
-                <img
-                  src="assets/images/projects/self-custody-view/print-1.png"
-                  alt="Project 3 - Image 2"
-                  class="carousel-slide" />
-                <img
-                  src="assets/images/projects/self-custody-view/print-2.png"
-                  alt="Project 3 - Image 3"
-                  class="carousel-slide" />
-              </div>
-              <button class="carousel-btn prev" aria-label="Previous">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button class="carousel-btn next" aria-label="Next">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-              <div class="carousel-indicators">
-                <span class="indicator active" data-index="0"></span>
-                <span class="indicator" data-index="1"></span>
-                <span class="indicator" data-index="2"></span>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Self Custody View</h3>
-            <p class="project-description">
-              The Self-Custody View project is a lightweight desktop application
-              built with Electron, offering a simple and highly private way for
-              users to monitor all their cryptocurrency wallets in one place. It
-              is a view-only tool that securely tracks real-time balances and
-              provides portfolio analytics across over 13 major blockchains
-              (like Bitcoin, Ethereum, and Solana) by using only public wallet
-              addresses and free public blockchain APIs. Crucially, the app
-              never asks for or stores private keys or seed phrases, ensuring
-              that all user data, including custom wallet names and fiat
-              currency preferences (USD, EUR, etc.), is stored exclusively and
-              locally on the user's computer in a <code>data.json</code> file.
-            </p>
-            <div class="project-tags">
-              <span class="tag">Privacy Focused</span>
-              <span class="tag">Electron</span>
-              <span class="tag">Multi-Blockchain</span>
-              <span class="tag">View-Only</span>
-            </div>
-            <div class="project-links">
-              <a
-                href="https://github.com/adriel007/self-custody-view"
-                target="_blank"
-                class="project-link">
-                <i class="bx bxl-github"></i> View Code
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- end of project cards -->
-      </div>
+      <div class="projects-container"></div>
     </section>
 
-    <!-- Demos Section -->
+    <!-- DEMOS (rendered from data.js) -->
     <section id="demos" class="demos-section">
       <h2 class="section-title">Interactive Demos</h2>
 
-      <!-- Performance Warning Banner -->
       <div id="performance-warning" class="performance-warning hidden">
         <div class="warning-content">
           <i class="fa-solid fa-triangle-exclamation"></i>
@@ -517,6 +440,7 @@
           </div>
         </div>
       </div>
+
       <p class="section-subtitle">
         Use the left mouse button to rotate, right mouse button to move the
         camera, and scroll to zoom.
@@ -524,257 +448,11 @@
 
       <div class="demo-content">
         <div class="demos-carousel-container">
-          <!-- Demo Navigation Tabs -->
-          <div class="demos-tabs">
-            <button class="demo-tab active" data-demo="0">
-              <i class="fa-solid fa-align-left"></i>
-              <span>Markov Chain (NLP)</span>
-            </button>
+          <div class="demos-tabs"></div>
 
-            <button class="demo-tab" data-demo="1">
-              <i class="fa-solid fa-brain"></i>
-              <span>MNIST Neural Network</span>
-            </button>
-
-            <button class="demo-tab" data-demo="2">
-              <i class="fa-solid fa-route"></i>
-              <span>A* Pathfinding Game</span>
-            </button>
-
-            <button class="demo-tab" data-demo="3">
-              <i class="fa-solid fa-bacterium"></i>
-              <span>Cell Automata Simulation</span>
-            </button>
-
-            <button class="demo-tab" data-demo="4">
-              <i class="fa-solid fa-robot"></i>
-              <span>Fardo-Mini (SLM)</span>
-            </button>
-
-            <button class="demo-tab" data-demo="5">
-              <i class="fa-solid fa-microscope"></i>
-              <span>Hack Lab (Edu)</span>
-            </button>
-          </div>
-
-          <!-- Demo Viewer -->
           <div class="demo-viewer" data-aos="zoom-in">
-            <div class="demo-slides">
-              <!-- Demo Slide 1 -->
-              <div class="demo-slide active" data-demo-index="0">
-                <div class="demo-header">
-                  <h3>Markov Chain (NLP)</h3>
-                  <p>A simple demo of a Markov Chain for text generation.</p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/markov-chain/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/markov-chain/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 1">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
+            <div class="demo-slides"></div>
 
-              <!-- Demo Slide 2 -->
-              <div class="demo-slide" data-demo-index="1">
-                <div class="demo-header">
-                  <h3>MNIST Neural Network</h3>
-                  <p>
-                    An interactive demo of a neural network trained on the MNIST
-                    dataset.
-                  </p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/mnist/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/mnist/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 2"
-                    loading="lazy">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Demo Slide 3 -->
-              <div class="demo-slide" data-demo-index="2">
-                <div class="demo-header">
-                  <h3>A* Pathfinding Game</h3>
-                  <p>
-                    An interactive demo game of the A* pathfinding algorithm.
-                  </p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/a-star/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/a-star/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 3"
-                    loading="lazy">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Demo Slide 4 -->
-              <div class="demo-slide" data-demo-index="3">
-                <div class="demo-header">
-                  <h3>Cell Automata Simulation</h3>
-                  <p>An interactive demo of a cellular automata simulation.</p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/automata-cell/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/automata-cell/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 4"
-                    loading="lazy">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Demo Slide 5 -->
-              <div class="demo-slide" data-demo-index="4">
-                <div class="demo-header">
-                  <h3>Fardo-Mini (SLM)</h3>
-                  <p>An interactive demo of a small language model.</p>
-                  <p style="color: #ff5555; font-weight: bold">
-                    (Attention: GitHub Pages limits the model's download speed.
-                    If you run the demo locally, the download speed is better. I
-                    apologize for the inconvenience.)
-                  </p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/llm/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/llm/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 5"
-                    loading="lazy">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Demo Slide 6 -->
-              <div class="demo-slide" data-demo-index="5">
-                <div class="demo-header">
-                  <h3>Hack Lab (Edu)</h3>
-                  <p>An interactive demo of an educational hacking lab.</p>
-                  <div class="demo-actions">
-                    <button class="demo-reload" title="Reload Demo">
-                      <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                    <a
-                      href="assets/demos/hack_lab/index.html"
-                      target="_blank"
-                      class="demo-fullscreen"
-                      title="Open in New Tab">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="demo-frame-container">
-                  <iframe
-                    data-src="assets/demos/hack_lab/index.html"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe"
-                    title="Demo 6"
-                    loading="lazy">
-                  </iframe>
-                  <div class="demo-loading">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Loading demo...</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Navigation Arrows -->
             <button class="demo-nav-btn demo-prev" aria-label="Previous Demo">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
@@ -783,7 +461,6 @@
             </button>
           </div>
 
-          <!-- Demo Info Cards -->
           <div class="demo-info-grid">
             <div class="demo-info-card" data-aos="fade-up">
               <i class="fa-solid fa-laptop-code"></i>
@@ -805,9 +482,44 @@
       </div>
     </section>
 
-    <!-- Block for phone -->
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-intro">
+        Open to collaboration, research opportunities and challenging problems.
+      </p>
+      <div class="contact-links">
+        <a
+          href="mailto:adrielsouzaandrade8@gmail.com"
+          class="contact-link"
+          aria-label="Send email">
+          <i class="bx bxl-gmail"></i>
+          <span>adrielsouzaandrade8@gmail.com</span>
+        </a>
+        <a
+          href="https://github.com/adriel007"
+          target="_blank"
+          rel="noopener"
+          class="contact-link"
+          aria-label="GitHub">
+          <i class="bx bxl-github"></i>
+          <span>github.com/adriel007</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/adriel-domingues-de-souza-andrade/"
+          target="_blank"
+          rel="noopener"
+          class="contact-link"
+          aria-label="LinkedIn">
+          <i class="bx bxl-linkedin"></i>
+          <span>linkedin.com/in/adriel-domingues-de-souza-andrade</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Mobile portrait warning -->
     <div id="block-for-phone">
-      <img src="assets/images/rotate-phone.gif" alt="Phone" />
+      <img src="assets/images/rotate-phone.gif" alt="Rotate device" />
       <h1>Please rotate your device for a better experience.</h1>
     </div>
   </body>

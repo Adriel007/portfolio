@@ -1,79 +1,79 @@
-// Get the canvas element
-const canvas = document.getElementById("matrixCanvas");
-const ctx = canvas.getContext("2d");
+// Matrix-style raining characters background.
+// Resizes with the viewport and pauses when the tab isn't visible.
 
-// Set the width and height of the canvas
-const canvasWidth = window.innerWidth;
-const canvasHeight = window.innerHeight;
-canvas.width = canvasWidth;
-canvas.height = canvasHeight;
+(() => {
+  const canvas = document.getElementById("matrixCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
 
-// Create an array of characters
-const characters = [
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-];
+  const FONT_SIZE = 14;
+  const CHARS = "0123456789ABCDEF".split("");
 
-// Create an array of columns
-const columns = Math.floor(canvasWidth / 20);
+  let width = 0;
+  let height = 0;
+  let columns = 0;
+  let yPositions = [];
+  let rafId = null;
 
-// Initialize the y positions of the columns
-const yPositions = [];
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    // Match device pixel ratio for crisp text on HiDPI screens
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-for (let i = 0; i < columns; i++) {
-  yPositions[i] = Math.random() * canvasHeight;
-}
+    columns = Math.floor(width / FONT_SIZE);
+    yPositions = Array.from({ length: columns }, () => Math.random() * height);
+  }
 
-// Update the matrix animation
-function updateMatrix() {
-  // Set the background color
-  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "green";
+    ctx.font = `${FONT_SIZE}px monospace`;
 
-  // Set the text color and font
-  ctx.fillStyle = "green";
-  ctx.font = "12px timesnewroman";
-
-  // Loop through each column
-  for (let i = 0; i < columns; i++) {
-    // Select a random character from the array
-    const character = characters[Math.floor(Math.random() * characters.length)];
-
-    // Set the y position of the current column
-    const y = yPositions[i];
-
-    // Draw the character at the current position
-    ctx.fillText(character, i * 20, y);
-
-    // Move the column down by 20 units
-    yPositions[i] += 20;
-
-    // Reset the position if it reaches the bottom of the canvas
-    if (yPositions[i] > canvasHeight && Math.random() > 0.98) {
-      yPositions[i] = 0;
+    for (let i = 0; i < columns; i++) {
+      const char = CHARS[(Math.random() * CHARS.length) | 0];
+      ctx.fillText(char, i * FONT_SIZE, yPositions[i]);
+      yPositions[i] += FONT_SIZE;
+      if (yPositions[i] > height && Math.random() > 0.98) {
+        yPositions[i] = 0;
+      }
     }
   }
-}
 
-// Render the matrix animation
-function renderMatrix() {
-  requestAnimationFrame(renderMatrix);
-  updateMatrix();
-}
+  function loop() {
+    rafId = requestAnimationFrame(loop);
+    draw();
+  }
 
-// Start the animation
-renderMatrix();
+  function start() {
+    if (rafId == null) loop();
+  }
+
+  function stop() {
+    if (rafId != null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 100);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  resize();
+  start();
+})();

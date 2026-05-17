@@ -156,7 +156,8 @@ body {
     margin-top: 50px;
 }
 
-.home-content h1, h3 {
+.home-content h1,
+.home-content h3 {
     text-shadow: 5px 4px 10px green;
 }
 
@@ -294,16 +295,18 @@ body {
     -webkit-background-clip: text;
 }
 
-canvas {
+html {
+    scroll-behavior: smooth;
+}
+
+canvas#matrixCanvas {
     position: fixed;
-    top: auto;
-    left: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: black;
     z-index: -1;
-    background-size: contain;
-    background-blend-mode: multiply;
-    background-size: auto;
-    scroll-behavior: smooth;
 }
 
 
@@ -994,6 +997,11 @@ canvas {
     animation: none;
 }
 
+.demo-warning-text {
+    color: #ff5555;
+    font-weight: bold;
+}
+
 .demo-header p {
     font-size: 14px;
     color: #aaa;
@@ -1234,11 +1242,10 @@ canvas {
 .roadmap-container-star {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     grid-template-areas:
         "frontend backend db"
         "devops fundamentos cloud"
-        ". . ."; /* Linha extra para espaçamento se necessário */
+        "research ai .";
     gap: 100px;
     align-items: center;
     justify-items: center;
@@ -1254,6 +1261,8 @@ canvas {
 #node-db         { grid-area: db; }
 #node-devops     { grid-area: devops; }
 #node-cloud      { grid-area: cloud; }
+#node-ai         { grid-area: ai; }
+#node-research   { grid-area: research; }
 
 
 .roadmap-node {
@@ -1322,16 +1331,16 @@ canvas {
     border-radius: 100%;
 }
 
-/* Ajustes para as linhas do LeaderLine não ficarem estranhas 
+/* Keep LeaderLine SVGs behind the nodes */
 body {
     position: relative;
 }
 
 .leader-line {
-    z-index: 9; /* Coloca as linhas atrás dos nós
+    z-index: 9;
 }
 
-/* Responsividade para o grafo
+/* Roadmap responsive layout */
 @media (max-width: 1200px) {
     .roadmap-container-star {
         grid-template-columns: 1fr 1fr;
@@ -1339,7 +1348,8 @@ body {
             "fundamentos fundamentos"
             "frontend backend"
             "db devops"
-            "cloud .";
+            "cloud ai"
+            "research .";
         gap: 60px;
     }
 }
@@ -1350,11 +1360,18 @@ body {
         flex-direction: column;
         gap: 40px;
     }
-    .roadmap-node {
-        width: 80%;
+    .roadmap-node,
+    .roadmap-node-main {
+        width: 90%;
+        max-width: 360px;
+        height: auto;
+        min-height: 200px;
+        border-radius: 15px;
+    }
+    .roadmap-node-main {
+        transform: none;
     }
 }
-*/
 
 
 
@@ -1607,5 +1624,220 @@ body {
         filter: invert(1);
         max-width: 100px;
         margin-bottom: 1em;
+    }
+}
+
+/* ======================================== */
+/* === CONTACT SECTION                  === */
+/* ======================================== */
+
+.contact-section {
+    padding: 100px 10%;
+    text-align: center;
+}
+
+.contact-intro {
+    font-size: 18px;
+    color: #ccc;
+    max-width: 700px;
+    margin: -30px auto 50px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid green;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 500px;
+    justify-content: flex-start;
+    transition: all 0.3s ease;
+}
+
+.contact-link i {
+    font-size: 24px;
+    color: green;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    background: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    transform: translateY(-3px);
+}
+
+.contact-link:hover i {
+    color: lime;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 80px 5%;
+    }
+    .contact-link {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+    .contact-link span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* ======================================== */
+/* === EXPERIENCE SECTION               === */
+/* ======================================== */
+
+.experience-section {
+    padding: 100px 10%;
+}
+
+.experience-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.exp-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid green;
+    border-radius: 16px;
+    padding: 28px 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.exp-card:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4);
+    transform: translateY(-4px);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.exp-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.exp-company {
+    font-size: 20px;
+    color: lime;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+    margin: 0;
+    opacity: 1;
+    animation: none;
+}
+
+.exp-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.exp-badge-startup {
+    background: rgba(0, 200, 255, 0.15);
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    color: #00cfff;
+}
+
+.exp-badge-bigtech {
+    background: rgba(255, 165, 0, 0.15);
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    color: #ffb347;
+}
+
+.exp-badge-edu {
+    background: rgba(160, 100, 255, 0.15);
+    border: 1px solid rgba(160, 100, 255, 0.5);
+    color: #c084fc;
+}
+
+.exp-period {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+    padding-top: 4px;
+}
+
+.exp-roles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exp-roles li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #ccc;
+    opacity: 1;
+    animation: none;
+}
+
+.exp-roles li i {
+    color: green;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+}
+
+.exp-roles li a {
+    color: lime;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.exp-roles li a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .experience-section {
+        padding: 80px 5%;
+    }
+    .experience-container {
+        grid-template-columns: 1fr;
+    }
+    .exp-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .exp-period {
+        white-space: normal;
     }
 }
